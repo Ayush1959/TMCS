@@ -1,0 +1,12 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <title>Example with link elements</title>
+  <link rel="stylesheet" href="common.css"/>
+  <link rel="stylesheet" href="default.css" title="Default style"/>
+  <link rel="alternate stylesheet" href="alt.css" title="Alternative style"/>
+  <link rel="stylesheet" href="single-col.css" media="all and (max-width: 30em)"/>
+ </head>
+ <body>
+  ...Hey
+ </body>
+</html>

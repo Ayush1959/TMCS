@@ -1,0 +1,133 @@
+.menu-icon {
+    height: 20px;
+    width: 25px;
+    z-index: 10;
+    right: 20px;
+    top: 15px;
+    position: absolute
+}
+
+.menu-icon__bar,
+.menu-icon__bar::after,
+.menu-icon__bar::before {
+    height: 2px;
+    width: 100%;
+    background-color: #000;
+    display: block;
+    position: absolute
+}
+
+.menu-icon:hover {
+    cursor: pointer
+}
+
+.menu-icon:hover .menu-icon__bar {
+    opacity: .6
+}
+
+.menu-icon__bar {
+    top: 50%;
+    -webkit-transition: opacity .3s ease;
+    transition: opacity .3s ease
+}
+
+.menu-icon__bar::after,
+.menu-icon__bar::before {
+    content: "";
+    -webkit-transition: -webkit-transform .5s ease;
+    transition: -webkit-transform .5s ease;
+    transition: transform .5s ease;
+    transition: transform .5s ease, -webkit-transform .5s ease
+}
+
+.menu-icon__bar::before {
+    top: -10px
+}
+
+.menu-icon__bar::after {
+    bottom: -10px
+}
+
+.menu-icon--open .menu-icon {
+    position: relative
+}
+
+.menu-icon--open .menu-icon__bar {
+    background: 0 0
+}
+
+.menu-icon--open .menu-icon__bar::after,
+.menu-icon--open .menu-icon__bar::before {
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%)
+}
+
+.menu-icon--open .menu-icon__bar::after {
+    -webkit-transform: rotate(135deg);
+    transform: rotate(135deg)
+}
+
+.menu-icon--open .menu-icon__bar::before {
+    -webkit-transform: rotate(-135deg);
+    transform: rotate(-135deg)
+}
+
+.mobile-nav {
+    position: fixed;
+    top: -1400px;
+    background-color: #222;
+    -webkit-transition: top .6s ease;
+    transition: top .6s ease;
+    width: 320px;
+    right: 0;
+    height: 100%
+}
+
+.nav--active {
+    top: 0;
+    z-index: 9
+}
+
+.mobile-nav li a {
+    color: #fff!important;
+    font-family: Prompt, sans-serif
+}
+
+.mobile-nav li ul {
+    display: none;
+    margin-top: 10px
+}
+
+.mobile-nav > ul > li {
+    border-bottom: 1px solid #3c3c3c;
+    display: block;
+    padding: 15px
+}
+
+.mobile-nav li ul li {
+    padding: 10px 0
+}
+
+.mobile-nav li span {
+    position: relative;
+    top: 8px;
+    right: 12px
+}
+
+.menu-icon--open .menu-icon__bar::after,
+.menu-icon--open .menu-icon__bar::before {
+    background: #fff;
+    top: -8px
+}
+
+.mobile-nav li ul li a {
+    color: #868686!important
+}
+
+.mobile-nav li a.toggle .minus::after,
+.mobile-nav li a.toggle .plus::after {
+    top: 0
+}
+
+.mobile-nav .toggle .minus::after{ margin-top: -5px; font-size: 29px;}
+.mobile-nav .toggle .plus::after{ margin-top: -3px; font-size: 27px;}
