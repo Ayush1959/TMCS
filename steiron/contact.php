@@ -19,35 +19,33 @@
                     <h5 class="mb-4" data-aos="fade-in" data-aos-duration="800">Send us a message</h5>
 
                     <form name="steiron" id="steiron">
-                      <div class="form-group" data-aos="fade-in" data-aos-duration="1000">
+                        <div class="row">
+                      <div class="form-group col-sm-6 col-lg-12" data-aos="fade-in" data-aos-duration="1000">
 
                       <input type="text" class="form-control" placeholder="Name" name="name" id="name_id" >
-                      <br><br>
                       </div>
 
-                      <div class="form-group" data-aos="fade-in" data-aos-duration="1000">
+                      <div class="form-group col-sm-6 col-lg-12" data-aos="fade-in" data-aos-duration="1000">
 
                       <input class="form-control" placeholder="Email" name="email" id="email_id" >
-                      <br><br>
                       </div>
 
-                      <div class="form-group" data-aos="fade-in" data-aos-duration="1000">
+                      <div class="form-group col-sm-6 col-lg-12" data-aos="fade-in" data-aos-duration="1000">
 
                       <input type="text" class="form-control" placeholder="Phone" name="phone" id="phone_id">
-                      <br><br>
+
                       </div>
 
-                      <div class="form-group" data-aos="fade-in" data-aos-duration="1000">
+                      <div class="form-group col-sm-6 col-lg-12" data-aos="fade-in" data-aos-duration="1000">
 
                       <input type="text" class="form-control" placeholder="Mobile" name="mobile" id="mobile_id">
-                      <br><br>
                       </div>
 
-                      <div class="form-group" data-aos="fade-in" data-aos-duration="1000">
+                      <div class="form-group col-12" data-aos="fade-in" data-aos-duration="1000">
 
-                        <label for="dd1">Country :</label><br/>
-                        <select name="dd1" id="dd1" class="required">
-                          <option value="">None</option>
+<!--                        <label for="dd1">Country :</label><br/>-->
+                        <select name="dd1" id="dd1" class="form-control">
+                          <option value="">Select Country</option>
                           <option value="Afganistan">Afghanistan</option>
                           <option value="Albania">Albania</option>
                           <option value="Algeria">Algeria</option>
@@ -296,36 +294,26 @@
                           <option value="Zambia">Zambia</option>
                           <option value="Zimbabwe">Zimbabwe</option>
                       </select>
-                      <br><br>
                       </div>
 
-                      <div class="form-group" data-aos="fade-in" data-aos-duration="1000">
+                      <div class="form-group col-12" data-aos="fade-in" data-aos-duration="1000">
                       <label class="text-muted">Comments</label>
                       <textarea class="form-control" name="comments" id="comments_id" ></textarea>
-                      <br><br>
                       </div>
-                      <div class="form-group" data-aos="fade-in" data-aos-duration="1000">
-                        <p id="msg_id" ><?php
-                        // $x = array();
-                        // if (isset($success_message))
-                        // {
-                        //   echo $success_message;
-                        // }
-                        // else {
-                        //   echo "Data not sent";
-                        // }
-                        // $x = "";
-                        // echo "$x";
-                        // print_r($x);
-                         ?> </p>
-                        <br>
-                      </div>
+                        </div>
 
 
-                      <button id="bb" type="submit" class="viewmore float-right border-0" data-aos="fade-in" data-aos-duration="1000" >Send</button>
-                      <div id="loader" style="position: fixed; top:0; left:0; width:10%; height: 10%; background: url('loader.gif') center center #efefef"></div>
-                      <span id="error_message" class="text-danger">Message is being Sent </span>
-                      <span id="success_message" class="text-success">Message Sent</span>
+                     <div id="error_message" class="alert alert-danger"> </div>
+
+                      <div id="success_message" class="alert alert-success">Message Sent</div>
+
+                        <div class="clearfix"></div>
+
+                        <button id="bb" type="submit" class="viewmore float-right border-0" >
+                          Send <span id="loader" class="loader float-right"></span>
+                        </button>
+
+
                     </form>
 
                 </div>
@@ -349,15 +337,12 @@
         </div>
 
         <br><br><br><br>
-        <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script> -->
         <script src="https://cdn.jsdelivr.net/jquery/1.12.4/jquery.min.js">
         </script>
         <script>var jq = $.noConflict();</script>
         <script src="https://cdn.jsdelivr.net/jquery.validation/1.15.1/jquery.validate.min.js">
         </script>
-        <script src="validation-js.js">
+        <script src="contact-form-post.js">
         </script>
         <!-- <script src="validation-ajax.js"> -->
         <!-- </script> -->

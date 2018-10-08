@@ -11,8 +11,8 @@
                     <div>
                     <a href="index.php" class="d-block mb-1"> Home </a>
                     <a href="about.php" class="d-block mb-1"> About Steiron </a>
-                    <a href="products" class="d-block mb-1">Products </a>
-                    <a href="contact" class="d-block mb-1">  Contact us</a>
+                    <a href="products.php" class="d-block mb-1">Products </a>
+                    <a href="contact.php" class="d-block mb-1">  Contact us</a>
                 </div>
             </div>
 
@@ -83,7 +83,7 @@
 
 
 <div class="form-popup">
-    <div class="container form-wrapper">
+    <div class="container form-wrapper col-11 col-md-9 col-lg-7 col-xl-6">
         <button class="btn close-form">Close</button>
         <form name="my-form" id="my-form" novalidate="novalidate">
             <div class="row">
@@ -92,11 +92,11 @@
                 </div>
             </div>
             <div class="row">
-                <div class="form-group col-md-6">
+                <div class="form-group col-sm-6">
                     <label for="name">Name</label>
                     <input type="text" class="form-control" id="name1_id" name="name">
                 </div>
-                <div class="form-group col-md-6">
+                <div class="form-group col-sm-6">
                     <label for="email">E-mail</label>
                     <input type="text" class="form-control" id="email1_id" name="email">
                 </div>
@@ -109,10 +109,15 @@
             </div>
 
 
-            <button type="submit" class="btn send-form">Send</button>
-            <div id="loader" style="position: fixed; top:0; left:0; width:10%; height: 10%; background: url('loader.gif') center center #efefef"></div>
-            <span id="error_message" class="text-danger">Message is being Sent </span>
-            <span id="success_message" class="text-success">Message Sent</span>
+
+
+           <div id="error_message" class="alert alert-danger"></div>
+            <div id="success_message" class="alert alert-success">Message Sent</div>
+
+            <button type="submit" class="btn send-form"> <span class="float-left">Send</span>
+                <span id="loader" class="loader float-right"></span>
+            </button>
+
         </form>
     </div>
 </div>
@@ -217,7 +222,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/jquery.validation/1.15.1/jquery.validate.min.js">
 </script>
-<script src="validation1-js.js">
+<script src="enquiry-form-post.js">
 </script>
 <script>
     jQuery(".toggle").click(function(){

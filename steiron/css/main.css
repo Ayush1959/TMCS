@@ -510,7 +510,6 @@ padding-bottom: 50px;
 }
 .form-popup .form-wrapper {
     top: 2em;
-    max-width: 700px;
     background: white;
     padding: 50px;
     padding-top: 50px;
@@ -762,6 +761,32 @@ header{ box-shadow: 0 0 6px 1px #3c3c3c; z-index: 99;}
 .division-left-nav{ background: #eee;}
 .division-card{ height: 100%}
 
+.loader {
+  border: 3px solid #fff;
+  border-radius: 50%;
+  border-top: 3px solid #fff;
+  border-bottom: 3px solid #377dd2;
+  width: 24px;
+  height: 24px;
+  -webkit-animation: spin 1s linear infinite;
+  animation: spin 1s linear infinite;
+}
+
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+label.error{ background: #f36060; position: relative; color: #fff; font-size: 12px; padding: 5px; border-radius: 4px; -webkit-border-radius: 4px; letter-spacing: 0.3px; margin-top: 10px; box-shadow: 0px 2px 1px 0 #bd2020; -webkit-box-shadow: 0px 2px 1px 0 #bd2020;}
+
+label.error:after{width: 0; height: 0;  border-left: 5px solid transparent; border-right: 5px solid transparent; border-bottom: 5px solid #db4343; position: absolute;top: -5px; left: 8px; content: "";}
+
+.send-form .loader{ margin: 2px 0 0 10px;}
   
 @media(min-width:992px){
     .carousel-item{ height: 28rem}
