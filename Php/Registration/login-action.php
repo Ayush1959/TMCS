@@ -25,12 +25,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 while ($row = mysqli_fetch_array($res)) {
   $_SESSION["username2"] = $row['Username'];
   $_SESSION["password2"] = $row['Password'];
+  $_SESSION["type2"] = $row['Type'];
   if (($_SESSION["username2"] == $_SESSION["username1"]) & ($_SESSION["password2"] == $_SESSION["password1"])) {
+    $_SESSION["name1"] = $row['Name'];
     header('Location:dashboard.php');
     exit;
   }
 }
 if (("Admin" == $_SESSION["username1"]) & (12345 == $_SESSION["password1"])) {
+    $_SESSION["name1"] = "Administrator";
     header('Location:dashboard.php');
     exit;
   }

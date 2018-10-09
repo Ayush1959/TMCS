@@ -1,8 +1,10 @@
 <?php
 session_start();
+// print_r($_SESSION);
 $_SESSION["name"] = "Administrator";
 $_SESSION["username"] = "Admin";
 $_SESSION["password"] = "12345";
+$_SESSION["type"] = "admin";
 ?>
 
 
@@ -13,7 +15,7 @@ $_SESSION["password"] = "12345";
   </head>
   <body>
     <p><b>Login Form</b></p>
-    <form id="login_id" name="login" action="login-action.php" method="post">
+    <form id="login_id" name="login-form" action="login-action.php" method="post">
       User Name : <input type="text" name="username" required>
       <br>
       Password : <input type="password" name="password" required>

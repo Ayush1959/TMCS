@@ -1,7 +1,7 @@
 <?php
 session_start();
-echo "Welcome " . $_SESSION['name1']. "<br>";
-// print_r($_SESSION)
+echo "Welcome " . $_SESSION['name']. "<br>";
+print_r($_SESSION)
 ?>
 <a href="dashboard.php">Dashboard</a>
 <!-- <a href="adduser.php">Add user</a>
@@ -18,17 +18,17 @@ while ($row = mysqli_fetch_array($res)) {
   echo "News Heading : ".$row['Heading'];
   echo "&nbsp";
   if (("Admin" == $_SESSION["username1"]) & (12345 == $_SESSION["password1"])) {
-    echo "<a href='view.php?id=".$row['Id']."'> View &nbsp </a>";
+    echo "<a href='test_view.php?id=".$row['Id']."'> View &nbsp </a>";
     echo "<a href='edit.php?id=".$row['Id']."'> Edit &nbsp </a>";
     echo "<a href='delete.php?id=".$row['Id']."'> Delete &nbsp </a>";
     echo "<br>";
   }
   if (($_SESSION["username1"] == $_SESSION["username2"]) & ("edit" == $_SESSION["type2"])) {
-    echo "<a href='view.php?id=".$row['Id']."'> View &nbsp </a>";
+    echo "<a href='test_view.php?id=".$row['Id']."'> View &nbsp </a>";
     echo "<a href='edit.php?id=".$row['Id']."'> Edit &nbsp </a>";
   }
   if (($_SESSION["username1"] == $_SESSION["username2"]) & ("cont" == $_SESSION["type2"])) {
-    echo "<a href='view.php?id=".$row['Id']."'> View &nbsp </a>";
+    echo "<a href='test_view.php?id=".$row['Id']."'> View &nbsp </a>";
   }
   // echo "<a href='test_view.php?id=".$row['Id']."'> View &nbsp </a>";
   // echo "<a href='edit.php?id=".$row['Id']."'> Edit &nbsp </a>";

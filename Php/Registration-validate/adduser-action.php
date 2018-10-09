@@ -1,6 +1,6 @@
 <?php
 session_start();
-echo "Welcome " . $_SESSION['name1']. "<br>";
+echo "Welcome " . $_SESSION['name']. "<br>";
 ?>
 <a href="dashboard.php">Dashboard</a>
 <a href="addnews.php">Add news</a>

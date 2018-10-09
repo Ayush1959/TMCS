@@ -1,7 +1,7 @@
 <?php
 session_start();
-echo "Welcome " . $_SESSION['name1']. "<br>";
-// print_r($_SESSION)
+echo "Welcome " . $_SESSION['name']. "<br>";
+print_r($_SESSION)
 ?>
 <a href="dashboard.php">Dashboard</a>
 <!-- <a href="adduser.php">Add user</a>

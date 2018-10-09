@@ -1,21 +1,22 @@
 <?php
-session_start();
-?>
-<?php
 $con = mysqli_connect("localhost","root","","db_registration") or die("connection failed");
 ?>
 
 <?php
-if ($_SERVER["REQUEST_METHOD"] == "POST")
-// if(isset($_POST['update']))
-{
-  $head = $_POST['form-heading'];
-  $descr = $_POST['form-description'];
-  $id = $_POST['id'];
-  $query1 = "UPDATE tbl_news SET Heading='$head',Description='$descr' WHERE id=$id";
-  $res = mysqli_query($con,$query1);
-  header("Location: newslist.php");
-}
+// if ($_SERVER["REQUEST_METHOD"] == "POST")
+// // if(isset($_POST['update']))
+// {
+//   $head =$_POST['form-heading'];
+//   $descr =$_POST['form-description'];
+//   $query1 = "UPDATE tbl_news SET Heading='$head',Description='$descr' WHERE id=$id";
+//   $res = mysqli_query($con,$query1);
+//   // echo $heading;
+//   // echo "<br>";
+//   // echo $description;
+//   // echo "<br>";
+//   // echo $id;
+//   header("Location: newslist.php");
+// }
 ?>
 <?php
 $id=$_GET['id'];
@@ -37,7 +38,7 @@ while($res = mysqli_fetch_array($result))
     <a href="dashboard.php">Dashboard</a>
     <br/><br/>
 
-    <form name="form1" method="post">
+    <form name="form1" method="post" action="test_edit_post.php">
                 Heading : <input type="text" name="form-heading" value="<?php echo $name;?>">
                 <br><br>
                 Description<input type="text" name="form-description" value="<?php echo $nd;?>">
