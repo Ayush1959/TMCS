@@ -19,7 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <body>
      <?php
      $_SESSION["username1"] = $cookie_username;
-     $_SESSION["password1"] = $cookie_password;
+     $_SESSION["password1"] = md5($cookie_password);
       ?>
 <?php
 while ($row = mysqli_fetch_array($res)) {
@@ -32,7 +32,7 @@ while ($row = mysqli_fetch_array($res)) {
     exit;
   }
 }
-if (("Admin" == $_SESSION["username1"]) & (12345 == $_SESSION["password1"])) {
+if (("Admin" == $_SESSION["username1"]) & ($_SESSION["password"] == $_SESSION["password1"])) {
     $_SESSION["name1"] = "Administrator";
     header('Location:dashboard.php');
     exit;

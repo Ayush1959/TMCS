@@ -1,20 +1,13 @@
 <?php
 session_start();
-// echo "Welcome " . $_SESSION['name']. "<br>";
+echo "<p><b>Welcome " . $_SESSION['name1']. "</b></p><br>";
 ?>
 <?php
-if (("Admin" == $_SESSION["username1"]) & (12345 == $_SESSION["password1"])) {
-  echo "<a href='adduser.php'>Add user</a>";
-  echo '<a href="addnews.php">Add news</a>';
-  echo '<a href="userlist.php">User list</a>';
-  echo '<a href="newslist.php">News list</a>';
-  echo '<a href="logout.php">Logout</a>';
+if (("Admin" == $_SESSION["username1"]) & ($_SESSION["password"] == $_SESSION["password1"])) {
+  header("Location: pages/admin.php");
 }
 else {
-  // echo "<a href='adduser.php'>Add user</a>";
-  echo '<a href="addnews.php">Add news</a>';
-  echo '<a href="userlist.php">User list</a>';
-  echo '<a href="newslist.php">News list</a>';
-  echo '<a href="logout.php">Logout</a>';
+  header("Location: pages/sidebar.php");
 }
  ?>
+ </html>
