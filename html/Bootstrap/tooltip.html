@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Venad</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    </head>
+  <body>
+
+                                                <!-- ToolTip -->
+
+
+
+
+    <div class="container">
+      <h3>Tooltip Example</h3>
+      <p>The data-placement attribute specifies the tooltip position.</p>
+      <ul class="list-inline">
+        <li><a href="#" data-toggle="tooltip" data-placement="top" title="Hooray!">Top</a></li>
+        <li><a href="#" data-toggle="tooltip" data-placement="bottom" title="Hooray!">Bottom</a></li>
+        <li><a href="#" data-toggle="tooltip" data-placement="left" title="Hooray!">Left</a></li>
+        <li><a href="#" data-toggle="tooltip" data-placement="right" title="Hooray!">Right</a></li>
+      </ul>
+    </div>
+
+
+
+
+
+
+    <div class="container">
+    <div class="bs-example tooltip-demo">
+      <div class="bs-example-tooltips">
+        <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="left" title="Tooltip on left" data-original-title="Tooltip on left">Tooltip on left</button>
+        <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Tooltip on top" data-original-title="Tooltip on top">Tooltip on top</button>
+        <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Tooltip on bottom">Tooltip on bottom</button>
+        <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="right" title="Tooltip on right">Tooltip on right</button>
+        </div>
+       </div>
+     </div>
+
+
+
+
+     <script>
+
+     $(function () {
+       $('[data-toggle="tooltip"]').tooltip()
+     })
+     </script>
+
+             <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+             <!-- Include all compiled plugins (below), or include individual files as needed -->
+             <script src="js/bootstrap.min.js"></script>
+           </body>
+         </html>

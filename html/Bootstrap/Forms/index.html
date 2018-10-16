@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Form</title>
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/form_main.css" rel="stylesheet">
+  </head>
+
+  <style>
+
+
+   .five{
+     background-color: #ccc;
+   }
+
+
+  </style>
+  <body>
+    <div class="container">
+
+
+      <div class="col-md-5 five col-md-offset-2">5</div>
+
+    <h2 class="heading">ADMISSION FORM</h2>
+    <form>
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="name">Name</label>
+          <input type="text" name="name" class="form-control">
+        </div>
+        <div class="form-group col-md-6">
+          <label for="father">Father's/Guardian's Name</label>
+          <input type="text" name="father" class="form-control">
+        </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-2">
+            <label for="sex">Sex</label>
+            <select class="form-control" name="sex">
+              <option selected>Male</option>
+              <option>Female</option>
+            </select>
+          </div>
+          <div class="form-group col-md-3">
+            <label for="relegion">Relegion</label>
+            <input type="text" name="relegion" class="form-control">
+          </div>
+          <div class="form-group col-md-3">
+            <label for="caste">Caste</label>
+            <input type="text" name="caste" class="form-control">
+          </div>
+          <div class="form-group col-md-2">
+            <label for="category">Category</label>
+            <input type="text" name="category" class="form-control">
+          </div>
+          <div class="form-group col-md-2">
+            <label for="bloodg">Blood Group</label>
+            <select class="form-control" name="bloodg">
+              <option selected>A+</option>
+              <option>O+</option>
+              <option>B+</option>
+              <option>AB+</option>
+              <option>A-</option>
+              <option>B-</option>
+              <option>O-</option>
+              <option>AB-</option>
+            </select>
+          </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-4">
+          <label for="dom">Domicile</label>
+          <input type="text" name="dom" class="form-control">
+        </div>
+        <div class="form-group col-md-4">
+          <label for="state">Name of belonging state</label>
+          <input type="text" name="state" class="form-control">
+        </div>
+        <div class="form-group col-md-4">
+          <label for="nation">Nationality</label>
+          <input type="text" name="nation" class="form-control">
+        </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="local_adress">Local Address</label>
+            <textarea name="local_adress" class="form-control" rows="3"></textarea>
+          </div>
+          <div class="form-group col-md-6">
+            <label for="permanent_adress">Permanent Address</label>
+            <textarea name="permanent_adress" class="form-control" rows="3"></textarea>
+          </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-4">
+              <label for="student_no">Student Contact No</label>
+              <input type="text" name="student_no" class="form-control">
+            </div>
+            <div class="form-group col-md-4">
+              <label for="Parent_no">Parent Contact No</label>
+              <input type="text" name="Parent_no" class="form-control">
+            </div>
+            <div class="form-group col-md-4">
+              <label for="guardian_no">Local Guardian No</label>
+              <input type="text" name="guardian_no" class="form-control">
+            </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="email">Email</label>
+                <input type="text" name="email" placeholder="Email" class="form-control">
+              </div>
+              <div class="form-group col-md-6">
+                <label for="applied_for">Programme applied for</label>
+                <select class="form-control" name="applied_for">
+                  <option selected>Practical training and skill development</option>
+                  <option>...</option>
+                </select>
+              </div>
+              </div>
+              <h4 class="head">Details of the course undergoing</h4>
+                <div class="row">
+                <div class="form-check">
+                <div class="form-group col-md-3">
+                  <label for="course">Name of the course</label>
+                  <input type="text" name="course" class="form-control">
+                </div>
+                <div class="form-check form-check-inline col-md-3">
+                <input class="form-check-input" type="radio" name="diploma" value="option1" checked>
+                <label class="form-check-label" for="diploma">Diploma</label>
+                </div>
+                <div class="form-check form-check-inline col-md-3">
+                    <input class="form-check-input" type="radio" name="degree" value="option2">
+                      <label class="form-check-label" for="degree">Degree</label>
+                      </div>
+                <div class="form-check form-check-inline col-md-3">
+                  <input class="form-check-input" type="radio" name="graduate" value="option3" disabled>
+                  <label class="form-check-label" for="graduate">Post Graduate</label>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="form-check">
+                <div class="form-group col-md-3">
+                  <label for="curriculum">Mode of the course curriculum</label>
+                  <!-- <input type="text" name="course" class="form-control"> -->
+                </div>
+                <div class="form-check form-check-inline col-md-2">
+                <input class="form-check-input" type="radio" name="regular" value="option1" checked>
+                <label class="form-check-label" for="regular">Regular</label>
+                </div>
+                <div class="form-check form-check-inline col-md-2">
+                    <input class="form-check-input" type="radio" name="odl" value="option2">
+                      <label class="form-check-label" for="odl">ODL</label>
+                      </div>
+                <div class="form-check form-check-inline col-md-2">
+                  <input class="form-check-input" type="radio" name="distance_mode" value="option3" disabled>
+                  <label class="form-check-label" for="distance_mode">Distance Mode</label>
+                  </div>
+                <div class="form-check form-check-inline col-md-3">
+                  <input class="form-check-input" type="radio" name="correspondence_mode" value="option3" disabled>
+                  <label class="form-check-label" for="correspondence_mode">Correspondence Mode</label>
+                </div>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <label for="name_university">Name of the university</label>
+                  <input type="text" name="name_university" class="form-control">
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="place_university">Place of the university</label>
+                  <input type="text" name="place_university" class="form-control">
+                </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group col-md-6">
+                    <label for="university_recognised">University is recognised by</label>
+                    <input type="text" name="university_recognised" class="form-control">
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="university_status">Status of the university</label>
+                    <input type="text" name="university_status" class="form-control">
+                  </div>
+                  </div>
+                  <h4 class="head">Educational Details : </h4>
+
+                  <div class="jumbotron"> <h1>Hello, world!</h1> <p>This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p> <p><a href="#" class="btn btn-primary btn-lg" role="button">Learn more</a></p> </div>
+                  <!-- <div class="form-row">
+                    <div class="row1">
+
+                    <div class=" col-md-2 bord">
+                      SL.No
+                    </div>
+                    <div class=" col-md-3 bord">
+                      Exam Passed
+                    </div>
+                    <div class=" col-md-3 bord">
+                      Board/University
+                    </div>
+                    <div class=" col-md-2 bord">
+                      % of marks
+                    </div>
+                    <div class=" col-md-2 bord bordr">
+                      Remarks
+                    </div>
+                    <div class=" col-md-2 bord">
+                      <input type="text" class="form-control" name="" value="">
+                    </div>
+                    <div class=" col-md-3 bord">
+                      <input type="text" name="" value="" class="form-control">
+                    </div>
+                    <div class=" col-md-3 bord">
+                      <input type="text" name="" value="" class="form-control">
+                    </div>
+                    <div class=" col-md-2 bord">
+                      <input type="text" name="" value="" class="form-control">
+                    </div>
+                    <div class=" col-md-2 bord bordr">
+                      <input type="text" name="" value="" class="form-control">
+                    </div>
+                    <div class=" col-md-2 bord">
+                      <input type="text" class="form-control" name="" value="">
+                    </div>
+                    <div class=" col-md-3 bord">
+                      <input type="text" name="" value="" class="form-control">
+                    </div>
+                    <div class=" col-md-3 bord">
+                      <input type="text" name="" value="" class="form-control">
+                    </div>
+                    <div class=" col-md-2 bord">
+                      <input type="text" name="" value="" class="form-control">
+                    </div>
+                    <div class=" col-md-2 bord bordr">
+                      <input type="text" name="" value="" class="form-control">
+                    </div>
+                    <div class=" col-md-2 bord">
+                      <input type="text" class="form-control" name="" value="">
+                    </div>
+                    <div class=" col-md-3 bord">
+                      <input type="text" name="" value="" class="form-control">
+                    </div>
+                    <div class=" col-md-3 bord">
+                      <input type="text" name="" value="" class="form-control">
+                    </div>
+                    <div class=" col-md-2 bord">
+                      <input type="text" name="" value="" class="form-control">
+                    </div>
+                    <div class=" col-md-2 bord bordr">
+                      <input type="text" name="" value="" class="form-control">
+                    </div>
+                    <div class=" col-md-2 bord">
+                      <input type="text" class="form-control" name="" value="">
+                    </div>
+                    <div class=" col-md-3 bord">
+                      <input type="text" name="" value="" class="form-control">
+                    </div>
+                    <div class=" col-md-3 bord">
+                      <input type="text" name="" value="" class="form-control">
+                    </div>
+                    <div class=" col-md-2 bord">
+                      <input type="text" name="" value="" class="form-control">
+                    </div>
+                    <div class=" col-md-2 bord bordr">
+                      <input type="text" name="" value="" class="form-control">
+                    </div>
+                    <div class=" col-md-2 bordb bord">
+                      <input type="text" class="form-control" name="" value="">
+                    </div>
+                    <div class=" col-md-3 bordb bord">
+                      <input type="text" name="" value="" class="form-control">
+                    </div>
+                    <div class=" col-md-3 bordb bord">
+                      <input type="text" name="" value="" class="form-control">
+                    </div>
+                    <div class=" col-md-2 bordb bord">
+                      <input type="text" name="" value="" class="form-control">
+                    </div>
+                    <div class=" col-md-2 bordb bord bordr">
+                      <input type="text" name="" value="" class="form-control">
+                    </div>
+                  </div>
+                  </div> -->
+
+
+
+                  <div class="container-fluid bordl bordt bordr bordb">
+
+                    <div class=" col-md-2 bordr">
+                      <div class="container-fluid bordt bordl bordr bordb mr">
+                        <p class="cnt">SL.No</p>
+                      </div>
+                      <input type="text" name="" value="" class="form-control mr ">
+                      <input type="text" name="" value="" class="form-control mr">
+                      <input type="text" name="" value="" class="form-control mr">
+                      <input type="text" name="" value="" class="form-control mr">
+                      <input type="text" name="" value="" class="form-control mr">
+                    </div>
+                    <div class=" col-md-3 bordr">
+                      <div class="container-fluid bordt bordl bordr bordb mr">
+                        <p class="cnt">Exam Passed</p>
+                      </div>
+                      <input type="text" name="" value="" class="form-control mr">
+                      <input type="text" name="" value="" class="form-control mr">
+                      <input type="text" name="" value="" class="form-control mr">
+                      <input type="text" name="" value="" class="form-control mr">
+                      <input type="text" name="" value="" class="form-control mr">
+                    </div>
+                    <div class=" col-md-3 bordr">
+                      <div class="container-fluid bordt bordl bordr bordb mr">
+                        <p class="cnt">Board/University</p>
+                      </div>
+                      <input type="text" name="" value="" class="form-control mr">
+                      <input type="text" name="" value="" class="form-control mr">
+                      <input type="text" name="" value="" class="form-control mr">
+                      <input type="text" name="" value="" class="form-control mr">
+                      <input type="text" name="" value="" class="form-control mr">
+                    </div>
+                    <div class=" col-md-2 bordr">
+                      <div class="container-fluid bordt bordl bordr bordb mr">
+                        <p class="cnt">% of marks</p>
+                      </div>
+                      <input type="text" name="" value="" class="form-control mr">
+                      <input type="text" name="" value="" class="form-control mr">
+                      <input type="text" name="" value="" class="form-control mr">
+                      <input type="text" name="" value="" class="form-control mr">
+                      <input type="text" name="" value="" class="form-control mr">
+                    </div>
+                    <div class=" col-md-2">
+                      <div class="container-fluid bordt bordl bordr bordb mr">
+                        <p class="cnt">Remarks</p>
+                      </div>
+                      <input type="text" name="" value="" class="form-control mr">
+                      <input type="text" name="" value="" class="form-control mr">
+                      <input type="text" name="" value="" class="form-control mr">
+                      <input type="text" name="" value="" class="form-control mr">
+                      <input type="text" name="" value="" class="form-control mr">
+                    </div>
+                  </div>
+
+
+
+
+
+                  <button type="submit" class="btn btn-primary btn_g">Submit Form</button>
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+    </form>
+
+
+
+
+
+
+
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <!-- Include all compiled plugins (below), or include individual files as needed -->
+  <script src="../js/bootstrap.min.js"></script>
+</html>
