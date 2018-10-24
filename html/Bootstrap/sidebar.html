@@ -1,0 +1,76 @@
+<head>
+  <style media="screen">
+  @import url(http://weloveiconfonts.com/api/?family=fontawesome);
+[class*="fontawesome-"]:before {
+font-family: "fontawesome", sans-serif;
+}
+
+*, *:before, *:after {
+box-sizing: border-box;
+}
+
+
+.sidebar, .main {
+transition: all 0.3s ease-out;
+overflow: scroll;
+-webkit-overflow-scrolling: touch;
+position: absolute;
+top: 0;
+bottom: 0;
+}
+
+
+
+nav ul li {
+padding: 20px;
+color: #ccc;
+background-color: #333;
+margin-bottom: 1px;
+border-left: 10px solid transparent;
+}
+
+
+
+
+  </style>
+  <script>
+  $(function(){
+  $('.toggle-menu').click(function(e){
+    e.preventDefault();
+    $('.sidebar').toggleClass('toggled');
+  });
+});
+
+  </script>
+</head>
+<header>
+  <!-- <a href="#" class="toggle-menu fontawesome-reorder"></a> -->
+  <!-- <h1>Title</h1> -->
+</header>
+
+<aside class="sidebar">
+  <!-- <h3>Contents</h3> -->
+  <nav>
+    <ul>
+      <li>Chapter 1</li>
+      <li class="active">Chapter 2</li>
+      <li>Chapter 3</li>
+      <li>Chapter 4</li>
+      <li>Chapter 5</li>
+      <li>Chapter 6</li>
+      <li>Chapter 7</li>
+      <li>Chapter 8</li>
+      <li>Chapter 9</li>
+      <li>Chapter 10</li>
+      <li>Chapter 10</li>
+      <li>Chapter 10</li>
+      <li>Chapter 10</li>
+      <li>Chapter 10</li>
+      <li>Chapter 10</li>
+      <li>Chapter 10</li>
+      <li>Chapter 10</li>
+      <li>Chapter 10</li>
+      <li>Chapter 10</li>
+    </ul>
+  </nav>
+</aside>
