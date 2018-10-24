@@ -17,10 +17,12 @@
 .heade{
   float:left;
   width:80%;
+  margin-left: 268px;
   text-align:center;
 }
 .main {
   float:left;
+  margin-left: 268px;
   width:60%;
   padding:0 20px;
 }
@@ -41,7 +43,7 @@
 
 
 
-/* .sidebar, {
+.menu {
 transition: all 0.3s ease-out;
 overflow: scroll;
 -webkit-overflow-scrolling: touch;
@@ -49,7 +51,7 @@ position: absolute;
 top: 0;
 bottom: 0;
 }
-nav ul li {
+/* nav ul li {
 padding: 20px;
 color: #ccc;
 background-color: #333;
@@ -62,6 +64,10 @@ border-left: 10px solid transparent;
 
   .menu, .main, .right, .heade {
     width:100%;
+    margin-left: 0px;
+  }
+  .menu{
+    position: relative;
   }
 }
 
