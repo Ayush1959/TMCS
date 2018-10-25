@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calculator</title>
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="css/main_calc.css" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+<!-- <script src="js/test.js"></script> -->
+
+</head>
+<body>
+
+                                            <!-- Calculator -->
+<div class="container bdr">
+
+                                            <!-- screen -->
+  <div class="row mrg">
+    <div class="col-md-10 col-md-offset-2">
+      <p id="screen" class="fl_r">0</p>
+    </div>
+  </div>
+                                            <!-- ROW 1 -->
+  <div class="col-md-3">
+    <button type="button" onclick="myFunction(this)" name="clr" id="clear" class="btn btn_clr btn-default btn-block">C</button>
+  </div>
+  <div class="col-md-3">
+    <button type="button" onclick="myFunction(this)" name="delete" id="del" class="btn btn_clr btn-default btn-block">Del</button>
+  </div>
+  <div class="col-md-3">
+    <button type="button" onclick="myFunction(this)" name="modulus" id="mod" class="btn btn_clr btn-default btn-block">%</button>
+  </div>
+  <div class="col-md-3">
+    <button type="button" onclick="myFunction(this)" name="divide" id="div" class="btn btn_clr btn-default btn-block">/</button>
+  </div>
+
+
+                                        <!-- ROW 2 -->
+<div class="col-md-3">
+  <button type="button" onclick="myFunction(this)" name="seven" id="7" class="btn btn_clr btn-default btn-block">7</button>
+</div>
+<div class="col-md-3">
+  <button type="button" onclick="myFunction(this)" name="eight" id="8" class="btn btn_clr btn-default btn-block">8</button>
+</div>
+<div class="col-md-3">
+  <button type="button" onclick="myFunction(this)" name="nine" id="9" class="btn btn_clr btn-default btn-block">9</button>
+</div>
+<div class="col-md-3">
+  <button type="button" onclick="myFunction(this)" name="mul" id="mul" class="btn btn_clr btn-default btn-block">*</button>
+</div>
+
+                                        <!-- ROW 3 -->
+<div class="col-md-3">
+  <button type="button" onclick="myFunction(this)" name="four" id="4" class="btn btn_clr btn-default btn-block">4</button>
+</div>
+<div class="col-md-3">
+  <button type="button" onclick="myFunction(this)" name="five" id="5" class="btn btn_clr btn-default btn-block">5</button>
+</div>
+<div class="col-md-3">
+  <button type="button" onclick="myFunction(this)" name="six" id="6" class="btn btn_clr btn-default btn-block">6</button>
+</div>
+<div class="col-md-3">
+  <button type="button" onclick="myFunction(this)" name="minus" id="min" class="btn btn_clr btn-default btn-block">-</button>
+</div>
+
+                                    <!-- ROW 4 -->
+<div class="col-md-3">
+  <button type="button" onclick="myFunction(this)" name="one" id="1" class="btn btn_clr btn-default btn-block">1</button>
+</div>
+<div class="col-md-3">
+  <button type="button" onclick="myFunction(this)" name="two" id="2" class="btn btn_clr btn-default btn-block">2</button>
+</div>
+<div class="col-md-3">
+  <button type="button" onclick="myFunction(this)" name="three" id="3" class="btn btn_clr btn-default btn-block">3</button>
+</div>
+<div class="col-md-3">
+  <button type="button" onclick="myFunction(this)" name="plus" id="plus" class="btn btn_clr btn-default btn-block">+</button>
+</div>
+
+                                      <!-- ROW 5 -->
+<div class="col-md-3">
+  <button type="button" onclick="myFunction(this)" name="clr" id="clear1" class="btn btn_clr btn-default btn-block">C</button>
+</div>
+<div class="col-md-3">
+  <button type="button" onclick="myFunction(this)" name="Zero" id="0" class="btn btn_clr btn-default btn-block">0</button>
+</div>
+<div class="col-md-3">
+  <button type="button" onclick="myFunction(this)" name="dot" id="." class="btn btn_clr btn-default btn-block">.</button>
+</div>
+<div class="col-md-3">
+  <button type="button" onclick="myFunction(this)" name="equal" id="=" class="btn btn_clr btn-default btn-block">=</button>
+</div>
+
+                                      <!-- TRIAL -->
+
+
+
+
+                                      <!-- <div class="col-md-10">
+                                        <button type="button" onclick="myFunction(this)" onclick="myFunction(this)" id="1">Button1</button>
+                                        <button type="button" onclick="myFunction(this)" onclick="myFunction(this)" id="2">Button2</button>
+                                        <button type="button" onclick="myFunction(this)" onclick="myFunction(this)" id="3">Button3</button>
+
+
+                                      </div> -->
+
+                                                  <!-- End of main container -->
+</div>
+
+
+
+
+<button onclick="myFunction()">Try it</button>
+
+<p id="demo"></p>
+
+<script>
+function myFunction() {
+    var str = document.getElementById('screen').innerHTML;
+    var a = parseInt(str);
+
+    alert(a);
+    // var b = str.replace(/^"(.+(?="$))"$/, '$1');
+
+    // var n = b + 5;
+    // document.getElementById("demo").innerHTML = n;
+}
+</script>
+
+
+
+
+
+
+
+
+
+<script>
+
+
+  document.getElementById('1').onclick = function() {
+document.getElementById('screen').innerHTML += '1';
+var x = parseFloat(document.getElementById('screen').innerHTML);
+// alert(typeof(x));
+// alert(x);
+}
+document.getElementById('2').onclick = function() {
+document.getElementById('screen').innerHTML += '2';
+var x = document.getElementById('screen').innerHTML;
+//alert(x);
+}
+document.getElementById('3').onclick = function() {
+document.getElementById('screen').innerHTML += '3';
+var x = document.getElementById('screen').innerHTML;
+//alert(x);
+}
+document.getElementById('4').onclick = function() {
+document.getElementById('screen').innerHTML += '4';
+var x = document.getElementById('screen').innerHTML;
+//alert(x);
+}
+document.getElementById('5').onclick = function() {
+document.getElementById('screen').innerHTML += '5';
+var x = document.getElementById('screen').innerHTML;
+//alert(x);
+}
+document.getElementById('6').onclick = function() {
+document.getElementById('screen').innerHTML += '6';
+var x = document.getElementById('screen').innerHTML;
+//alert(x);
+}
+document.getElementById('7').onclick = function() {
+document.getElementById('screen').innerHTML += '7';
+var x = document.getElementById('screen').innerHTML;
+//alert(x);
+}
+document.getElementById('8').onclick = function() {
+document.getElementById('screen').innerHTML += '8';
+var x = document.getElementById('screen').innerHTML;
+//alert(x);
+}
+document.getElementById('9').onclick = function() {
+document.getElementById('screen').innerHTML += '9';
+var x = document.getElementById('screen').innerHTML;
+//alert(x);
+}
+document.getElementById('0').onclick = function() {
+document.getElementById('screen').innerHTML += '0';
+var x = document.getElementById('screen').innerHTML;
+//alert(x);
+}
+document.getElementById('plus').onclick = function() {
+document.getElementById('screen').innerHTML += '+';
+var x = document.getElementById('screen').innerHTML;
+//alert(x);
+}
+document.getElementById('min').onclick = function() {
+document.getElementById('screen').innerHTML += '-';
+var x = document.getElementById('screen').innerHTML;
+//alert(x);
+}
+document.getElementById('div').onclick = function() {
+document.getElementById('screen').innerHTML += '/';
+var x = document.getElementById('screen').innerHTML;
+//alert(x);
+}
+document.getElementById('mul').onclick = function() {
+document.getElementById('screen').innerHTML += '*';
+var x = document.getElementById('screen').innerHTML;
+//alert(x);
+}
+document.getElementById('mod').onclick = function() {
+document.getElementById('screen').innerHTML += '%';
+var x = document.getElementById('screen').innerHTML;
+//alert(x);
+}
+document.getElementById('.').onclick = function() {
+document.getElementById('screen').innerHTML += '.';
+var x = document.getElementById('screen').innerHTML;
+//alert(x);
+}
+document.getElementById('del').onclick = function() {
+document.getElementById('screen').innerHTML = document.getElementById('screen').innerHTML.replace(/.$/, '');
+var x = document.getElementById('screen').innerHTML;
+// alert(x);
+}
+document.getElementById('clear').onclick = function() {
+document.getElementById('screen').innerHTML = '0';
+var x = document.getElementById('screen').innerHTML;
+//alert(x);
+}
+document.getElementById('clear1').onclick = function() {
+document.getElementById('screen').innerHTML = '0';
+var x = document.getElementById('screen').innerHTML;
+//alert(x);
+}
+document.getElementById('=').onclick = function() {
+  var scr = document.getElementById('screen').innerHTML;
+  alert(scr);
+  alert(typeof(scr));
+  // var x = document.getElementById('screen').innerHTML;
+  //alert(x);
+}
+</script>
+
+
+</body>
+</html>

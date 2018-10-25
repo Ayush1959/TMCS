@@ -1,0 +1,18 @@
+.bdr{
+  margin-top: 10px;
+  border: 1px solid;
+}
+.fl_r{
+  margin-top: 10px;
+  float: right;
+  margin-right: 20px;
+}
+.btn{
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+.mrg{
+  margin: 15px;
+  border: 1px solid;
+}
