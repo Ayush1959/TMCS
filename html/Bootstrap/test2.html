@@ -79,14 +79,17 @@
                                                 <h2 class="head_h2">Order List</h2>
                                               </div>
                                               <div class="col-md-3">
-                                                <div class="col-md-1 col-md-offset-5">
-                                                  <img src="test/reload.png" alt="cal-png" class="container_img">
+                                                <div class="col-md-1 mrg_r col-md-offset-1">
+                                                  <button type="button" class="button button4 btn_reload"></button>
+                                                  <!-- <img src="test/reload.png" alt="cal-png" class="container_img"> -->
                                                 </div>
-                                                <div class="col-md-1">
-                                                  <img src="test/bin.png" alt="rel-png" class="container_img">
+                                                <div class="col-md-1 mrg_r">
+                                                  <button type="button" class="button4 btn_bin"></button>
+                                                  <!-- <img src="test/bin.png" alt="rel-png" class="container_img"> -->
                                                 </div>
-                                                <div class="col-md-1">
-                                                  <img src="test/calendar.png" alt="del-png" class="container_img">
+                                                <div class="col-md-1 mrg_r">
+                                                  <button type="button" class="button4 btn_cal"></button>
+                                                  <!-- <img src="test/calendar.png" alt="del-png" class="container_img"> -->
                                                 </div>
                                               </div>
                                               </div>
@@ -101,7 +104,16 @@
                                                     <input type="text" class="inp" placeholder="Search Order Code">
                                                   </div>
                                                   <div class="col-md-3">
-                                                    <div class="col-md-10">
+                                                    <div class="form-group">
+                                                      <!-- <label for="sel1">Select list (select one):</label> -->
+                                                      <select class="form-control btn1" id="sel1">
+                                                        <option>Select User</option>
+                                                        <option>2</option>
+                                                        <option>3</option>
+                                                        <option>4</option>
+                                                        </select>
+                                                      </div>
+                                                    <!-- <div class="col-md-10">
                                                     <div class="dropdown">
                                                       <button class="btn btn1 btn-default dropdown-toggle" type="button" data-toggle="dropdown">Select User
                                                         </button>
@@ -114,10 +126,19 @@
                                                         </div>
                                                         <div class="col-md-1">
                                                           <a href="#"><span class="caret"></span></a>
-                                                        </div>
+                                                        </div> -->
                                                   </div>
                                                   <div class="col-md-3">
-                                                    <div class="col-md-10">
+                                                    <div class="form-group">
+                                                      <!-- <label for="sel1">Select list (select one):</label> -->
+                                                      <select class="form-control btn1" id="sel1">
+                                                        <option>Select Distributor</option>
+                                                        <option>2</option>
+                                                        <option>3</option>
+                                                        <option>4</option>
+                                                        </select>
+                                                      </div>
+                                                    <!-- <div class="col-md-10">
                                                     <div class="dropdown">
                                                       <button class="btn btn1 btn-default dropdown-toggle" type="button" data-toggle="dropdown">Select Distributor
                                                         </button>
@@ -130,10 +151,19 @@
                                                         </div>
                                                         <div class="col-md-1">
                                                           <a href="#"><span class="caret"></span></a>
-                                                        </div>
+                                                        </div> -->
                                                   </div>
                                                   <div class="col-md-3">
-                                                    <div class="col-md-10">
+                                                    <div class="form-group">
+                                                      <!-- <label for="sel1">Select list (select one):</label> -->
+                                                      <select class="form-control btn1" id="sel1">
+                                                        <option>Select Shop</option>
+                                                        <option>2</option>
+                                                        <option>3</option>
+                                                        <option>4</option>
+                                                        </select>
+                                                      </div>
+                                                    <!-- <div class="col-md-10">
                                                     <div class="dropdown">
                                                       <button class="btn btn1 btn-default dropdown-toggle" type="button" data-toggle="dropdown">Select Shop
                                                         </button>
@@ -146,7 +176,7 @@
                                                         </div>
                                                         <div class="col-md-1">
                                                           <a href="#"><span class="caret"></span></a>
-                                                        </div>
+                                                        </div> -->
                                                   </div>
                                                 </form>
 
@@ -156,8 +186,8 @@
 
 
                                               <div class="row bgw">
-                                                <table id="myTable" class="table table-hover">
-                                              <thead>
+                                                <table id="myTable" class="table scrollTable table-hover">
+                                              <thead class="fixedHeader">
                                               <tr>
                                               <th>
                                               <div class="form-check">
@@ -176,7 +206,7 @@
                                               <th>Action</th>
                                               </tr>
                                               </thead>
-                                              <tbody>
+                                              <tbody class="scrollContent">
                                               <tr>
                                               <td><div class="form-check">
                                               <label>
@@ -191,7 +221,13 @@
                                               <td><img src="test/loc.png" alt="Location" class="loc"></td>
                                               <td>oct 23 2018 10:24:51AM</td>
                                               <td class="dropdown"><a class="btn btn-default actionButton"
-                                              data-toggle="dropdown" href="#"> Action <span class="caret"></span></a></td>
+                                              data-toggle="dropdown" href="#"> Action <span class="caret"></span></a>
+                                              <ul class="dropdown-menu">
+                                                <li><a href="#">HTML</a></li>
+                                                <li><a href="#">CSS</a></li>
+                                                <li><a href="#">JavaScript</a></li>
+                                              </ul>
+                                              </td>
                                               </tr>
                                               <tr>
                                               <td>
@@ -209,7 +245,13 @@
                                               <td><img src="test/loc.png" alt="Location" class="loc"></td>
                                               <td>oct 23 2018 10:24:51AM</td>
                                               <td class="dropdown"><a class="btn btn-default actionButton"
-                                              data-toggle="dropdown" href="#"> Action <span class="caret"></span></a></td>
+                                              data-toggle="dropdown" href="#"> Action <span class="caret"></span></a>
+                                              <ul class="dropdown-menu">
+                                                <li><a href="#">HTML</a></li>
+                                                  <li><a href="#">CSS</a></li>
+                                                    <li><a href="#">JavaScript</a></li>
+                                                  </ul>
+                                                  </td>
                                               </tr>
                                               <tr>
                                               <td>
@@ -227,7 +269,13 @@
                                               <td><img src="test/loc.png" alt="Location" class="loc"></td>
                                               <td>oct 23 2018 10:24:51AM</td>
                                               <td class="dropdown"><a class="btn btn-default actionButton"
-                                              data-toggle="dropdown" href="#"> Action <span class="caret"></span></a></td>
+                                              data-toggle="dropdown" href="#"> Action <span class="caret"></span></a>
+                                              <ul class="dropdown-menu">
+                                                <li><a href="#">HTML</a></li>
+                                                <li><a href="#">CSS</a></li>
+                                                <li><a href="#">JavaScript</a></li>
+                                              </ul>
+                                            </td>
                                               </tr>
                                               <tr>
                                               <td>
@@ -245,7 +293,13 @@
                                               <td><img src="test/loc.png" alt="Location" class="loc"></td>
                                               <td>oct 23 2018 10:24:51AM</td>
                                               <td class="dropdown"><a class="btn btn-default actionButton"
-                                              data-toggle="dropdown" href="#"> Action <span class="caret"></span></a></td>
+                                              data-toggle="dropdown" href="#"> Action <span class="caret"></span></a>
+                                              <ul class="dropdown-menu">
+                                                <li><a href="#">HTML</a></li>
+                                                <li><a href="#">CSS</a></li>
+                                                <li><a href="#">JavaScript</a></li>
+                                              </ul>
+                                              </td>
                                               </tr>
                                               <tr>
                                               <td>
@@ -263,7 +317,13 @@
                                               <td><img src="test/loc.png" alt="Location" class="loc"></td>
                                               <td>oct 23 2018 10:24:51AM</td>
                                               <td class="dropdown"><a class="btn btn-default actionButton"
-                                              data-toggle="dropdown" href="#"> Action <span class="caret"></span></a></td>
+                                              data-toggle="dropdown" href="#"> Action <span class="caret"></span></a>
+                                              <ul class="dropdown-menu">
+                                                <li><a href="#">HTML</a></li>
+                                                <li><a href="#">CSS</a></li>
+                                                <li><a href="#">JavaScript</a></li>
+                                              </ul>
+                                              </td>
                                               </tr>
                                               <tr>
                                               <td>
@@ -281,7 +341,13 @@
                                               <td><img src="test/loc.png" alt="Location" class="loc"></td>
                                               <td>oct 23 2018 10:24:51AM</td>
                                               <td class="dropdown"><a class="btn btn-default actionButton"
-                                              data-toggle="dropdown" href="#"> Action <span class="caret"></span></a></td>
+                                              data-toggle="dropdown" href="#"> Action <span class="caret"></span></a>
+                                              <ul class="dropdown-menu">
+                                                <li><a href="#">HTML</a></li>
+                                                <li><a href="#">CSS</a></li>
+                                                <li><a href="#">JavaScript</a></li>
+                                              </ul>
+                                              </td>
                                               </tr>
                                               <tr>
                                               <td>
@@ -299,7 +365,13 @@
                                               <td><img src="test/loc.png" alt="Location" class="loc"></td>
                                               <td>oct 23 2018 10:24:51AM</td>
                                               <td class="dropdown"><a class="btn btn-default actionButton"
-                                              data-toggle="dropdown" href="#"> Action <span class="caret"></span></a></td>
+                                              data-toggle="dropdown" href="#"> Action <span class="caret"></span></a>
+                                              <ul class="dropdown-menu">
+                                                <li><a href="#">HTML</a></li>
+                                                <li><a href="#">CSS</a></li>
+                                                <li><a href="#">JavaScript</a></li>
+                                              </ul>
+                                              </td>
                                               </tr>
                                               <tr>
                                               <td>
@@ -317,7 +389,13 @@
                                               <td><img src="test/loc.png" alt="Location" class="loc"></td>
                                               <td>oct 23 2018 10:24:51AM</td>
                                               <td class="dropdown"><a class="btn btn-default actionButton"
-                                              data-toggle="dropdown" href="#"> Action <span class="caret"></span></a></td>
+                                              data-toggle="dropdown" href="#"> Action <span class="caret"></span></a>
+                                              <ul class="dropdown-menu">
+                                                <li><a href="#">HTML</a></li>
+                                                <li><a href="#">CSS</a></li>
+                                                <li><a href="#">JavaScript</a></li>
+                                              </ul>
+                                              </td>
                                               </tr>
                                               <tr>
                                               <td>
@@ -335,7 +413,13 @@
                                               <td><img src="test/loc.png" alt="Location" class="loc"></td>
                                               <td>oct 23 2018 10:24:51AM</td>
                                               <td class="dropdown"><a class="btn btn-default actionButton"
-                                              data-toggle="dropdown" href="#"> Action <span class="caret"></span></a></td>
+                                              data-toggle="dropdown" href="#"> Action <span class="caret"></span></a>
+                                                <ul class="dropdown-menu">
+                                                  <li><a href="#">HTML</a></li>
+                                                  <li><a href="#">CSS</a></li>
+                                                  <li><a href="#">JavaScript</a></li>
+                                                </ul>
+                                                </td>
                                               </tr>
                                               </tbody>
                                               </table>
@@ -348,30 +432,11 @@
 
 
                                                 <!-- Right -->
-<div class="right col-md-2 bg">
+<div class="right col-md-2 bg" id="mydiv">
 
                                                 <!-- HEAD ICONS -->
 
-  <!-- <div class="row bgw ">
-    <div class="col-md-offset-7">
 
-    <ul class="nav navbar-nav">
-      <li><a href="#"><img src="test/operator.png" alt="operator-logo" class="nav_icon"></a></li>
-      <li class="dropdown">
-        <a href="#" class="dropdown-toggle" id="drop1" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-          <img src="test/settings.png" alt="settings-logo" class="nav_icon">
-        <span class="caret"></span> </a>
-        <ul class="dropdown-menu" aria-labelledby="drop1">
-          <li><a href="#">Action</a></li>
-          <li><a href="#">Another action</a></li>
-          <li><a href="#">Something else here</a></li>
-          <li role="separator" class="divider"></li>
-          <li><a href="#">Separated link</a></li>
-         </ul>
-         </li>
-    </ul>
-  </div>
-  </div> -->
   <div class="row bgw">
     <nav>
       <div class="container-fluid bgb1">
@@ -421,6 +486,8 @@ function myFunction() {
     } else {
         x.className = "sidebar";
     }
+    // $('#mydiv').hide();
+
 }
 </script>
 
