@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>VUE 2</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  </head>
+  <body>
+
+
+<div id="first">
+  {{ msg }}
+</div>
+
+<div id="second">
+  <span v-bind:title="msg">
+  Hello
+</span>
+</div>
+
+<div id="third">
+  <span v-if="msg">Hey there
+  </span>
+</div>
+
+<div id="fourth">
+  <ol>
+    <todo-item
+      v-for="item in List"
+      v-bind:todo="item"
+      v-bind:key="item.id">
+    </todo-item>
+  </ol>
+</div>
+
+<script type="text/javascript">
+  Vue.component('todo-item', {
+    props:['todo'],
+    template: '<li>{{todo.text}}</li>'
+  })
+
+  var fourth = new Vue ({
+    el: '#fourth',
+    data: {
+      List: [
+      {id: 0 , text: 'first'},
+      {id: 1 , text: 'second'},
+      {id: 2 , text: 'third'}
+      ]
+    }
+  })
+
+</script>
+
+
+<script type="text/javascript">
+  var fi = new Vue({
+    el : '#first',
+    el : '#second',
+    el : '#third',
+    data: {
+      msg : true
+    }
+  })
+</script>

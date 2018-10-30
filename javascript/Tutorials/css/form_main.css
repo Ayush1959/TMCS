@@ -1,0 +1,46 @@
+/* .row1{
+  border: solid;
+} */
+.mr{
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.bordt{
+  border-top: thin solid;
+  padding: 10px;
+}
+.bordl{
+  border-left: thin solid;
+  border-color: aquamarine;
+}
+.heading{
+  margin-bottom: 40px;
+}
+.bordr{
+  border-right: thin solid;
+  border-color: aquamarine;
+  }
+.bordb{
+  border-bottom: thin solid;
+  border-color: aquamarine;
+  }
+.form-group{
+  margin-bottom: 40px;
+}
+.cnt{
+  font-weight: 600;
+}
+.head{
+  color: #ff0000;
+  margin-bottom: 40px;
+  text-decoration: underline;
+  font-weight: 500;
+  font-size: 19px;
+}
+.btn_g{
+  margin-top: 20px;
+  margin-bottom: 10px;
+  float: right;
+  background-color: #7d7a00;
+  border-color: #5d7b00;
+}

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>VUE 1</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  </head>
+  <body>
+<div id="one">
+  <h1 v-once>{{ title }}</h1>
+<p>{{ sayHello() }} - <a :href="link">Google</a></p>
+<!-- <hr> -->
+<br>
+<p v-html="finL"></p>
+
+</div>
+<script type="text/javascript">
+new Vue({ 
+  el: '#one',
+  data: {
+    title : "Hey Theree",
+    link : 'http://www.google.com',
+    finL : '<a href="http://www.google.com">Googlee</a>'
+  },
+  methods : {
+    sayHello : function () {
+      this.title = 'Heloooo';
+      return this.title;
+    }
+  }
+})
+</script>
