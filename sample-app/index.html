@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Monster Slayer</title>
+    <script src="https://npmcdn.com/vue/dist/vue.js"></script>
+    <link rel="stylesheet" href="foundation.min.css">
+    <link rel="stylesheet" href="app.css">
+</head>
+<body>
+<div id="app" >
+    <section class="row">
+        <div class="small-6 columns">
+            <h1 class="text-center">YOU</h1>
+            <div class="healthbar">
+                <div class="healthbar text-center" style="background-color: green; margin: 0; color: white;" :style="{width: you_health + '%'}">
+
+                </div>
+            </div>
+        </div>
+        <div class="small-6 columns">
+            <h1 class="text-center">MONSTER</h1>
+            <div class="healthbar">
+                <div class="healthbar text-center" style="background-color: green; margin: 0; color: white;" :style="{width: mon_health + '%'}">
+
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="row controls">
+        <div class="small-12 columns">
+          <!-- <p>Heyy</p> -->
+            <button id="start-game" @click="start()" >START NEW GAME</button>
+        </div>
+    </section>
+    <section class="row controls">
+        <div v-if="show" class="small-12 columns">
+            <button id="attack" @click="attack">ATTACK</button>
+            <button id="special-attack" @click="spl_attack">SPECIAL ATTACK</button>
+            <button id="heal" @click="heal">HEAL</button>
+            <button id="give-up" >GIVE UP</button>
+        </div>
+    </section>
+    <section class="row log">
+        <div class="small-12 columns">
+            <ul>
+                <li>
+
+                </li>
+            </ul>
+        </div>
+    </section>
+</div>
+
+
+
+<script>
+  new Vue({
+el : '#app',
+data : {
+  show : false,
+  you_health : 100,
+  mon_health : 100
+  // atk_you : Math.floor(Math.random() * 6) + 1,
+  // atk_mon : Math.floor(Math.random() * 6) + 1
+},
+methods : {
+  start : function () {
+      this.show = true
+  },
+  attack: function () {
+    atk_you = Math.floor(Math.random() * 6) + 1;
+    atk_mon = Math.floor(Math.random() * 6) + 1;
+    this.you_health = this.you_health - atk_you;
+    this.mon_health = this.mon_health - atk_mon;
+  },
+  spl_attack: function () {
+    atk_you = Math.floor(Math.random() * 6) + 10;
+    atk_mon = Math.floor(Math.random() * 6) + 10;
+    this.you_health = this.you_health - atk_you;
+    this.mon_health = this.mon_health - atk_mon;
+  },
+  heal: function () {
+    atk_you = Math.floor(Math.random() * 6) + 1;
+    atk_mon = Math.floor(Math.random() * 6) + 1;
+    this.you_health = this.you_health + atk_you;
+    this.mon_health = this.mon_health + atk_mon;
+  }
+
+}
+
+  })
+</script>
+</body>
+</html>

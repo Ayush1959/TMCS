@@ -9,26 +9,17 @@
     .demo{
       height: 100px;
       width: 100px;
-      background-color: #ccc;
+      background-color: gray;
       display: inline-block;
       margin: 10px;
-    }
-    .red{
-      background-color: red;
-    }
-    .green{
-      background-color: green;
-    }
-    .blue{
-      background-color: blue;
     }
   </style>
   <body>
 <div id="app">
-<div class="demo" v-on:click="attach = !attach" v-bind:class="{red: attach}">
+<div class="demo" :style="{backgroundColor : color}">
 </div>
-<div class="demo" :class="{red : attach}"> </div>
-<div class="demo" :class="color"></div>
+<div class="demo"> </div>
+<div class="demo"></div>
 <hr>
 <input type="text" v-model="color">
 </div>
@@ -40,8 +31,7 @@
 new Vue({
   el : '#app',
   data: {
-    attach : false,
-    color : 'green'
+    color : 'gray'
   }
 
 })
