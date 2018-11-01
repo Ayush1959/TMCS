@@ -11,23 +11,19 @@
     <section class="row">
         <div class="small-6 columns">
             <h1 class="text-center">YOU</h1>
-            <div class="healthbar" v-if="you_won">
-                <div class="healthbar text-center" style="background-color: green; margin: 0; color: #000000;" :style="myStyle_you">WINNER
-                </div>
-              </div>
-            <div class="healthbar" v-else>
+            <div class="healthbar">
                 <div class="healthbar text-center" style="background-color: green; margin: 0; color: white;" :style="myStyle_you">
+                  <p v-if="you_won" style="color:#000000;">Winner</p>
+                  <p v-else>{{you_health}}</p>
                 </div>
             </div>
         </div>
         <div class="small-6 columns">
             <h1 class="text-center">MONSTER</h1>
-            <div class="healthbar" v-if="mon_won">
-                <div class="healthbar text-center" style="background-color: green; margin: 0; color: #000000;" :style="myStyle_mon">Winner
-                </div>
-            </div>
-            <div class="healthbar" v-else>
+            <div class="healthbar">
                 <div class="healthbar text-center" style="background-color: green; margin: 0; color: white;" :style="myStyle_mon">
+                  <p v-if="mon_won" style="color:#000000;">Winner</p>
+                  <p v-else>{{mon_health}}</p>
                 </div>
             </div>
         </div>

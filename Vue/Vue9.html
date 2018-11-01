@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>VUE 5</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  </head>
+  <body>
+
+
+    <div id="app">
+      <my-cmp></my-cmp>
+        <hr>
+        <my-cmp></my-cmp>
+        <hr>
+        <my-cmp></my-cmp>
+        <hr>
+        <my-cmp></my-cmp>
+        <br><br>
+    </div>
+
+    <div id="app2">
+      <my-cmp></my-cmp>
+      <hr>
+      <my-cmp></my-cmp>
+    </div>
+
+
+
+
+    <script type="text/javascript">
+    Vue.component('my-cmp', {
+      data: function () {
+        return {
+          status: 'Critical'
+        };
+      },
+      template: '<p>Server status : {{ status }} <button @click="changeStatus">Change</button></p>',
+      methods: {
+        changeStatus: function () {
+          this.status ='Normal';
+        }
+      }
+    });
+      new Vue({
+        el : '#app'
+      })
+      new Vue({
+        el : '#app2'
+      })
+    </script>
+
+  </body>
+  </html>

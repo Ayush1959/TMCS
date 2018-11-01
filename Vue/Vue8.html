@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>VUE 5</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  </head>
+  <style media="screen">
+    .demo{
+      height: 100px;
+      width: 100px;
+      background-color: gray;
+      display: inline-block;
+      margin: 10px;
+    }
+  </style>
+  <body>
+
+    <div id="app1">
+      <ul>
+        <li v-for="(ingredient, i ) in ingredients">{{ ingredient }}: {{ i }}</li>
+      </ul>
+      <hr>
+      <ul>
+        <li v-for="person in persons">
+          <div v-for="(value, key , index) in person">{{ key }}: {{ value }} ({{ index }})</div>
+        </li>
+      </ul>
+    </div>
+
+    <br><br><hr><br><hr><br>
+
+    <div id="app2">
+    <div class="demo" :style="{backgroundColor : color}">
+    </div>
+    <div class="demo">{{cont}} </div>
+    <div class="demo"></div>
+    <hr>
+    <input type="text" v-model="color">
+    </div>
+
+
+
+
+    <script type="text/javascript">
+    var vm2 = new Vue({
+      el : '#app2',
+      data: {
+        color : 'gray',
+        // cont : vm1.ingredients,
+        inc : ['chicken','vegetables','dom','red']
+      }
+
+    })
+
+      var vm1 = new Vue({
+        el: '#app1',
+        data : {
+          ingredients : vm2.inc,
+          ingredients1: ['meat','fish','cookies'],
+          persons: [
+            {name: 'Max', age: 20 , color:'red'},
+            {name: 'Mike', age: 25 , color:'blue'}
+          ]
+        }
+      })
+    </script>
+
+
+
+
+
+  </body>
+  </html>
