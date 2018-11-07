@@ -1,0 +1,46 @@
+.container{
+  width: 750px;
+  padding: 0px;
+}
+.cen{
+  text-align: center;
+  margin-top: 25px;
+}
+.winner{
+  background-color: #ff0000;
+}
+.current_container{
+  background-color: #ff0000;
+  width: 85px;
+  margin: auto;
+  margin-bottom: 20px;
+}
+.top{
+  margin-top: 40px;
+  margin-bottom: 20px;
+}
+.lef{
+  margin-left: 95px;
+}
+.siz_img{
+  height: 140px;
+}
+.active{
+  background-color: #ccc;
+}
+.btn-new{
+  margin-left: 13px;
+  border: none;
+}
+.btn-rel{
+  margin-left: 20px;
+  border: none;
+}
+.btn-hld{
+  margin-left: 25px;
+  border: none;
+}
+.img{
+  margin-left: 40px;
+  margin-top: 25px;
+}

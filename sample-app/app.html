@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <script src="https://npmcdn.com/vue/dist/vue.js"></script>
+    <link href="bootstrap.min.css" rel="stylesheet">
+    <link href="game.css" rel="stylesheet">
+    <title></title>
+</head>
+
+<body>
+    <h1>Game</h1>
+    <div class="container" id="app">
+<div class="col-xs-5 one" v-bind:class="{active: turn1}">
+            <div class="player1 cen" id="player-1">Player1
+            </div>
+            <div class="totalscore1 cen" id="score-1">{{ score[1] }}
+            </div>
+            <div class="current_container" v-if='win[1]'>
+                <div class="current1 cen">Current
+                </div>
+                <div class="current-1 cen" id="current-1">{{ curren1 }}
+                </div>
+            </div>
+            <div v-else>
+                <div class="cen">Winner</div>
+                <div class="lef"><img class="siz_img" src="images/victory.jpeg" alt="winner" srcset=""></div>
+            </div>
+        </div>
+        <div class="col-xs-2">
+            <div class="row">
+                <button class="btn-new btn-default" @click='start()'><i class="glyphicon glyphicon-plus"></i> New Game</button>
+                <!-- <img src="" alt="+"> New Game -->
+            </div>
+            <div v-if="show">
+                <div class="row">
+                    <!-- <button class="btn-new"><i class="glyphicon glyphicon-plus"></i> New Game</button> -->
+                    <img v-bind:src="showDiceImage" class="img dice" alt="+">
+                </div>
+                <div class="row top">
+                    <button class="btn-rel  btn-default" @click='reload()'><i class="glyphicon glyphicon-refresh"></i> Reload</button>
+                    <!-- <img src="" alt="R"> Roll Dice -->
+                </div>
+                <div class="row btm">
+                    <button class="btn-hld  btn-default" @click='hold()'><i class="glyphicon glyphicon-download-alt"></i> Hold</button>
+                    <!-- <img src="" alt="H"> HOLD -->
+                </div>
+            </div>
+            <div v-else>
+                <!-- Click Start -->
+            </div>
+        </div>
+
+<div class="col-xs-5 two" v-bind:class="{active: turn2}">
+            <div class="player2 cen" id="player-2">Player2
+            </div>
+            <div class="totalscore2 cen" id="score-2">{{ score[2] }}
+            </div>
+            <div class="current_container" v-if='win[2]'>
+                <div class="current2 cen">Current
+                </div>
+                <div class="current-2 cen" id="current-2">{{ curren2 }}
+                </div>
+            </div>
+            <div v-else>
+                <div class="cen">Winner</div>
+                <div class="lef"><img class="siz_img" src="images/victory.jpeg" alt="winner" srcset=""></div>
+            </div>
+        </div>
+
+
+    </div>
+
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                show:false,
+                dice : 0,
+                curren1: 0,
+                score : [0,0,0],
+                current : [0,0,0],
+                curren2: 0,
+                active_player: 1,
+                turn1: true,
+                turn2:false,
+                win : [0,true,true],
+            },
+            computed: {
+                showDiceImage: function() {
+                    if ( this.dice === 1) {
+                        return "images/dice-1.png";
+                        }
+                    if ( this.dice === 2) {
+                        return "images/dice-2.png";
+                        }
+                    if ( this.dice === 3) {
+                        return "images/dice-3.png";
+                        }
+                    if ( this.dice === 4) {
+                        return "images/dice-4.png";
+                        }
+                    if ( this.dice === 5) {
+                        return "images/dice-5.png";
+                        }
+                    if ( this.dice === 6) {
+                        return "images/dice-6.png";
+                    }
+                    return "images/dice-1.png";
+                    }
+                },
+            methods: {
+                start : function(){
+                    this.show = true,
+                    this.current[this.active_player] = 0,
+                    this.active_player = 1,
+                    this.dice = 0,
+                    this.curren1 = 0,
+                    this.curren2 = 0,
+                    this.turn1 = true,
+                    this.turn2 = false,
+                    this.current = [0,0,0],
+                    this.score = [0,0,0],
+                    this.win = [0,true,true]
+                },
+                reload : function(){
+                    this.dice = Math.floor(Math.random() * 6) + 1;
+                    if (this.dice !==1) {
+                        this.current[this.active_player] = this.current[this.active_player] + this.dice;
+                        this.curren1 = this.current[1],
+                        this.curren2 = this.current[2]
+                    } else {
+                        this.next_player()
+                    }
+                },
+                next_player : function() {
+                    if (this.active_player === 1) {
+                        this.current[this.active_player] = 0;
+                        this.active_player = 2;
+                        this.turn2 = true;
+                        this.turn1 =false;
+                    } else {
+                        this.current[this.active_player] = 0;
+                        this.active_player = 1;
+                        this.turn1 = true;
+                        this.turn2 = false
+                    }
+
+                },
+                hold : function () {
+                    this.score[this.active_player] += this.current[this.active_player];
+                    if (this.score[this.active_player] > 20) {
+                        this.show = false;
+                        this.turn1 = false;
+                        this.turn2 =false;
+                        this.win[this.active_player] = false;
+                    }
+                    else{
+                        this.current[this.active_player] = 0;
+                        this.next_player()
+                    }
+                }
+            }
+        })
+    </script>
+    <!-- <script src="game1.js" charset="utf-8"></script> -->
+</body>
+
+</html>
