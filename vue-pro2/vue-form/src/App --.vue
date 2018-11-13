@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <form name="myForm">
+        <form>
             <div class="row">
                 <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
                     <h1>File a Complaint</h1>
@@ -10,7 +10,6 @@
                         <input
                                 type="text"
                                 id="email"
-                                name="email"
                                 class="form-control"
                                 v-model="userData.email">
                     </div>
@@ -19,16 +18,14 @@
                         <input
                                 type="password"
                                 id="password"
-                                name="password"
                                 class="form-control"
                                 v-model="userData.password">
                     </div>
                     <div class="form-group">
                         <label for="age">Age</label>
                         <input
-                                type="text"
+                                type="number"
                                 id="age"
-                                name="age"
                                 class="form-control"
                                 v-model="userData.age">
                     </div>
@@ -107,7 +104,6 @@
                 <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
                     <button
                             class="btn btn-primary"
-                            @click="validateForm"
                             @click.prevent="submitted">Submit!
                     </button>
                 </div>
@@ -148,7 +144,7 @@ export default {
       userData: {
         email: "",
         password: "",
-        age: "",
+        age: 25,
         message: "New text"
       },
       sendMail: [],
@@ -156,49 +152,12 @@ export default {
       selectedPriority: "High",
       priorities: ["High", "Medium", "Low"],
       dataSwitch: true,
-      isSubmitted: false,
-      err: 0
+      isSubmitted: false
     };
   },
   methods: {
     submitted() {
-      //   this.isSubmitted = true;
-      if (this.err == 0) {
-        this.isSubmitted = true;
-      }
-    },
-    validateForm() {
-      this.err = 0;
-      var lnSend = this.sendMail.length;
-      var ckEmail = /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/;
-      var ckNum = /[^0-9]+$/;
-      if (this.userData.email == "") {
-        alert("Field cannot be Empty please Enter Email");
-        this.err++;
-        return false;
-      } else if (!this.userData.email.match(ckEmail)) {
-        alert("Invalid Email");
-        this.err++;
-        return false;
-      }
-      if (this.userData.password == "") {
-        alert("Field cannot be Empty please Enter Password");
-        this.err++;
-        return false;
-      }
-      if (this.userData.age == "") {
-        alert("Field cannot be Empty please Enter Age");
-        this.err++;
-        return false;
-      } else if (this.userData.age.match(ckNum)) {
-        alert("Invalid Age");
-        this.err++;
-        return false;
-      }
-      if (lnSend == 0) {
-        alert("Select atleast one Recipient");
-        this.err++;
-      }
+      this.isSubmitted = true;
     }
   },
   components: {
