@@ -73,7 +73,6 @@
     </div>
   </div>
 </template>
-
 <script>
 export default {
   data() {
@@ -94,9 +93,17 @@ export default {
     totalPrice() {
       let total = this.cFormData.plan.price;
       if (this.form.chocolate) {
+        this.form.chocolate = true;
+        this.$emit("ChocolateChange", {
+          chocolate: this.form.chocolate
+        });
         total += 4;
       }
       if (this.form.otherTreat) {
+        this.form.otherTreat = true;
+        this.$emit("TreatChange", {
+          otherTreat: this.form.otherTreat
+        });
         total += 2;
       }
       return total;
