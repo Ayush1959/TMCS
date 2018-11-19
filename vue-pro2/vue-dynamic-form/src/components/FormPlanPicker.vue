@@ -10,7 +10,7 @@
       <div
         v-for="plan in plans"
         :key="plan.price"
-        @click="pickPlan(plan.id)"
+        @click="pickPlan(plan)"
         :class="{'active-plan': selectedPlan === plan}"
         class="plan"
       >
@@ -78,7 +78,8 @@ export default {
   methods: {
     pickPlan(plan) {
       this.selectedPlan = plan;
-      this.$emit("SelectedPlanChange", this.selectedPlan);
+      this.$emit("SelectedPlanChange", { plan: this.selectedPlan });
+      // this.$emit("SelectedPlanChange", this.selectedPlan);
       // alert(plan);
     }
   }

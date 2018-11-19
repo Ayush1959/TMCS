@@ -9,13 +9,13 @@
     <form class="form">
       <div class="form-group">
         <label class="form-label" for="delivery_name">Name</label>
-        <input v-model="$v.form.recipient.$model" type="text" placeholder="Recipients Name" class="form-control" id="delivery_name">
-        <div v-if="$v.form.recipient.$error" class="error">field is required</div>
+        <input @input="submit" v-model="$v.form.name.$model" type="text" placeholder="Recipients Name" class="form-control" id="delivery_name">
+        <div v-if="$v.form.name.$error" class="error">field is required</div>
       </div>
 
       <div class="form-group">
         <label class="form-label" for="address">Address</label>
-        <textarea v-model="$v.form.address.$model" placeholder="London Street 470978 New England" rows="3" class="form-control" id="address"></textarea>
+        <textarea @input="submit" v-model="$v.form.address.$model" placeholder="London Street 470978 New England" rows="3" class="form-control" id="address"></textarea>
         <div v-if="$v.form.address.$error" class="error">field is required</div>
       </div>
     </form>
@@ -23,29 +23,41 @@
 </template>
 
 <script>
-  import {required} from 'vuelidate/lib/validators'
-  export default {
-    data () {
-      return {
-        form: {
-          address: null,
-          recipient: null
-        }
-      }
-    },
-    validations: {
+import { required } from "vuelidate/lib/validators";
+export default {
+  data() {
+    return {
       form: {
-        address: {
-          required
-        },
-        recipient: {
-          required
-        }
+        name: this.name,
+        address: null
+      }
+    };
+  },
+  props: {
+    name: {
+      type: String
+    }
+  },
+  validations: {
+    form: {
+      address: {
+        required
+      },
+      name: {
+        required
       }
     }
+  },
+  methods: {
+    submit() {
+      this.$emit("AdressFormChange", {
+        address: this.form.address,
+        name: this.form.name
+      });
+    }
   }
+};
 </script>
 
 <style scoped>
-
 </style>

@@ -49,7 +49,9 @@ if ($z == 0) {
     $con = mysqli_connect("localhost","root","","db_form_wizard") or die("connection failed");
     $query = "insert into tbl_user(Email,Password,Name)values('$c_email','$c_password','$c_name')";
     $res = mysqli_query($con,$query);
-    echo("Sucsess");
+    $ary["Sucsess"]=200;
+    $ary["Name"]=$name;
+    print_r(json_encode($ary));
 }
 else {
     echo("Fail");

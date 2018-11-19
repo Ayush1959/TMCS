@@ -1,6 +1,6 @@
 <template>
   <div>
-    <FormPlanPicker v-if="currentStepNumber === 1"/>
+    <FormPlanPicker v-if="currentStepNumber === 1" @update="processStep"/>
     <FormUserDetails v-if="currentStepNumber === 2"/>
     <FormAddress v-if="currentStepNumber === 3"/>
     <FormReviewOrder v-if="currentStepNumber === 4"/>
@@ -62,6 +62,9 @@ export default {
     }
   },
   methods: {
+    processStep(stepData) {
+      Object.assign(this.form, stepData);
+    },
     goBack() {
       this.currentStepNumber--;
     },

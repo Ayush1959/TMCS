@@ -9,7 +9,7 @@
     <form class="form">
       <div class="form-group">
         <label class="form-label" for="email">Email</label>
-        <input type="text" v-model="$v.form.email.$model" placeholder="your@email.com" class="form-control" id="email">
+        <input @input="submit" type="text" v-model="$v.form.email.$model" placeholder="your@email.com" class="form-control" id="email">
         <div v-if="$v.form.email.$error && !$v.form.email.required" class="error">email is required</div>
         <div v-if="$v.form.email.$error && !$v.form.email.email" class="error">email is invalid</div>
       </div>
@@ -26,6 +26,13 @@ export default {
         email: null
       }
     };
+  },
+  methods: {
+    submit() {
+      this.$emit("CheckUserEmail", {
+        email: this.form.email
+      });
+    }
   },
   validations: {
     form: {
