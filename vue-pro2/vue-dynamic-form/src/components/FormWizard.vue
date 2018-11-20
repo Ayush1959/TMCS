@@ -2,7 +2,7 @@
   <div>
     <div v-if="nxt !== 'pending'">
 
-    <FormPlanPicker @SelectedPlanChange="processStep" v-if="currentStepNumber === 1"/>
+    <FormPlanPicker @SelectedPlanChange="processStep" @idChange="idd = $event" :idd.sync="idd" :form.sync="form" v-if="currentStepNumber === 1" />
     <FormUserData @CheckUserEmail="processStep" v-if="currentStepNumber === 2"/>
     <FormUserLogin @LoginFormChange="processStep" :email="form.email" v-if="currentStepNumber === 3"/>
     <FormUserDetails @CreateFormChange="processStep" :email="form.email" v-if="currentStepNumber === 4"/>
@@ -24,12 +24,16 @@
           @click="goBack"
           v-if="currentStepNumber > 1 && currentStepNumber < 7"
           class="btn-outlined"
+          :class="{'disabled': bttn === true}"
+          :disabled="bttn"
         >Back
         </button>
         <button
           @click="goNext"
           v-if="currentStepNumber < 7"
           class="btn"
+          :class="{'disabled': bttn === true}"
+          :disabled="bttn"
         >Next</button>
       </div>
 
@@ -75,7 +79,9 @@ export default {
     return {
       currentStepNumber: 1,
       nxt: null,
+      idd: null,
       nxt1: null,
+      bttn: false,
       length: 7,
       form: {
         plan: null,
@@ -140,6 +146,7 @@ export default {
           if (!!this.form.email) {
             // this.nxt = "pending";
             this.nxt1 = "pending";
+            this.bttn = true;
             axios
               .post("http://localhost/ayush/vue-pro2/api/formUserEmail", {
                 email: this.form.email
@@ -147,11 +154,13 @@ export default {
               .then(function(response) {
                 if (response.data.Sucsess == 200) {
                   // x.nxt = "success";
+                  x.bttn = false;
                   x.nxt1 = "success";
                   x.currentStepNumber = 3;
                   x.form.name = response.data.Name;
                 } else {
                   // x.nxt = "success";
+                  x.bttn = false;
                   x.nxt1 = "success";
                   x.currentStepNumber = 4;
                 }
@@ -166,6 +175,7 @@ export default {
         case 3:
           if (!!this.form.email && !!this.form.password) {
             this.nxt1 = "pending";
+            this.bttn = true;
             axios
               .post("http://localhost/ayush/vue-pro2/api/formLoginCheck", {
                 email: this.form.email,
@@ -177,10 +187,12 @@ export default {
                   // alert(currentStepNumber);
                   // x.form.name = response.data.Name;
                   x.nxt1 = "success";
+                  x.bttn = false;
                   x.currentStepNumber = 5;
                   // alert(x.currentStepNumber);
                 } else {
                   x.nxt1 = "success";
+                  x.bttn = false;
                   // setTimeout(function() {
                   //   alert("Pswd Error");
                   // }, 1000);
@@ -199,6 +211,7 @@ export default {
         case 4:
           if (!!this.form.email && !!this.form.password && !!this.form.name) {
             this.nxt = "pending";
+            this.bttn = true;
             // alert("case4");
             // this.$emit("KeyPres", this);
             // alert(this.form.email);
@@ -213,10 +226,12 @@ export default {
                   // alert("suscess");
                   // alert(currentStepNumber);
                   // x.form.name = response.data.Name;
+                  x.bttn = false;
                   x.nxt = "success";
                   x.currentStepNumber = 5;
                   // alert(x.currentStepNumber);
                 } else {
+                  x.bttn = false;
                   x.nxt = "success";
                   alert("Error");
                   // x.currentStepNumber = 4;
@@ -305,6 +320,10 @@ export default {
   margin: 10px;
   float: right;
   animation: spin 0.1s infinite;
+}
+.disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
 }
 
 /* .slide-enter {

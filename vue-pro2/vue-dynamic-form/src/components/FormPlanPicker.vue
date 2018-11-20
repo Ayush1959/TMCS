@@ -1,7 +1,8 @@
 <template>
   <div>
+    <!-- {{form.plan.id}} -->
     <h1 class="title">Coffee Plans</h1>
-
+    {{ idd }}
     <h2 class="subtitle">
       We travel the world to source the very best single origin coffee for you
     </h2>
@@ -11,7 +12,7 @@
         v-for="plan in plans"
         :key="plan.price"
         @click="pickPlan(plan)"
-        :class="{'active-plan': selectedPlan === plan}"
+        :class="{'active-plan': plan.id == idd}"
         class="plan"
       >
         <div class="weight">
@@ -68,7 +69,17 @@ export default {
         }
       ],
       selectedPlan: null
+      // selectedPlan1: this.plan,
+      // plan1: this.form
     };
+  },
+  props: {
+    form: {
+      required: true
+    },
+    idd: {
+      required: true
+    }
   },
   validations: {
     selectedPlan: {
@@ -79,6 +90,9 @@ export default {
     pickPlan(plan) {
       this.selectedPlan = plan;
       this.$emit("SelectedPlanChange", { plan: this.selectedPlan });
+      this.$emit("idChange", this.selectedPlan.id);
+      // console.log(this.plan1);
+      // alert(this.plan1);
       // this.$emit("SelectedPlanChange", this.selectedPlan);
       // alert(plan);
     }
