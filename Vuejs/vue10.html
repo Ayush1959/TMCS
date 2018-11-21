@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="utf-8" />
+    <title>VUE 1</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="one">
+        <h1 v-purple v-if="show">Vue School</h1>
+        <h1 v-color="'gold'" v-if="show">Vue School</h1>
+        <h1 v-switching-color:slow="colors" v-if="show">Vue School</h1>
+        <h1 v-switching-color="colors" v-if="show">Vue School</h1>
+        <h1 v-switching-color:fast="colors" v-if="show">Vue School</h1>
+        <h1 v-switching-color:crazy="colors" v-if="show">Vue School</h1>
+        <h1 v-switching-color:crazy.underline="colors" v-if="show">Vue School</h1>
+        <h1 v-switching-color:crazy.cen="colors" v-if="show">Vue School</h1>
+        <h1 v-switching-color:fast.underline.cen="colors" v-if="show">Vue School</h1>
+        <div v-click-outside="clickedOutside" class="box">Some Text</div>
+        <button @click="show = !show">Toggle</button>
+    </div>
+
+    <script type="text/javascript">
+        Vue.directive('purple', function (el) {
+            el.style.color = 'purple'
+        })
+        Vue.directive('color', function (el, binding) {
+            el.style.color = binding.value
+        })
+        Vue.directive('switching-color', function (el, binding) {
+            // UNDERLINE MODIFIERS
+            const modifiers = binding.modifiers
+            if (modifiers.underline) {
+                el.style.textDecoration = 'underline'
+            }
+            if (modifiers.cen) {
+                el.style.textAlign = 'center'
+            }
+
+
+            const speeds = {
+                slow: 2000,
+                normal: 1000,
+                fast: 500,
+                crazy: 100
+            }
+            const speedName = binding.arg || 'normal'
+            const speed = speeds[speedName]
+
+            const colors = binding.value
+            let i = 0
+            setInterval(() => {
+                el.style.color = colors[i++]
+                if (i > colors.length - 1) {
+                    i = 0
+                }
+            }, speed)
+            // el.style.color = binding.value
+        })
+        // CLICKED OUTSIDE DIRECTIVE
+        Vue.directive('click-outside', {
+            bind(el, binding) {
+                el.__ClickOutsideHandler__ = event => {
+                    if (!(el === event.target || el.contains(event.target))) {
+                        binding.value(event)
+                    }
+                }
+                document.body.addEventListener('click', el.__ClickOutsideHandler__)
+            },
+            unbind(el) {
+                document.body.removeEventListener('click', el.__ClickOutsideHandler__)
+            }
+        })
+
+        new Vue({
+            el: "#one",
+            data: {
+                colors: ['gold', 'purple', 'red', 'blue'],
+                show: false
+            },
+            mounted() {
+                this.colors.push("pink")
+            },
+            methods: {
+                clickedOutside() {
+                    alert('you Clicked outside')
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>
