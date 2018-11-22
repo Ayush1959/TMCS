@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="utf-8" />
+    <title>VUE 1</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="one">
+        <form>
+            <select @input="submit" name="Curency" id="Curency" v-model="currency">
+                <option v-for="curr in currencies" :selected="currency == 'Rupee'">{{ curr }}</option>
+            </select>
+            <input @input="submit" v-model="amount" name="numberr" id="numberr" type="number">
+        </form>
+        <!-- <h1 v-switching-color="colors">Vue School</h1> -->
+        <h3 v-chan="colors"></h3>
+        <h4>{{colors}}{{ amount }}</h4>
+    </div>
+
+    <script type="text/javascript">
+        Vue.directive('chan', function (el, binding) {
+            const colors = binding.value
+            el.innerHTML = colors
+        })
+
+        new Vue({
+            el: "#one",
+            data: {
+                colors: null,
+                // show: true,
+                amount: null,
+                currencies: ["Rupee", "Dollar", "Pound"],
+                currency: 'null'
+            },
+            methods: {
+                submit() {
+                    console.log(this.currency);
+                    if (this.currency == "Rupee") {
+                        this.colors = "₹"
+                    }
+                    if (this.currency == "Dollar") {
+                        this.colors = "$"
+                    }
+                    if (this.currency == "Pound") {
+                        this.colors = "£"
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>
