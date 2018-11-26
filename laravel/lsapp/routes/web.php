@@ -20,10 +20,14 @@ Route::get('/about', 'PagesController@about');
 Route::get('/services', 'PagesController@services');
 Route::get('/serve', 'PagesController@serve');
 
-
+// Route::get('/update/{id}', 'PostController@update');
 
 Route::resource('posts', 'PostController');
+Route::resource('contacts', 'ContactController');
 
 // Route::get('/about', function () {
 //     return view('pages.about');
 // });
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
