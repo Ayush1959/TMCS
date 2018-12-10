@@ -21,6 +21,7 @@ Auth::routes();
 Route::get('project', 'ProjectController@index');
 Route::get('projects', 'ProjectController@show');
 Route::put('project/{id}', 'ProjectController@update');
+Route::get('projectid/{id}', 'ProjectController@edit');
 // Route::get('project', 'ProjectController@show');
 
 Route::get('/home', 'HomeController@index')->name('home');

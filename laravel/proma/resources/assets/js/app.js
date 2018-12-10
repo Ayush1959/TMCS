@@ -2,15 +2,19 @@ require("./bootstrap");
 
 window.Vue = require("vue");
 import VueRouter from "vue-router";
+import VModal from 'vue-js-modal'
 // import Vuelidate from "vuelidate";
 
 
 // window.Vue.use(Vuelidate);
+window.Vue.use(VModal);
 window.Vue.use(VueRouter);
 // validator.isEmail('foo@bar.com');
+// Vue.component('b-modal', bModal);
 
 import DataIndex from "./components/DataIndex.vue";
 import DataCreate from "./components/DataCreate.vue";
+// import bModal from 'bootstrap-vue/es/components/modal/modal';
 // import CompaniesEdit from './components/companies/CompaniesEdit.vue';
 
 const routes = [{
