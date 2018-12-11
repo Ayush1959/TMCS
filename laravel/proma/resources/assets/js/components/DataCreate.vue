@@ -19,13 +19,41 @@
     <!-- <h1>{{ testVal }}</h1> -->
     <br>
     <modal name="hello-world">
-      <form>
-        <select v-model="selectedClient">
-          <option v-for="option in items1" :value="option.id">{{ option.user_name }}</option>
-        </select>
-      </form>
-      <button class="btn btn-primary" @click="hide()">Cancel</button>
-      <button class="btn btn-primary" @click="delayperson()">Ok</button>
+      <div class="container-fluid">
+        <div class="col-md-10">
+          <form>
+            <select v-model="selectedClient" class="form-control sell">
+              <option v-for="option in items1" :value="option.id">{{ option.user_name }}</option>
+            </select>
+            <!-- <select v-model="DeselectedClient">
+          <option v-for="option in items2" :value="option.id">{{ option.user_name }}</option>
+            </select>-->
+            <table>
+              <thead>
+                <tr>
+                  <th>User Name</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tr v-for="option in items2">
+                <td>{{ option.user_name }}</td>
+                <td>
+                  <button
+                    class="btn btn-primary btn-xs"
+                    @click="removedelayperson(option.id)"
+                  >Remove</button>
+                </td>
+              </tr>
+            </table>
+          </form>
+        </div>
+        <div class="col-md-2">
+          <button class="btn btn-primary okk" @click="delayperson()">Add</button>
+          <button class="btn btn-primary cncl" @click="hide()">Cancel</button>
+        </div>
+      </div>
+
+      <!-- <button class="btn btn-primary" @click="removedelayperson()">Remove</button> -->
     </modal>
     <div>
       <div>
@@ -55,7 +83,9 @@
             <td>{{ item.end_date }}</td>
             <td>{{ item.actual_close }}</td>
             <!-- <td v-for="(ite, value) in item" :key="value">{{ ite }}</td> -->
-            <td></td>
+            <table>
+              <tr v-for="ite in item.delay">{{ ite.user_name }}</tr>
+            </table>
             <td>
               <button
                 class="btn btn-danger btn-xs mrg"
@@ -63,7 +93,7 @@
               >Stop Monitoring</button>
             </td>
             <td>
-              <button class="btn btn-primary btn-xs mrg" @click="show(item.id)">Show</button>
+              <button class="btn btn-primary btn-xs mrg" @click="show(item.id)">Delay</button>
               <!-- <button onclick="myFunction()">Submit</button> -->
             </td>
           </tr>
@@ -79,8 +109,18 @@
             <td>{{ item.end_date }}</td>
             <td>{{ item.actual_close }}</td>
             <!-- <td v-for="(ite, value) in item" :key="value">{{ ite }}</td> -->
+            <table>
+              <tr v-for="ite in item.delay">{{ ite.user_name }}</tr>
+            </table>
             <td>
-              <button class="btn btn-danger btn-xs mrg" @click="doMonitor(item.id)">Start Monitoring</button>
+              <button
+                class="btn btn-success btn-xs mrg"
+                @click="doMonitor(item.id)"
+              >Start Monitoring</button>
+            </td>
+            <td>
+              <button class="btn btn-primary btn-xs mrg" @click="show(item.id)">Delay</button>
+              <!-- <button onclick="myFunction()">Submit</button> -->
             </td>
           </tr>
         </table>
@@ -95,25 +135,61 @@ export default {
   data() {
     return {
       items: [],
+      items0: [],
       items1: [],
+      items2: [],
       testVal: 0,
-      testVal1: 0,
+      testVal1: null,
       bttn: true,
       selectedClient: null,
+      DeselectedClient: null,
       mrdata: 0,
       xx: 0,
       selected: null
     };
   },
   methods: {
-    delayperson(index) {
-      this.testVal1 = index;
+    removedelayperson(index) {
+      this.DeselectedClient = index;
+      // alert(this.selectedClient);
+      // e.preventDefault();
+      // this.testVal1 = e;
       var x = this;
       axios
-        .get(`http://127.0.0.1:8000/projectde/${x.testVal1}`, {})
+        .delete(`http://127.0.0.1:8000/projectde/${x.DeselectedClient}`, {
+          // testVal: this.testVal,
+          // selectedClient: this.selectedClient
+        })
+        .then(function(response) {
+          if (response.status == 204) {
+            console.log(response.data);
+            x.$modal.hide("hello-world");
+            x.getAllData();
+            // x.items1 = response.data;
+          } else {
+            alert("Error");
+          }
+          console.log(response);
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+    },
+    delayperson() {
+      // alert(this.selectedClient);
+      // e.preventDefault();
+      // this.testVal1 = e;
+      var x = this;
+      axios
+        .post(`http://127.0.0.1:8000/projectde/${x.testVal1}`, {
+          testVal: this.testVal,
+          selectedClient: this.selectedClient
+        })
         .then(function(response) {
           if (response.status == 200) {
             console.log(response.data);
+            x.$modal.hide("hello-world");
+            x.getAllData();
             // x.items1 = response.data;
           } else {
             alert("Error");
@@ -133,7 +209,10 @@ export default {
         .then(function(response) {
           if (response.status == 200) {
             console.log(response.data);
-            x.items1 = response.data;
+            x.items1 = response.data[1];
+            x.items2 = response.data[2];
+            // x.looper(response.data);
+            //x.items0 = response.data;
           } else {
             alert("Error");
           }
@@ -147,6 +226,10 @@ export default {
     },
     hide() {
       this.$modal.hide("hello-world");
+    },
+    looper(index) {
+      this.items0 = index;
+      console.log(this.items0[1]);
     },
     changeDate(index) {
       console.log(index);
@@ -249,8 +332,11 @@ export default {
 </script>
 
 <style>
-.mrg {
-  margin-left: 20px;
+.ull {
+  margin-top: 20px;
+}
+.cncl {
+  margin-top: 220px;
 }
 table {
   border: 2px solid #42b983;

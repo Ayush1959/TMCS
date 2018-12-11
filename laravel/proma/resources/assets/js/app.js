@@ -14,6 +14,7 @@ window.Vue.use(VueRouter);
 
 import DataIndex from "./components/DataIndex.vue";
 import DataCreate from "./components/DataCreate.vue";
+import DataScore from "./components/DataScore.vue";
 // import bModal from 'bootstrap-vue/es/components/modal/modal';
 // import CompaniesEdit from './components/companies/CompaniesEdit.vue';
 
@@ -27,12 +28,12 @@ const routes = [{
         path: "/projects",
         component: DataCreate,
         name: "dataCreate"
-    }
-    // {
-    //     path: '/admin/companies/edit/:id',
-    //     component: CompaniesEdit,
-    //     name: 'editCompany'
-    // },
+    },
+    {
+        path: "/admin/score",
+        component: DataScore,
+        name: 'dataScore'
+    },
 ];
 
 const router = new VueRouter({

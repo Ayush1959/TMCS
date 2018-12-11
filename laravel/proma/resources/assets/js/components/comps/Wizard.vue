@@ -12,6 +12,9 @@
             <router-link :to="{name: 'dataCreate'}" class="btn btn-success">Project</router-link>
           </li>
           <li>
+            <router-link :to="{name: 'dataScore'}" class="btn btn-success">Score</router-link>
+          </li>
+          <li>
             <p class="nav_title">User</p>
           </li>
           <!-- <li>Chapter 9</li>
