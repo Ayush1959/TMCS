@@ -31,5 +31,12 @@ Route::get('projectid/{id}', 'ProjectController@edit');
 
 
 Route::get('projectcontroller', 'CronController@index');
+Route::get('projectmonthly', 'MonthlyCronController@index');
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+
+
+Route::get('sendbasicemail', 'MailController@basic_email');
+Route::get('sendhtmlemail', 'MailController@html_email');
+Route::get('sendattachmentemail', 'MailController@attachment_email');

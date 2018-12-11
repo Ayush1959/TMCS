@@ -2,6 +2,7 @@
   <div>
     <!-- {{ selectedClient }} -->
     <button @click="getAllData()">Get</button>
+    <button @click="getAll()">Month</button>
     <!-- {{ Type }} -->
     <div id="success_message" class="alert alert-success" v-if="xx == 1">Score Changed</div>
     <form name="myform">
@@ -124,6 +125,26 @@ export default {
       //   x.Newdata = true;
       axios
         .get("http://127.0.0.1:8000/projectcontroller", {})
+        .then(function(response) {
+          if (response.status == 200) {
+            console.log(response.data);
+            // x.items = response.data;
+          } else {
+            alert("Error");
+          }
+          console.log(response);
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+    },
+    getAll() {
+      //   this.bttn = false;
+      //   this.mrdata = 1;
+      var x = this;
+      //   x.Newdata = true;
+      axios
+        .get("http://127.0.0.1:8000/projectmonthly", {})
         .then(function(response) {
           if (response.status == 200) {
             console.log(response.data);
