@@ -1,72 +1,96 @@
 <template>
   <div class="container">
     <br>
-    <br>
-    <!-- {{ items }} -->
-    <br>
-    <!-- <button class="btn btn-primary" @click="getData">Get first Data</button> -->
-    <button class="btn btn-primary" @click="getAllData">Get Monitored Data</button>
-    <button class="btn btn-primary" @click="getAllNonData">Get Non Monitored Data Data</button>
-
-    <!-- <div>
-      <b-btn v-b-modal.modal1>Launch demo modal</b-btn>
-      <b-modal id="modal1" title="Bootstrap-Vue">
-        <p class="my-4">Hello from modal!</p>
-      </b-modal>
-    </div>-->
+    <button class="btn btn-primary" @click="getMonitoredData">Get Monitored Data</button>
+    <button class="btn btn-primary" @click="getNonMonitoredData">Get Non Monitored Data Data</button>
     <br>
     <br>
-    <!-- <h1>{{ testVal }}</h1> -->
     <br>
-    <modal name="hello-world">
+    <!-- PopUp Start -->
+    <modal name="delayPopup">
       <div class="container-fluid">
         <div class="col-md-10">
           <form>
-            <select v-model="selectedClient" class="form-control sele mrgt">
-              <option v-for="option in items1" :value="option.id">{{ option.user_name }}</option>
+            <select
+              v-model="selectedClient"
+              class="form-control sele mrgt"
+              @blur="$v.selectedClient.$touch()"
+            >
+              <option v-for="option in projectMembers" :value="option.id">{{ option.user_name }}</option>
             </select>
-            <!-- <select v-model="DeselectedClient">
-          <option v-for="option in items2" :value="option.id">{{ option.user_name }}</option>
-            </select>-->
+            <p
+              v-if="$v.selectedClient.$dirty &&  !$v.selectedClient.required"
+              class="error-message"
+            >Select a user</p>
             <br>
-            <table>
-              <thead>
-                <tr>
-                  <th>User Name</th>
-                  <th>Action</th>
-                </tr>
-              </thead>
-              <tr v-for="option in items2">
-                <td>{{ option.user_name }}</td>
-                <td>
-                  <button
-                    class="btn btn-primary btn-xs"
-                    @click.prevent="submitted"
-                    @click="removedelayperson(option.id)"
-                  >Remove</button>
-                </td>
-              </tr>
-            </table>
+            <div
+              id="success_message"
+              class="alert alert-danger"
+              v-if="userInDelayTable == 1"
+            >Already in Delay Table</div>
+            <div
+              id="success_message"
+              class="alert alert-success"
+              v-if="addToDelayTable == 1"
+            >Added to delay table</div>
+            <div id="success_message" class="alert alert-danger" v-if="removeFromDelayTable == 1">
+              Removed from Delay
+              table
+            </div>
+            <div>
+              <div class="col-md-7 col-md-offset-1">
+                <table class="table table-bordered">
+                  <thead>
+                    <tr>
+                      <th>User Name</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tr v-for="option in delayedUsers">
+                    <td>{{ option.user_name }}</td>
+                    <td>
+                      <button
+                        class="btn btn-primary btn-xs"
+                        @click.prevent="submitted"
+                        @click="removeUserFromDelayTable(option.id)"
+                      >Remove</button>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
           </form>
         </div>
         <div class="col-md-2">
           <button
             class="btn btn-primary okk mrgt"
             @click.prevent="submitted"
-            @click="delayperson()"
+            @click="addUserToDelayTable()"
+            :disabled="$v.selectedClient.$invalid"
           >Add</button>
-          <button class="btn btn-primary cncl" @click.prevent="submitted" @click="hide()">Cancel</button>
+          <button
+            class="btn btn-primary cncl"
+            @click.prevent="submitted"
+            @click="hidePopup()"
+          >Cancel</button>
         </div>
       </div>
-
-      <!-- <button class="btn btn-primary" @click="removedelayperson()">Remove</button> -->
     </modal>
+
+    <!-- PopUp Ends -->
+    <!-- Template Starts -->
     <div>
       <div>
-        <div id="success_message" class="alert alert-success" v-if="xx == 1">Status Changed</div>
-        <table class="table table-dark">
+        <div
+          id="success_message"
+          class="alert alert-success"
+          v-if="monitorAlert == 1"
+        >Status Changed</div>
+
+        <!-- Table for monitored Data -->
+        <table class="table table-bordered table-responsive">
           <thead>
-            <tr v-if="mrdata == 1">
+            <tr v-if="displayTable == 1">
               <th>Id</th>
               <th>Project</th>
               <th>Users</th>
@@ -78,35 +102,36 @@
               <th>Delay Responsive</th>
             </tr>
           </thead>
-          <!-- <tr> -->
-          <tr v-for="item in items" :key="item.id" v-if="mrdata == 1" class="brdr">
-            <td>{{ item.id }}</td>
-            <td>{{ item.title }}</td>
-            <table class="nobrdr">
-              <tr v-for="ite in item.user_names">{{ ite.user_name }}</tr>
-            </table>
-            <td>{{ item.start_date }}</td>
-            <td>{{ item.end_date }}</td>
-            <td>{{ item.actual_close }}</td>
-            <!-- <td v-for="(ite, value) in item" :key="value">{{ ite }}</td> -->
-            <table class="nobrdr">
-              <tr v-for="ite in item.delay">{{ ite.user_name }}</tr>
-            </table>
-            <td>
-              <button
-                class="btn btn-danger btn-xs mrg"
-                @click="doNotMonitor(item.id)"
-              >Stop Monitoring</button>
-            </td>
-            <td>
-              <button class="btn btn-primary btn-xs mrg" @click="show(item.id)">Delay</button>
-              <!-- <button onclick="myFunction()">Submit</button> -->
-            </td>
-          </tr>
+          <tbody>
+            <tr v-for="item in projectData" :key="item.id" v-if="displayTable == 1" class="brdr">
+              <td>{{ item.id }}</td>
+              <td>{{ item.title }}</td>
+              <table class="nobrdr">
+                <tr v-for="ite in item.user_names">{{ ite.user_name }}</tr>
+              </table>
+              <td>{{ item.start_date }}</td>
+              <td>{{ item.end_date }}</td>
+              <td>{{ item.actual_close }}</td>
+              <table class="nobrdr">
+                <tr v-for="ite in item.delay">{{ ite.user_name }}</tr>
+              </table>
+              <td>
+                <button
+                  class="btn btn-danger btn-xs mrg"
+                  @click="doNotMonitor(item.id)"
+                >Stop Monitoring</button>
+              </td>
+              <td>
+                <button class="btn btn-primary btn-xs mrg" @click="showPopup(item.id)">Delay</button>
+              </td>
+            </tr>
+          </tbody>
         </table>
-        <table class="table table-dark">
+
+        <!-- Table For Non Monitored Data -->
+        <table class="table table-bordered table-responsive">
           <thead>
-            <tr v-if="mrdata == 2">
+            <tr v-if="displayTable == 2">
               <th>Id</th>
               <th>Project</th>
               <th>Users</th>
@@ -118,61 +143,67 @@
               <th>Delay Responsive</th>
             </tr>
           </thead>
-          <!-- <tr> -->
-          <!-- <div id="error_message" class="alert alert-danger"> </> -->
-          <tr v-for="item in items" :key="item.id" v-if="mrdata == 2" class="brdr">
-            <td>{{ item.id }}</td>
-            <td>{{ item.title }}</td>
-            <table class="nobrdr">
-              <tr v-for="ite in item.user_names">{{ ite.user_name }}</tr>
-            </table>
-            <td>{{ item.start_date }}</td>
-            <td>{{ item.end_date }}</td>
-            <td>{{ item.actual_close }}</td>
-            <!-- <td v-for="(ite, value) in item" :key="value">{{ ite }}</td> -->
-            <table class="nobrdr">
-              <tr v-for="ite in item.delay">{{ ite.user_name }}</tr>
-            </table>
-            <td>
-              <button
-                class="btn btn-success btn-xs mrg"
-                @click="doMonitor(item.id)"
-              >Start Monitoring</button>
-            </td>
-            <td>
-              <button class="btn btn-primary btn-xs mrg" @click="show(item.id)">Delay</button>
-              <!-- <button onclick="myFunction()">Submit</button> -->
-            </td>
-          </tr>
+          <tbody>
+            <tr v-for="item in projectData" :key="item.id" v-if="displayTable == 2" class="brdr">
+              <td>{{ item.id }}</td>
+              <td>{{ item.title }}</td>
+              <table class="nobrdr">
+                <tr v-for="ite in item.user_names">{{ ite.user_name }}</tr>
+              </table>
+              <td>{{ item.start_date }}</td>
+              <td>{{ item.end_date }}</td>
+              <td>{{ item.actual_close }}</td>
+              <table class="nobrdr">
+                <tr v-for="ite in item.delay">{{ ite.user_name }}</tr>
+              </table>
+              <td>
+                <button
+                  class="btn btn-success btn-xs mrg"
+                  @click="doMonitor(item.id)"
+                >Start Monitoring</button>
+              </td>
+              <td>
+                <button class="btn btn-primary btn-xs mrg" @click="showPopup(item.id)">Delay</button>
+              </td>
+            </tr>
+          </tbody>
         </table>
       </div>
     </div>
+
+    <!-- Template Ends -->
   </div>
 </template>
 
 <script>
+import {
+  required,
+  minLength,
+  between,
+  integer,
+  email
+} from "vuelidate/lib/validators";
 // import { EventBus } from "../main";
 export default {
   data() {
     return {
-      items: [],
-      items0: [],
-      items1: [],
-      items2: [],
-      testVal: 0,
-      testVal1: null,
+      projectData: [],
+      projectMembers: [],
+      delayedUsers: [],
+      selectedProjectId: 0,
       isSubmitted: false,
-      bttn: true,
       selectedClient: null,
       DeselectedClient: null,
-      mrdata: 1,
-      xx: 0,
-      selected: null
+      displayTable: 1,
+      monitorAlert: 0,
+      addToDelayTable: 0,
+      userInDelayTable: 0,
+      removeFromDelayTable: 0
     };
   },
+  // Get data on the page while loading
   created: function() {
-    this.bttn = false;
-    this.mrdata = 1;
+    this.displayTable = 1;
     var x = this;
     x.Newdata = true;
     axios
@@ -180,7 +211,7 @@ export default {
       .then(function(response) {
         if (response.status == 200) {
           console.log(response.data);
-          x.items = response.data;
+          x.projectData = response.data;
         } else {
           alert("Error");
         }
@@ -190,28 +221,36 @@ export default {
         console.log(error);
       });
   },
+  validations: {
+    selectedClient: {
+      required
+    }
+  },
   methods: {
+    status(validation) {
+      return {
+        error: validation.$error,
+        dirty: validation.$dirty
+      };
+    },
     submitted() {
       this.isSubmitted = true;
     },
-    removedelayperson(index) {
+    // To Remove Users from the delayresponsible table
+    removeUserFromDelayTable(index) {
       this.DeselectedClient = index;
-      // alert(this.selectedClient);
-      // e.preventDefault();
-      // this.testVal1 = e;
       var x = this;
       axios
-        .delete(`http://127.0.0.1:8000/projectde/${x.DeselectedClient}`, {
-          // testVal: this.testVal,
-          // selectedClient: this.selectedClient
-        })
+        .delete(`http://127.0.0.1:8000/projectde/${x.DeselectedClient}`, {})
         .then(function(response) {
           if (response.status == 204) {
             console.log(response.data);
-            x.$modal.hide("hello-world");
-            x.getAllData();
-            // x.$modal.show("hello-world");
-            // x.items1 = response.data;
+            x.showPopup(x.selectedProjectId);
+            x.removeFromDelayTable = 1;
+            setTimeout(function() {
+              x.removeFromDelayTable = 0;
+            }, 3000);
+            x.getMonitoredData();
           } else {
             alert("Error");
           }
@@ -221,23 +260,28 @@ export default {
           console.log(error);
         });
     },
-    delayperson() {
-      // alert(this.selectedClient);
-      // e.preventDefault();
-      // this.testVal1 = e;
+    //  Add Users into the delayresponsible table
+    addUserToDelayTable() {
       var x = this;
       axios
-        .post(`http://127.0.0.1:8000/projectde/${x.testVal1}`, {
-          testVal: this.testVal,
+        .post("http://127.0.0.1:8000/projectdelay", {
+          selectedProjectId: this.selectedProjectId,
           selectedClient: this.selectedClient
         })
         .then(function(response) {
-          if (response.status == 200) {
+          if (response.status == 208) {
+            x.userInDelayTable = 1;
+            setTimeout(function() {
+              x.userInDelayTable = 0;
+            }, 3000);
+          } else if (response.status == 200) {
             console.log(response.data);
-            x.$modal.hide("hello-world");
-            x.getAllData();
-            // x.$modal.show("hello-world");
-            // x.items1 = response.data;
+            x.showPopup(x.selectedProjectId);
+            x.addToDelayTable = 1;
+            setTimeout(function() {
+              x.addToDelayTable = 0;
+            }, 3000);
+            x.getMonitoredData();
           } else {
             alert("Error");
           }
@@ -247,19 +291,17 @@ export default {
           console.log(error);
         });
     },
-    show(index) {
-      this.testVal = index;
+    //Shows Popup
+    showPopup(index) {
+      this.selectedProjectId = index;
       var x = this;
-      //   x.Newdata = true;
       axios
-        .get(`http://127.0.0.1:8000/projectid/${x.testVal}`, {})
+        .get(`http://127.0.0.1:8000/projectid/${x.selectedProjectId}`, {})
         .then(function(response) {
           if (response.status == 200) {
             console.log(response.data);
-            x.items1 = response.data[1];
-            x.items2 = response.data[2];
-            // x.looper(response.data);
-            //x.items0 = response.data;
+            x.projectMembers = response.data[1];
+            x.delayedUsers = response.data[2];
           } else {
             alert("Error");
           }
@@ -269,21 +311,15 @@ export default {
           console.log(error);
         });
 
-      this.$modal.show("hello-world");
+      this.$modal.show("delayPopup");
     },
-    hide() {
-      this.$modal.hide("hello-world");
+    //Hide Popup
+    hidePopup() {
+      this.$modal.hide("delayPopup");
     },
-    looper(index) {
-      this.items0 = index;
-      console.log(this.items0[1]);
-    },
-    changeDate(index) {
-      console.log(index);
-    },
-    getAllData() {
-      this.bttn = false;
-      this.mrdata = 1;
+    //Get all monitored projects
+    getMonitoredData() {
+      this.displayTable = 1;
       var x = this;
       x.Newdata = true;
       axios
@@ -291,7 +327,7 @@ export default {
         .then(function(response) {
           if (response.status == 200) {
             console.log(response.data);
-            x.items = response.data;
+            x.projectData = response.data;
           } else {
             alert("Error");
           }
@@ -301,23 +337,21 @@ export default {
           console.log(error);
         });
     },
+    //Stop monitoring a project
     doNotMonitor(index) {
-      this.bttn = false;
-      this.mrdata = 1;
-      //   alert(index);
-      this.testVal = index;
+      this.displayTable = 1;
+      this.selectedProjectId = index;
       var x = this;
       axios
-        .put(`http://127.0.0.1:8000/project/${x.testVal}`, {
+        .put(`http://127.0.0.1:8000/project/${x.selectedProjectId}`, {
           monitoring: 0
         })
         .then(function(response) {
           if (response.status == 200) {
-            // alert("Success");
-            x.getAllData();
-            x.xx = 1;
+            x.getMonitoredData();
+            x.monitorAlert = 1;
             setTimeout(function() {
-              x.xx = 0;
+              x.monitorAlert = 0;
             }, 3000);
           } else {
             alert("Error");
@@ -328,16 +362,18 @@ export default {
           console.log(error);
         });
     },
-    getAllNonData() {
-      // this.bttn = false;
-      this.mrdata = 2;
+    //get all projects which are not monitored
+    getNonMonitoredData() {
+      this.displayTable = 2;
       var x = this;
       x.Newdata = true;
       axios
         .get("http://127.0.0.1:8000/projects", {})
         .then(function(response) {
           if (response.status == 200) {
-            x.items = response.data;
+            x.projectData = response.data;
+            // x.nurl = response.data.next_page_url;
+            // x.purl = response.data.prev_page_url;
           } else {
             alert("Error");
           }
@@ -347,23 +383,21 @@ export default {
           console.log(error);
         });
     },
+    //Start monitoring specific project
     doMonitor(index) {
-      this.bttn = false;
-      this.mrdata = 2;
-      //   alert(index);
-      this.testVal = index;
+      this.displayTable = 2;
+      this.selectedProjectId = index;
       var x = this;
       axios
-        .put(`http://127.0.0.1:8000/project/${x.testVal}`, {
+        .put(`http://127.0.0.1:8000/project/${x.selectedProjectId}`, {
           monitoring: 1
         })
         .then(function(response) {
           if (response.status == 200) {
-            // alert("Success");
-            x.getAllNonData();
-            x.xx = 1;
+            x.getNonMonitoredData();
+            x.monitorAlert = 1;
             setTimeout(function() {
-              x.xx = 0;
+              x.monitorAlert = 0;
             }, 3000);
           } else {
             alert("Error");
@@ -382,23 +416,33 @@ export default {
 .sele {
   width: 80%;
 }
+
 .mrgt {
   margin-top: 10px;
 }
-.brdr {
-  border-bottom: #42b983 2px solid;
+
+.mrg {
+  /* margin-top: 50%; */
 }
+
+.brdr {
+  border-bottom: #dadada 1px solid;
+}
+
 .nobrdr {
   border: transparent;
   margin: 5px;
 }
+
 .ull {
   margin-top: 20px;
 }
+
 .cncl {
   margin-top: 210px;
 }
-table {
+
+/* table {
   border: 2px solid #42b983;
   border-radius: 3px;
   background-color: #fff;
@@ -421,7 +465,7 @@ td {
 
 th,
 td {
-  min-width: 120px;
+  min-width: 130px;
   padding: 10px 20px;
 }
 
@@ -446,5 +490,5 @@ th.active .arrow {
   border-left: 4px solid transparent;
   border-right: 4px solid transparent;
   border-bottom: 4px solid #fff;
-}
+} */
 </style>

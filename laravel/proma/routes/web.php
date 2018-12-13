@@ -20,27 +20,37 @@ Route::get('/', function () {
 
 Auth::routes();
 
-// Route::resource('project', 'ProjectController');
-Route::get('project', 'ProjectController@index');
-Route::get('projectuser', 'ProjectController@users');
-Route::get('projectuserdata', 'ProjectController@userdata');
-Route::get('projects', 'ProjectController@show');
-Route::put('project/{id}', 'ProjectController@update');
-Route::put('projectuser/{id}', 'ProjectController@usersupdate');
-// Route::post('projectuser', 'ProjectController@userslog');
-Route::post('projectde', 'ProjectController@delay');
-Route::delete('projectde/{id}', 'ProjectController@destroy');
-Route::get('projectid/{id}', 'ProjectController@edit');
-Route::get('projectuserdatedata/{id}', 'ProjectController@datechangeread');
-// Route::get('project', 'ProjectController@show');
+// Score Read -- DataRead.vue
+Route::get('projectuserdata', 'ProjectController@userdata'); //username and score
+Route::get('projectuserdatedata/{id}', 'ProjectController@datechangeread'); //username and score after datechange
+
+// Score Change -- DataScore.vue
+Route::get('projectuser', 'ProjectController@users'); //gets users list
+Route::put('projectuser/{id}', 'ProjectController@usersupdate'); //change user score
+
+// Project Display -- DataCreate.vue
+Route::get('projects', 'ProjectController@show'); //Non Monitored Data
+Route::get('project', 'ProjectController@index'); //Monitored data
+Route::put('project/{id}', 'ProjectController@update'); //Monitor or stop Monitoring
 
 
+
+// Model Popup --DataCreate.vue
+Route::get('projectid/{id}', 'ProjectController@edit'); //single project details
+Route::post('projectdelay', 'ProjectController@delay'); //add users to delay table
+Route::delete('projectde/{id}', 'ProjectController@destroy'); //delete users from delaY table
+
+
+
+
+// CRON CONTROLLERS
 Route::get('projectcontroller', 'CronController@index');
 Route::get('projectmonthly', 'MonthlyCronController@index');
 
+// INDEX
 Route::get('/home', 'HomeController@index')->name('home');
 
-
+// MAIL CONTROLLERS
 
 Route::get('sendbasicemail', 'MailController@basic_email');
 Route::get('sendhtmlemail', 'MailController@html_email');

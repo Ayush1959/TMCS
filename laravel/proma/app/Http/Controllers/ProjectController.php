@@ -16,9 +16,11 @@ use DB;
 class ProjectController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @Author Ayush
+     * @Date 11/12/18
+     * @param  
+     * @return array of Project data
+     * @Description gets all data of project if it is monitored
      */
     public function index()
     {
@@ -26,15 +28,12 @@ class ProjectController extends Controller
         $fulldata = array();
         $data_array = project::select('id', 'title', 'start_date', 'end_date', 'actual_close')->where('monitoring', 1)->where('status', 1)->get();
         foreach ($data_array as $aa) {
-            // return $aa->id;
             $use_array = DB::table('project_assigned')
                 ->join('users', 'project_assigned.user_id', '=', 'users.id')
                 ->select('users.user_name', 'users.status', 'users.id')
                 ->where('project_assigned.project_id', $aa->id)
                 ->where('users.status', 1)
                 ->get();
-            // array_push($usernamear, $use_array);
-            // return $use_array;
             $usernamear['id'] = $aa->id;
             $usernamear['title'] = $aa->title;
             $usernamear['user_names'] = $use_array;
@@ -57,56 +56,19 @@ class ProjectController extends Controller
                 ->where('project_delay.project_id', $aa->id)
                 ->where('users.status', 1)
                 ->get();
-            // array_push($usernamear, $use_array);
-            // return $use_array;
-            // return $delay_array;
             $usernamear['delay'] = $delay_array;
-            
-            // array_push($usernamear, [$aa->id, $aa->title, $use_array, $aa->start_date, $aa->end_date, $aa->actual_close]);
             $fulldata[] = $usernamear;
             $usernamear = array();
-            // return ($newDateString2);
         }
         return $fulldata;
-
-
-
-
-
-
-
-        // return user::all();
-        // return project::all();
-        // return project::select(' id ', ' title ', ' start_date ', ' end_date ', ' actual_close ')->where(' monitoring ', 1)->where(' status ', 1)->get();
-        // return project::select(' id ', ' title ', ' start_date ', ' end_date ', ' actual_close ')->where(' monitoring ', 1)->where(' status ', 1)->get();
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        // return project::select(' start_date ', ' end_date ', ' actual_close ')->where(' monitoring ', 1)->where(' status ', 1)->get();
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @Author Ayush
+     * @Date 11/12/18
+     * @param  
+     * @return array of Project data
+     * @Description gets all data of project if it is not monitored
      */
     public function show()
     {
@@ -150,26 +112,25 @@ class ProjectController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @Author Ayush
+     * @Date 11/12/18
+     * @param  
+     * @return array of User data
+     * @Description gets data of users if status is one
      */
     public function users()
     {
         $data_array = user::select('id', 'user_name', 'status', 'score')->where('status', 1)->get();
         return $data_array;
-        // foreach ($data_array as $aa) {
-        //     return $aa;
-        // }
     }
+
+    /**
+     * @Author Ayush
+     * @Date 11/12/18
+     * @param  
+     * @return array of username data
+     * @Description gets data of username and score from users 
+     */
 
     public function userdata()
     {
@@ -182,16 +143,14 @@ class ProjectController extends Controller
         $fin_date = array_unique($dates);
         $data_array["dates"] = $fin_date;
         return $data_array;
-        // foreach ($data_array as $aa) {
-        //     return $aa;
-        // }
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
+     * @Author Ayush
+     * @Date 11/12/18
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return array of user names
+     * * @Description gets username of users in a project for modal popup
      */
 
     public function edit(Request $request, $id)
@@ -214,29 +173,30 @@ class ProjectController extends Controller
         return $delay_arraylist;
     }
 
+    /**
+     * @Author Ayush
+     * @Date 11/12/18
+     * @param  int  $id
+     * @return array of user names and scores
+     * * @Description gets username and score of users in a project according to given date
+     */
 
     public function datechangeread($id)
     {
         $data_array = project_monthly_log::select('id', 'user_name', 'user_id', 'score')->where('date', $id)->paginate(5);
-        // foreach ($data_array as $aaa) {
-        //     $data = project_delay::findOrFail($aaa['id']);
-        //     $data->delete();
-        // }
         return $data_array;
 
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
+     * @Author Ayush
+     * @Date 11/12/18
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return http response
+     * * @Description Change the users score on given id
      */
     public function usersupdate(Request $request, $id)
     {
-        // $user = Auth::user()->user_name;
-        // return $user;
         $data = user::findOrFail($id);
         $input = $request->all();
         if ($request->input('type') == "Credit") {
@@ -262,8 +222,6 @@ class ProjectController extends Controller
 
         $datas->user_name = $data->user_name;
         $datas->comment_by = Auth::user()->id;
-
-        // $datas->comments = $request->input('comments');
         $saved = $datas->save();
 
         if (isset($saved)) {
@@ -275,28 +233,14 @@ class ProjectController extends Controller
                 'status' => config::get('constant.DB_Save_Error')
             ]);
         }
-        // return $ff;
-        // $data->score->update($ff);
-        // update(['active' => true]);
-        
-        // $dd = $data->score;
-        // return $dd;
-        // $data->update($request->all());
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
+     * @Author Ayush
+     * @Date 11/12/18
      * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return array of that project details which is not needeed
+     * * @Description stops or starts monitoring data
      */
     public function update(Request $request, $id)
     {
@@ -306,10 +250,11 @@ class ProjectController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @Author Ayush
+     * @Date 11/12/18
+     * @param  Request  request
+     * @return array of user names
+     * @Description Not found
      */
 
     public function userslog(Request $request)
@@ -344,58 +289,44 @@ class ProjectController extends Controller
     public function delay(Request $request)
     {
 
-         $del_array = array();
-         $input = $request->all();
-         $data = new Project_delay();
-         //get value from
-         $delay_array1 = DB::table('project_delay')
-             ->join('users', 'project_delay.user_id', '=', 'users.id')
-             ->select('users.id')
-             ->where('project_delay.project_id', $request->input('testVal'))
-             // ->where('users.status', 1)
-             ->get();
-         // return $delay_array1;
-         foreach ($delay_array1 as $aa) {
-             array_push($del_array, $aa->id);
-         }
-         if (in_array($request->input('selectedClient'), $del_array)) {
-             $saved = null;
-             // return response()->json(null, 208);
-             // return response()->json([
-             //     'status' => config::get('constant.DB_Save_Error')
-             // ]);
-         } else {
-             $data->project_id = $request->input('testVal');
-             $data->user_id = $request->input('selectedClient');
-             $saved = $data->save();
-         }
+        $del_array = array();
+        $input = $request->all();
+        $data = new Project_delay();
+        $delay_array1 = DB::table('project_delay')
+            ->join('users', 'project_delay.user_id', '=', 'users.id')
+            ->select('users.id')
+            ->where('project_delay.project_id', $request->input('selectedProjectId'))
+            ->get();
+        foreach ($delay_array1 as $aa) {
+            array_push($del_array, $aa->id);
+        }
+        if (in_array($request->input('selectedClient'), $del_array)) {
+            return response()->json(208, 208);
+        } else {
+            $data->project_id = $request->input('selectedProjectId');
+            $data->user_id = $request->input('selectedClient');
+            $saved = $data->save();
+        }
 
-         if (isset($saved)) {
+        if (isset($saved)) {
              // return 1;
-             return response()->json([
-                 'status' => config::get('constant.Success')
-             ]);
-         } else {
+            return response()->json([
+                'status' => config::get('constant.Success')
+            ]);
+        } else {
              // return 0;
-             return response()->json([
-                 'status' => config::get('constant.DB_Save_Error')
-             ]);
-         }
-
-
-
-
-        // $xxx = array();
-        // $xxx[1] = $request->input('testVal');
-        // $xxx[2] = $request->input('selectedClient');
-        // return $xxx;
+            return response()->json([
+                'status' => config::get('constant.DB_Save_Error')
+            ]);
+        }
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
+     * @Author Ayush
+     * @Date 11/12/18
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return response
+     * @Description deletes responsive users from delay table
      */
     public function destroy($id)
     {
@@ -403,12 +334,7 @@ class ProjectController extends Controller
         foreach ($data_array as $aaa) {
             $data = project_delay::findOrFail($aaa['id']);
             $data->delete();
-            // return $aaa['id'];
         }
-        // $data = project_delay::findOrFail($data_array->id);
-        // $data = project_delay::with(['user_id'])->findOrFail($id);
-        // $data->delete();
-        // $contact->delete();
 
         return response()->json(null, 204);
     }

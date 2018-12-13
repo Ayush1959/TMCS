@@ -13,6 +13,8 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    {{--
+    <link href="{{ asset('css/appmain.css') }}" rel="stylesheet"> --}}
 </head>
 <style>
     .mrgtp{
@@ -69,13 +71,13 @@
                                 </div>
                                 <!-- </li> -->
                                 <!-- <li class="bgb"> -->
-                                <div class="col-md-1">
+                                <!-- <div class="col-md-1">
                                     <span class="glyphicon glyphicon-euro"></span>
-                                </div>
+                                </div> -->
                                 <!-- <div class="col-md-3">
                                     <router-link :to="{name: 'dataRead'}" class="bttn">Score</router-link>
                                 </div> -->
-                                <router-link :to="{name: 'table'}">Table</router-link>
+                                <!-- <router-link :to="{name: 'table'}">Table</router-link> -->
                             </div>
                             <!-- <div>
                                 <li class="bgb">
