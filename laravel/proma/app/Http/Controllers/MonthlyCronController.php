@@ -22,7 +22,7 @@ class MonthlyCronController extends Controller
     {
         $dataarr = array();
         $newdate = date("Y-m-d", strtotime("-1 months"));
-        $data_array = user::select('id', 'user_name', 'status', 'score')->where('status', 1)->get();
+        $data_array = user::select('id', 'user_name', 'status', 'score')->where('status', 1)->where('user_type', 4)->get();
         foreach ($data_array as $aa) {
             // $dataarr[$aa->user_name] = $aa->score;
             // array_push($dataarr, $aa->user_name);

@@ -14,19 +14,24 @@
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/', function () {
+    return redirect('/home');
+});
 
 Auth::routes();
 
 // Route::resource('project', 'ProjectController');
 Route::get('project', 'ProjectController@index');
 Route::get('projectuser', 'ProjectController@users');
+Route::get('projectuserdata', 'ProjectController@userdata');
 Route::get('projects', 'ProjectController@show');
 Route::put('project/{id}', 'ProjectController@update');
 Route::put('projectuser/{id}', 'ProjectController@usersupdate');
 // Route::post('projectuser', 'ProjectController@userslog');
-Route::post('projectde/{id}', 'ProjectController@delay');
+Route::post('projectde', 'ProjectController@delay');
 Route::delete('projectde/{id}', 'ProjectController@destroy');
 Route::get('projectid/{id}', 'ProjectController@edit');
+Route::get('projectuserdatedata/{id}', 'ProjectController@datechangeread');
 // Route::get('project', 'ProjectController@show');
 
 

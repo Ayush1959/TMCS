@@ -1,15 +1,9 @@
-@extends('layouts.app')
+@extends('layouts.apphome')
 
 @section('content')
-<div class="container">
-    <div class="row">
-        {{--  <div class="col-md-8 col-md-offset-2">  --}}
-            <div class="panel panel-default">
-                <div class="panel-heading">Dashboard</div>
-                    <router-view name="DataIndex"></router-view>
-                    <router-view></router-view>
-            </div>
-        {{--  </div>  --}}
+<div class="row">
+    <router-view name="DataIndex"></router-view>
+    <router-view></router-view>
+    {{--  <task></task>  --}}
     </div>
-</div>
 @endsection

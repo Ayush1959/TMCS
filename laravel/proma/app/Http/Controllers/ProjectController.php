@@ -8,6 +8,7 @@ use App\Project;
 use Illuminate\Support\Facades\Config;
 use App\Project_assigned;
 use App\Project_user_log;
+use App\Project_monthly_log;
 use App\Project_delay;
 use App\User;
 use DB;
@@ -170,6 +171,22 @@ class ProjectController extends Controller
         // }
     }
 
+    public function userdata()
+    {
+        $dates = array();
+        $data_array = user::select('id', 'user_name', 'status', 'score', 'user_type')->where('status', 1)->where('user_type', 4)->paginate(5);
+        $date_array = project_monthly_log::select('date')->get();
+        foreach ($date_array as $aa) {
+            array_push($dates, $aa->date);
+        }
+        $fin_date = array_unique($dates);
+        $data_array["dates"] = $fin_date;
+        return $data_array;
+        // foreach ($data_array as $aa) {
+        //     return $aa;
+        // }
+    }
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -195,6 +212,18 @@ class ProjectController extends Controller
         $delay_arraylist[1] = $use_array;
         $delay_arraylist[2] = $del_array;
         return $delay_arraylist;
+    }
+
+
+    public function datechangeread($id)
+    {
+        $data_array = project_monthly_log::select('id', 'user_name', 'user_id', 'score')->where('date', $id)->paginate(5);
+        // foreach ($data_array as $aaa) {
+        //     $data = project_delay::findOrFail($aaa['id']);
+        //     $data->delete();
+        // }
+        return $data_array;
+
     }
 
     /**
@@ -305,45 +334,53 @@ class ProjectController extends Controller
 
     /**
      * Update the specified resource in storage.
-     *
+     * @Author Ayush
+     * @Date 11/12/18
+     * 
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
      * @return \Illuminate\Http\Response
+     * @description to add users into project delayed user list
      */
-    public function delay(Request $request, $id)
+    public function delay(Request $request)
     {
-        $del_array = array();
-        $input = $request->all();
-        $data = new Project_delay();
-        $delay_array1 = DB::table('project_delay')
-            ->join('users', 'project_delay.user_id', '=', 'users.id')
-            ->select('users.id')
-            ->where('project_delay.project_id', $request->input('testVal'))
-            // ->where('users.status', 1)
-            ->get();
-        // return $delay_array1;
-        foreach ($delay_array1 as $aa) {
-            array_push($del_array, $aa->id);
-        }
-        if (in_array($request->input('selectedClient'), $del_array)) {
-            return 1;
-        } else {
-            $data->project_id = $request->input('testVal');
-            $data->user_id = $request->input('selectedClient');
-            $saved = $data->save();
-        }
 
-        if (isset($saved)) {
-            // return 1;
-            return response()->json([
-                'status' => config::get('constant.Success')
-            ]);
-        } else {
-            // return 0;
-            return response()->json([
-                'status' => config::get('constant.DB_Save_Error')
-            ]);
-        }
+         $del_array = array();
+         $input = $request->all();
+         $data = new Project_delay();
+         //get value from
+         $delay_array1 = DB::table('project_delay')
+             ->join('users', 'project_delay.user_id', '=', 'users.id')
+             ->select('users.id')
+             ->where('project_delay.project_id', $request->input('testVal'))
+             // ->where('users.status', 1)
+             ->get();
+         // return $delay_array1;
+         foreach ($delay_array1 as $aa) {
+             array_push($del_array, $aa->id);
+         }
+         if (in_array($request->input('selectedClient'), $del_array)) {
+             $saved = null;
+             // return response()->json(null, 208);
+             // return response()->json([
+             //     'status' => config::get('constant.DB_Save_Error')
+             // ]);
+         } else {
+             $data->project_id = $request->input('testVal');
+             $data->user_id = $request->input('selectedClient');
+             $saved = $data->save();
+         }
+
+         if (isset($saved)) {
+             // return 1;
+             return response()->json([
+                 'status' => config::get('constant.Success')
+             ]);
+         } else {
+             // return 0;
+             return response()->json([
+                 'status' => config::get('constant.DB_Save_Error')
+             ]);
+         }
 
 
 

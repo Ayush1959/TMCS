@@ -14,6 +14,19 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
+<style>
+    .mrgtp{
+    margin-top: 13px;
+}
+.bttn{
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+.a{
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+</style>
 
 <body>
     <div id="app">
@@ -31,15 +44,51 @@
 
                     <!-- Branding Image -->
                     <a class="navbar-brand" href="{{ url('/') }}">
-                        {{ config('app.name', 'Laravel') }}
+                        <span class="glyphicon glyphicon-euro"></span>
+                        {{ config('Score', 'Score') }}
                     </a>
                 </div>
 
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
                     <!-- Left Side Of Navbar -->
-                    <ul class="nav navbar-nav">
-                        &nbsp;
-                    </ul>
+                    <div>
+                        <ul class="nav navbar-nav">
+                            <div class="mrgtp">
+                                <!-- <li class="bgb"> -->
+                                <div class="col-md-1">
+                                    <span class="glyphicon glyphicon-folder-open"></span>
+                                </div>
+                                <div class="col-md-3">
+                                    <router-link :to="{name: 'dataCreate'}" class="bttn">Project</router-link>
+                                </div>
+                                <div class="col-md-1">
+                                    <span class="glyphicon glyphicon-plus"></span>
+                                </div>
+                                <div class="col-md-3">
+                                    <router-link :to="{name: 'dataScore'}">Add Score</router-link>
+                                </div>
+                                <!-- </li> -->
+                                <!-- <li class="bgb"> -->
+                                <div class="col-md-1">
+                                    <span class="glyphicon glyphicon-euro"></span>
+                                </div>
+                                <!-- <div class="col-md-3">
+                                    <router-link :to="{name: 'dataRead'}" class="bttn">Score</router-link>
+                                </div> -->
+                                <router-link :to="{name: 'table'}">Table</router-link>
+                            </div>
+                            <!-- <div>
+                                <li class="bgb">
+                                    <div class="col-md-2">
+                                        <span class="glyphicon glyphicon-plus"></span>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <router-link :to="{name: 'dataRead'}" class="bttn">Score</router-link>
+                                    </div>
+                                </li>
+                            </div> -->
+                        </ul>
+                    </div>
 
                     <!-- Right Side Of Navbar -->
                     <ul class="nav navbar-nav navbar-right">

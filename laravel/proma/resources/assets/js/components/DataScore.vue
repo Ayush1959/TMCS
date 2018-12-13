@@ -1,27 +1,29 @@
 <template>
-  <div>
+  <div class="container">
     <!-- {{ selectedClient }} -->
-    <button @click="getAllData()">Get</button>
-    <button @click="getAll()">Month</button>
+    <!-- <button @click="getAllData()">Get</button>
+    <button @click="getAll()">Month</button>-->
     <!-- {{ Type }} -->
-    <div id="success_message" class="alert alert-success" v-if="xx == 1">Score Changed</div>
-    <form name="myform">
-      Employee:
-      <select v-model="selectedClient" class="form-control sell">
-        <option v-for="option in items1" :value="option.id">{{ option.user_name }}</option>
-      </select>
-      Type:
-      <select v-model="Type" class="form-control sell">
-        <option v-for="option in types" :value="option">{{ option }}</option>
-      </select>
-      Score:
-      <input type="number" class="form-control" v-model="score">
-      Comments:
-      <input type="text" class="form-control" v-model="comments">
-    </form>
-    <br>
-    <br>
-    <button @click="scoreUpdate()">Update Score</button>
+    <div class="col-md-6 col-md-offset-2">
+      <div id="success_message" class="alert alert-success" v-if="xx == 1">Score Changed</div>
+      <form name="myform">
+        <label for="empl">Employee:</label>
+        <select v-model="selectedClient" class="form-control sell" id="empl">
+          <option v-for="option in items1" :value="option.id">{{ option.user_name }}</option>
+        </select>
+        <label for="typ">Type:</label>
+        <select v-model="Type" class="form-control sell" id="typ">
+          <option v-for="option in types" :value="option">{{ option }}</option>
+        </select>
+        <label for="typ">Score:</label>
+        <input type="number" class="form-control" v-model="score" id="scr">
+        <label for="typ">Comments:</label>
+        <input type="text" class="form-control" v-model="comments" id="cmnt">
+      </form>
+      <br>
+      <br>
+      <button @click="scoreUpdate()" class="btn btn-primary fr">Update Score</button>
+    </div>
   </div>
 </template>
 
@@ -163,4 +165,7 @@ export default {
 </script>
 
 <style>
+.fr {
+  float: right;
+}
 </style>

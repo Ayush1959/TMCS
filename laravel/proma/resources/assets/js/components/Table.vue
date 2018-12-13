@@ -22,13 +22,23 @@
       <div class="container-fluid">
         <div class="col-md-10">
           <form>
-            <select v-model="selectedClient" class="form-control sele mrgt">
+            <select
+              v-model="selectedClient"
+              class="form-control sele mrgt"
+              @blur="$v.selectedClient.$touch()"
+            >
               <option v-for="option in items1" :value="option.id">{{ option.user_name }}</option>
             </select>
+            <p
+              v-if="$v.selectedClient.$dirty &&  !$v.selectedClient.required"
+              class="error-message"
+            >Select a user</p>
             <!-- <select v-model="DeselectedClient">
           <option v-for="option in items2" :value="option.id">{{ option.user_name }}</option>
             </select>-->
             <br>
+            <div id="success_message" class="alert alert-danger" v-if="yy == 1">Already in Db</div>
+            <div id="success_message" class="alert alert-success" v-if="xx == 1">Saved to DB</div>
             <table>
               <thead>
                 <tr>
@@ -54,6 +64,7 @@
             class="btn btn-primary okk mrgt"
             @click.prevent="submitted"
             @click="delayperson()"
+            :disabled="$v.selectedClient.$invalid"
           >Add</button>
           <button class="btn btn-primary cncl" @click.prevent="submitted" @click="hide()">Cancel</button>
         </div>
@@ -151,6 +162,13 @@
 </template>
 
 <script>
+import {
+  required,
+  minLength,
+  between,
+  integer,
+  email
+} from "vuelidate/lib/validators";
 // import { EventBus } from "../main";
 export default {
   data() {
@@ -167,6 +185,7 @@ export default {
       DeselectedClient: null,
       mrdata: 1,
       xx: 0,
+      yy: 0,
       selected: null
     };
   },
@@ -190,7 +209,18 @@ export default {
         console.log(error);
       });
   },
+  validations: {
+    selectedClient: {
+      required
+    }
+  },
   methods: {
+    status(validation) {
+      return {
+        error: validation.$error,
+        dirty: validation.$dirty
+      };
+    },
     submitted() {
       this.isSubmitted = true;
     },
@@ -208,7 +238,8 @@ export default {
         .then(function(response) {
           if (response.status == 204) {
             console.log(response.data);
-            x.$modal.hide("hello-world");
+            x.show(x.testVal);
+            // x.$modal.hide("hello-world");
             x.getAllData();
             // x.$modal.show("hello-world");
             // x.items1 = response.data;
@@ -227,14 +258,26 @@ export default {
       // this.testVal1 = e;
       var x = this;
       axios
-        .post(`http://127.0.0.1:8000/projectde/${x.testVal1}`, {
+        .post("http://127.0.0.1:8000/projectde", {
           testVal: this.testVal,
+          testVal1: this.testVal1,
           selectedClient: this.selectedClient
         })
         .then(function(response) {
+          if (response.status == 208) {
+            x.yy = 1;
+            setTimeout(function() {
+              x.yy = 0;
+            }, 3000);
+          }
           if (response.status == 200) {
             console.log(response.data);
-            x.$modal.hide("hello-world");
+            x.show(x.testVal);
+            x.xx = 1;
+            setTimeout(function() {
+              x.xx = 0;
+            }, 3000);
+            // x.$modal.hide("hello-world");
             x.getAllData();
             // x.$modal.show("hello-world");
             // x.items1 = response.data;
@@ -421,7 +464,7 @@ td {
 
 th,
 td {
-  min-width: 120px;
+  min-width: 130px;
   padding: 10px 20px;
 }
 

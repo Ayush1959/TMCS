@@ -1,5 +1,5 @@
 <template>
-  <div id="app" class="container mx-auto py-6">
+  <div id="app" class="mx-auto py-6">
     <div class="content">
       <Wizard/>
     </div>
