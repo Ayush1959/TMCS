@@ -19,17 +19,6 @@ class CronController extends Controller
 {
     public function index()
     {
-        // $data = array('name' => "Ayush Srihari");
-
-        // Mail::send(['text' => 'mail'], $data, function ($message) {
-        //     $message->to('srihari.ayush@gmail.com', 'Laravel Mail')->subject('Laravel Basic Testing Mail');
-        //     $message->from('xyz@gmail.com', 'Ayush');
-        // });
-        // return 1;
-        // echo "Basic Email Sent. Check your inbox.";
-        // $ename = "srihari.ayush@gmail.com";
-        // $enote = "Hey There";
-        // Mail::to($ename)->send($enote);
         $date = date('Y-m-d H:i:s');
         $date_array = array();
         $arr = array();
@@ -83,28 +72,10 @@ class CronController extends Controller
                     $saved = $datas->save();
                 }
             }
-            // $myDateTime = \DateTime::createFromFormat('Y-m-d h:i:s', $aa->end_date);
-            // $newDateString = $myDateTime->format('d/m/Y');
-            // $myDateTime1 = \DateTime::createFromFormat('Y-m-d h:i:s', $date);
-            // $newDateString1 = $myDateTime1->format('d/m/Y:H:i:s');
-            // $myDateTime2 = \DateTime::createFromFormat('d/m/Y:H:i:s', $newDateString1);
-            // 1
-            // 1
-            // 1
-
-            // $datetime1 = new \DateTime('2016-11-30 03:55:06');//start time
-            // $datetime2 = new \DateTime('2016-11-28 11:55:06');//end time
-            // $interval = $datetime1->diff($datetime2);
-            // $date1 = $interval->format('%d');//00 years 0 months 0 days 08 hours 0 minutes 0 seconds
-
-            // 1
-            // 1   
-            // 1
 
             $datetime1 = new \DateTime($date);//start time
             $datetime2 = new \DateTime($aa->end_date);//end time
             $interval = $datetime1->diff($datetime2);
-            // $date1 = $interval->format('%d');//00 years 0 months 0 days 08 hours 0 minutes 0 seconds
             $date1 = $interval->format("%R%a");
             $dae = 2;
             $validarraythreeday = array("+1", "+2", "+3");
@@ -116,14 +87,7 @@ class CronController extends Controller
                     ->where('project_assigned.project_id', $aa->id)
                     ->where('users.status', 1)
                     ->get();
-                    // ->where('users.user_type', 4)
                 foreach ($use_array as $zz) {
-                    // $data = array('name' => $zz->user_name, 'pname' => $aa->title, 'end' => $aa->end_date);
-
-                    // Mail::queue(['text' => 'mailcd'], $data, function ($message) {
-                    //     $message->to('srihari.ayush@gmail.com', 'Laravel Mail')->subject('Laravel Basic Testing Mail');
-                    //     $message->from('xyz@gmail.com', 'Ayush');
-                    // });
                     $objDemo = new \stdClass();
                     $objDemo->demo_one = $aa->title;
                     $objDemo->demo_two = $aa->end_date;
@@ -140,14 +104,7 @@ class CronController extends Controller
                     ->where('project_assigned.project_id', $aa->id)
                     ->where('users.status', 1)
                     ->get();
-                    // ->where('users.user_type', 4)
                 foreach ($use_array as $zz) {
-                    // $data = array('name' => $zz->user_name, 'pname' => $aa->title, 'end' => $aa->end_date);
-
-                    // Mail::queue(['text' => 'mailcd'], $data, function ($message) {
-                    //     $message->to('srihari.ayush@gmail.com', 'Laravel Mail')->subject('Laravel Basic Testing Mail');
-                    //     $message->from('xyz@gmail.com', 'Ayush');
-                    // });
                     $objDemo = new \stdClass();
                     $objDemo->demo_one = $aa->title;
                     $objDemo->demo_two = $aa->end_date;
@@ -157,63 +114,6 @@ class CronController extends Controller
                     Mail::to("srihari.ayush@gmail.com")->queue(new DemoEmail($objDemo));
                 }
             }
-
-            // $date1 = $date->getTimestamp();
-            // $date1 = strtotime($myDateTime2);
-            // $date1 = $newDateString1->getTimestamp();
-            // $date1 = new \DateTime($newDateString);
-            // $date1 = $newDateString1;
-            // $date1 = date_create("2017-02-10 00:00:00");
-            // $date2 = $newDateString;
-            // $date2 = date_create("2017-02-03 11:03:00");
-            // $arr[$aa->title] = $dae;
-            // $arr[2] = $datetime2;
-            // $diff = date_diff($date1, $date2);
-            // $stats = $diff->format("%a");
-            // $stats = $date - $aa->end_date;
-            // $arr[$aa->title] = $stats;
-            // array_push($arr, $stats);
-            // return $stats;
-            // if ($stats <= 3 && $stats > 0) {
-                //     $use_array = DB::table('project_assigned')
-            //         ->join('users', 'project_assigned.user_id', '=', 'users.id')
-            //         ->select('users.user_name', 'users.user_type', 'users.status', 'users.id')
-            //         ->where('project_assigned.project_id', $aa->id)
-            //         ->where('users.status', 1)
-            //         ->get();
-            //         // ->where('users.user_type', 4)
-            //     foreach ($use_array as $zz) {
-            //         $data = array('name' => $zz->user_name, 'pname' => $aa->title, 'end' => $aa->end_date);
-
-            //         Mail::send(['text' => 'mail'], $data, function ($message) {
-            //             $message->to('srihari.ayush@gmail.com', 'Laravel Mail')->subject('Laravel Basic Testing Mail');
-            //             $message->from('xyz@gmail.com', 'Ayush');
-            //         });
-            //     }
-            // }
-            // if ($stats == 0) {
-            //     $use_array = DB::table('project_assigned')
-            //         ->join('users', 'project_assigned.user_id', '=', 'users.id')
-            //         ->select('users.user_name', 'users.user_type', 'users.status', 'users.id')
-            //         ->where('project_assigned.project_id', $aa->id)
-            //         ->where('users.status', 1)
-            //         ->get();
-            //         // ->where('users.user_type', 4)
-            //     foreach ($use_array as $zz) {
-            //         $data = array('name' => $zz->user_name, 'pname' => $aa->title, 'end' => $aa->end_date);
-
-            //         Mail::send(['text' => 'mailcd'], $data, function ($message) {
-            //             $message->to('srihari.ayush@gmail.com', 'Laravel Mail')->subject('Laravel Basic Testing Mail');
-            //             $message->from('xyz@gmail.com', 'Ayush');
-            //         });
-            //     }
-            // } 
-            // else {
-                //     $date_array[$aa->title] = 2;
-                // }
-
         }
-        // return $arr;
-            // return $date_array;
     }
 }

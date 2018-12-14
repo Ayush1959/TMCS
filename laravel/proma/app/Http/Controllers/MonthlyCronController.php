@@ -24,8 +24,6 @@ class MonthlyCronController extends Controller
         $newdate = date("Y-m-d", strtotime("-1 months"));
         $data_array = user::select('id', 'user_name', 'status', 'score')->where('status', 1)->where('user_type', 4)->get();
         foreach ($data_array as $aa) {
-            // $dataarr[$aa->user_name] = $aa->score;
-            // array_push($dataarr, $aa->user_name);
             $data = new Project_monthly_log();
             $data->user_id = $aa->id;
             $data->user_name = $aa->user_name;
@@ -46,6 +44,5 @@ class MonthlyCronController extends Controller
                 'status' => config::get('constant.DB_Save_Error')
             ]);
         }
-        // return $dataarr;
     }
 }

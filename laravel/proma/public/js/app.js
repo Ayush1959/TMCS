@@ -50632,8 +50632,6 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__ = __webpack_require__(14);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__);
 //
 //
 //
@@ -50663,20 +50661,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -50691,35 +50675,59 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     };
   },
 
-  created: function created() {
-    var x = this;
-    // `this` points to the vm instance
-    axios.get("http://127.0.0.1:8000/projectuser", {}).then(function (response) {
-      if (response.status == 200) {
-        console.log(response.data);
-        x.items1 = response.data;
-      } else {
-        alert("Error");
-      }
-      console.log(response);
-    }).catch(function (error) {
-      console.log(error);
-    });
-  },
-  validations: {
-    selectedClient: {
-      required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"]
-    },
-    Type: {
-      required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"]
-    },
-    score: {
-      required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"]
-    }
-  },
+  // created: function() {
+  //   var x = this;
+  //   // `this` points to the vm instance
+  //   axios
+  //     .get("http://127.0.0.1:8000/projectuser", {})
+  //     .then(function(response) {
+  //       if (response.status == 200) {
+  //         console.log(response.data);
+  //         x.items1 = response.data;
+  //         // x.items2 = response.data[2];
+  //         // x.looper(response.data);
+  //         //x.items0 = response.data;
+  //       } else {
+  //         alert("Error");
+  //       }
+  //       console.log(response);
+  //     })
+  //     .catch(function(error) {
+  //       console.log(error);
+  //     });
+  // },
   methods: {
     scoreUpdate: function scoreUpdate() {
       var x = this;
+      //   axios
+      //     .all([
+      //       axios.put(`http://127.0.0.1:8000/projectuser/${x.selectedClient}`, {
+      //         score: this.score,
+      //         type: this.Type
+      //       }),
+      //       axios.post("http://127.0.0.1:8000/projectuser", {
+      //         id: this.selectedClient,
+      //         comments: this.comments
+      //       })
+      //     ])
+      //     .then(
+      //       axios.spread((firstResponse, secondResponse) => {
+      //         console.log(firstResponse.data, secondResponse.data);
+      //         // console.log(secondResponse.status);
+      //         if (secondResponse.status == 200) {
+      //           x.xx = 1;
+      //           x.selectedClient = null;
+      //           x.Type = null;
+      //           x.score = null;
+      //           setTimeout(function() {
+      //             x.xx = 0;
+      //           }, 3000);
+      //         } else {
+      //           alert("Error");
+      //         }
+      //       })
+      //     )
+      //     .catch(error => console.log(error));
       axios.put("http://127.0.0.1:8000/projectuser/" + x.selectedClient, {
         score: this.score,
         type: this.Type,
@@ -50736,6 +50744,40 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           setTimeout(function () {
             x.xx = 0;
           }, 3000);
+        } else {
+          alert("Error");
+        }
+        console.log(response);
+      }).catch(function (error) {
+        console.log(error);
+      });
+    },
+    getAllData: function getAllData() {
+      //   this.bttn = false;
+      //   this.mrdata = 1;
+      var x = this;
+      //   x.Newdata = true;
+      axios.get("http://127.0.0.1:8000/projectcontroller", {}).then(function (response) {
+        if (response.status == 200) {
+          console.log(response.data);
+          // x.items = response.data;
+        } else {
+          alert("Error");
+        }
+        console.log(response);
+      }).catch(function (error) {
+        console.log(error);
+      });
+    },
+    getAll: function getAll() {
+      //   this.bttn = false;
+      //   this.mrdata = 1;
+      var x = this;
+      //   x.Newdata = true;
+      axios.get("http://127.0.0.1:8000/projectmonthly", {}).then(function (response) {
+        if (response.status == 200) {
+          console.log(response.data);
+          // x.items = response.data;
         } else {
           alert("Error");
         }
@@ -51230,183 +51272,29 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
-    _c("div", { staticClass: "col-md-6 col-md-offset-2" }, [
-      _vm.xx == 1
-        ? _c(
-            "div",
-            {
-              staticClass: "alert alert-success",
-              attrs: { id: "success_message" }
-            },
-            [_vm._v("Score Changed")]
-          )
-        : _vm._e(),
-      _vm._v(" "),
-      _c("form", { attrs: { name: "myform" } }, [
-        _c("label", { attrs: { for: "empl" } }, [_vm._v("Employee:")]),
-        _vm._v(" "),
-        _c(
-          "select",
-          {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.selectedClient,
-                expression: "selectedClient"
-              }
-            ],
-            staticClass: "form-control sell",
-            attrs: { id: "empl" },
-            on: {
-              blur: function($event) {
-                _vm.$v.selectedClient.$touch()
-              },
-              change: function($event) {
-                var $$selectedVal = Array.prototype.filter
-                  .call($event.target.options, function(o) {
-                    return o.selected
-                  })
-                  .map(function(o) {
-                    var val = "_value" in o ? o._value : o.value
-                    return val
-                  })
-                _vm.selectedClient = $event.target.multiple
-                  ? $$selectedVal
-                  : $$selectedVal[0]
-              }
-            }
-          },
-          _vm._l(_vm.items1, function(option) {
-            return _c("option", { domProps: { value: option.id } }, [
-              _vm._v(_vm._s(option.user_name))
-            ])
-          })
-        ),
-        _vm._v(" "),
-        _vm.$v.selectedClient.$dirty && !_vm.$v.selectedClient.required
-          ? _c("p", { staticClass: "error-message" }, [_vm._v("Select a user")])
-          : _vm._e(),
-        _vm._v(" "),
-        _c("label", { attrs: { for: "typ" } }, [_vm._v("Type:")]),
-        _vm._v(" "),
-        _c(
-          "select",
-          {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.Type,
-                expression: "Type"
-              }
-            ],
-            staticClass: "form-control sell",
-            attrs: { id: "typ" },
-            on: {
-              blur: function($event) {
-                _vm.$v.Type.$touch()
-              },
-              change: function($event) {
-                var $$selectedVal = Array.prototype.filter
-                  .call($event.target.options, function(o) {
-                    return o.selected
-                  })
-                  .map(function(o) {
-                    var val = "_value" in o ? o._value : o.value
-                    return val
-                  })
-                _vm.Type = $event.target.multiple
-                  ? $$selectedVal
-                  : $$selectedVal[0]
-              }
-            }
-          },
-          _vm._l(_vm.types, function(option) {
-            return _c("option", { domProps: { value: option } }, [
-              _vm._v(_vm._s(option))
-            ])
-          })
-        ),
-        _vm._v(" "),
-        _vm.$v.Type.$dirty && !_vm.$v.Type.required
-          ? _c("p", { staticClass: "error-message" }, [_vm._v("Select a Type")])
-          : _vm._e(),
-        _vm._v(" "),
-        _c("label", { attrs: { for: "typ" } }, [_vm._v("Score:")]),
-        _vm._v(" "),
-        _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.score,
-              expression: "score"
-            }
-          ],
-          staticClass: "form-control",
-          attrs: { type: "number", id: "scr" },
-          domProps: { value: _vm.score },
-          on: {
-            blur: function($event) {
-              _vm.$v.score.$touch()
-            },
-            input: function($event) {
-              if ($event.target.composing) {
-                return
-              }
-              _vm.score = $event.target.value
-            }
+    _c(
+      "button",
+      {
+        on: {
+          click: function($event) {
+            _vm.getAllData()
           }
-        }),
-        _vm._v(" "),
-        _vm.$v.score.$dirty && !_vm.$v.score.required
-          ? _c("p", { staticClass: "error-message" }, [_vm._v("Enter a score")])
-          : _vm._e(),
-        _vm._v(" "),
-        _c("label", { attrs: { for: "typ" } }, [_vm._v("Comments:")]),
-        _vm._v(" "),
-        _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.comments,
-              expression: "comments"
-            }
-          ],
-          staticClass: "form-control",
-          attrs: { type: "text", id: "cmnt" },
-          domProps: { value: _vm.comments },
-          on: {
-            input: function($event) {
-              if ($event.target.composing) {
-                return
-              }
-              _vm.comments = $event.target.value
-            }
+        }
+      },
+      [_vm._v("Get")]
+    ),
+    _vm._v(" "),
+    _c(
+      "button",
+      {
+        on: {
+          click: function($event) {
+            _vm.getAll()
           }
-        })
-      ]),
-      _vm._v(" "),
-      _c("br"),
-      _vm._v(" "),
-      _c("br"),
-      _vm._v(" "),
-      _c(
-        "button",
-        {
-          staticClass: "btn btn-primary fr",
-          attrs: { disabled: _vm.$v.$invalid },
-          on: {
-            click: function($event) {
-              _vm.scoreUpdate()
-            }
-          }
-        },
-        [_vm._v("Update Score")]
-      )
-    ])
+        }
+      },
+      [_vm._v("Month")]
+    )
   ])
 }
 var staticRenderFns = []
