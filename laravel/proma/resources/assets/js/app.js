@@ -9,6 +9,7 @@ import Vuelidate from "vuelidate";
 window.Vue.use(Vuelidate);
 window.Vue.use(VModal);
 window.Vue.use(VueRouter);
+Vue.prototype.$Url = window.location.origin + "/";
 // Vue.component('pagination', require('laravel-vue-pagination'));
 // validator.isEmail('foo@bar.com');
 // Vue.component('b-modal', bModal);

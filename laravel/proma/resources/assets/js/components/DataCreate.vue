@@ -207,7 +207,7 @@ export default {
     var x = this;
     x.Newdata = true;
     axios
-      .get("http://127.0.0.1:8000/project", {})
+      .get(`${x.$Url}project`, {})
       .then(function(response) {
         if (response.status == 200) {
           console.log(response.data);
@@ -241,7 +241,7 @@ export default {
       this.DeselectedClient = index;
       var x = this;
       axios
-        .delete(`http://127.0.0.1:8000/projectde/${x.DeselectedClient}`, {})
+        .delete(`${x.$Url}projectde/${x.DeselectedClient}`, {})
         .then(function(response) {
           if (response.status == 204) {
             console.log(response.data);
@@ -264,7 +264,7 @@ export default {
     addUserToDelayTable() {
       var x = this;
       axios
-        .post("http://127.0.0.1:8000/projectdelay", {
+        .post(`${x.$Url}projectdelay`, {
           selectedProjectId: this.selectedProjectId,
           selectedClient: this.selectedClient
         })
@@ -296,7 +296,7 @@ export default {
       this.selectedProjectId = index;
       var x = this;
       axios
-        .get(`http://127.0.0.1:8000/projectid/${x.selectedProjectId}`, {})
+        .get(`${x.$Url}projectid/${x.selectedProjectId}`, {})
         .then(function(response) {
           if (response.status == 200) {
             console.log(response.data);
@@ -323,7 +323,7 @@ export default {
       var x = this;
       x.Newdata = true;
       axios
-        .get("http://127.0.0.1:8000/project", {})
+        .get(`${x.$Url}project`, {})
         .then(function(response) {
           if (response.status == 200) {
             console.log(response.data);
@@ -343,7 +343,7 @@ export default {
       this.selectedProjectId = index;
       var x = this;
       axios
-        .put(`http://127.0.0.1:8000/project/${x.selectedProjectId}`, {
+        .put(`${x.$Url}project/${x.selectedProjectId}`, {
           monitoring: 0
         })
         .then(function(response) {
@@ -368,7 +368,7 @@ export default {
       var x = this;
       x.Newdata = true;
       axios
-        .get("http://127.0.0.1:8000/projects", {})
+        .get(`${x.$Url}projects`, {})
         .then(function(response) {
           if (response.status == 200) {
             x.projectData = response.data;
@@ -389,7 +389,7 @@ export default {
       this.selectedProjectId = index;
       var x = this;
       axios
-        .put(`http://127.0.0.1:8000/project/${x.selectedProjectId}`, {
+        .put(`${x.$Url}project/${x.selectedProjectId}`, {
           monitoring: 1
         })
         .then(function(response) {

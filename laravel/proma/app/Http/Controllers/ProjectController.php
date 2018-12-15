@@ -120,7 +120,7 @@ class ProjectController extends Controller
      */
     public function users()
     {
-        $data_array = user::select('id', 'user_name', 'status', 'score')->where('status', 1)->get();
+        $data_array = user::select('id', 'user_name', 'status', 'score')->where('status', 1)->where('users.user_type', 4)->get();
         return $data_array;
     }
 
@@ -171,6 +171,153 @@ class ProjectController extends Controller
         $delay_arraylist[1] = $use_array;
         $delay_arraylist[2] = $del_array;
         return $delay_arraylist;
+    }
+
+
+    /**
+     * @Author Ayush
+     * @Date 11/12/18
+     * @param  int  $id
+     * @return array of project details
+     * * @Description gets searched project
+     */
+
+    public function search(Request $request)
+    {
+        $input = $request->all();
+        $monitoring = $request->input('monitor');
+        $ptitle = $request->input('title');
+        if (isset($ptitle)) {
+            $query = project::select('id', 'title', 'start_date', 'end_date', 'actual_close')->where('monitoring', 1)->where('status', 1)->where('title', $ptitle);
+        } else {
+            $query = project::select('id', 'title', 'start_date', 'end_date', 'actual_close')->where('monitoring', 1)->where('status', 1);
+        }
+
+        $usernamear = array();
+        $fulldata = array();
+        $data_array = $query->get();
+        // $data_array = project::select('id', 'title', 'start_date', 'end_date', 'actual_close')->where('monitoring', 1)->where('status', 1)->where('title', $id)->get();
+        foreach ($data_array as $aa) {
+            $use_array = DB::table('project_assigned')
+                ->join('users', 'project_assigned.user_id', '=', 'users.id')
+                ->select('users.user_name', 'users.status', 'users.id')
+                ->where('project_assigned.project_id', $aa->id)
+                ->where('users.status', 1)
+                ->get();
+            $usernamear['id'] = $aa->id;
+            $usernamear['title'] = $aa->title;
+            $usernamear['user_names'] = $use_array;
+            $myDateTime = \DateTime::createFromFormat('Y-m-d h:i:s', $aa->start_date);
+            $newDateString = $myDateTime->format('d/m/Y');
+            $usernamear['start_date'] = $newDateString;
+            $myDateTime1 = \DateTime::createFromFormat('Y-m-d h:i:s', $aa->end_date);
+            $newDateString1 = $myDateTime1->format('d/m/Y');
+            $usernamear['end_date'] = $newDateString1;
+            $myDateTime2 = \DateTime::createFromFormat('Y-m-d h:i:s', $aa->actual_close);
+            $newDateString2 = $myDateTime2->format('d/m/Y');
+            if ($newDateString2 == "30/11/-0001") {
+                $usernamear['actual_close'] = "Default";
+            } else {
+                $usernamear['actual_close'] = $newDateString2;
+            }
+            $delay_array = DB::table('project_delay')
+                ->join('users', 'project_delay.user_id', '=', 'users.id')
+                ->select('users.user_name', 'users.status', 'users.id')
+                ->where('project_delay.project_id', $aa->id)
+                ->where('users.status', 1)
+                ->get();
+            $usernamear['delay'] = $delay_array;
+            $fulldata[] = $usernamear;
+            $usernamear = array();
+        }
+        if (empty($fulldata)) {
+            // return response()->json(206, 206);
+            return response()->json([
+                'status' => config::get('constant.DB_Search_Error')
+            ], config::get('constant.DB_Search_Error'));
+            // $aa = config::get('constant.DB_Search_Error');
+            // return $aa;
+            // return config::get('constant.DB_Search_Error')
+        } else {
+            // $aa = config::get('constant.DB_Save_Error');
+            // return $aa;
+            return $fulldata;
+        }
+        
+        // return $fulldata;
+    }
+
+
+    /**
+     * @Author Ayush
+     * @Date 11/12/18
+     * @param  int  $id
+     * @return array of project details
+     * * @Description gets searched project
+     */
+
+    public function searchNm(Request $request)
+    {
+        $input = $request->all();
+        $monitoring = $request->input('monitor');
+        $ptitle = $request->input('title');
+        if (isset($ptitle)) {
+            $query = project::select('id', 'title', 'start_date', 'end_date', 'actual_close')->where('monitoring', $monitoring)->where('status', 1)->where('title', $ptitle);
+        } else {
+            $query = project::select('id', 'title', 'start_date', 'end_date', 'actual_close')->where('monitoring', $monitoring)->where('status', 1);
+        }
+        $usernamear = array();
+        $fulldata = array();
+        $data_array = $query->get();
+        // $data_array = project::select('id', 'title', 'start_date', 'end_date', 'actual_close')->where('monitoring', 0)->where('status', 1)->get();
+        foreach ($data_array as $aa) {
+            $use_array = DB::table('project_assigned')
+                ->join('users', 'project_assigned.user_id', '=', 'users.id')
+                ->select('users.user_name', 'users.status', 'users.id')
+                ->where('project_assigned.project_id', $aa->id)
+                ->where('users.status', 1)
+                ->get();
+            $usernamear['id'] = $aa->id;
+            $usernamear['title'] = $aa->title;
+            $usernamear['user_names'] = $use_array;
+            $myDateTime = \DateTime::createFromFormat('Y-m-d h:i:s', $aa->start_date);
+            $newDateString = $myDateTime->format('d/m/Y');
+            $usernamear['start_date'] = $newDateString;
+            $myDateTime1 = \DateTime::createFromFormat('Y-m-d h:i:s', $aa->end_date);
+            $newDateString1 = $myDateTime1->format('d/m/Y');
+            $usernamear['end_date'] = $newDateString1;
+            $myDateTime2 = \DateTime::createFromFormat('Y-m-d h:i:s', $aa->actual_close);
+            $newDateString2 = $myDateTime2->format('d/m/Y');
+            if ($newDateString2 == "30/11/-0001") {
+                $usernamear['actual_close'] = "Default";
+            } else {
+                $usernamear['actual_close'] = $newDateString2;
+            }
+            $delay_array = DB::table('project_delay')
+                ->join('users', 'project_delay.user_id', '=', 'users.id')
+                ->select('users.user_name', 'users.status', 'users.id')
+                ->where('project_delay.project_id', $aa->id)
+                ->where('users.status', 1)
+                ->get();
+            $usernamear['delay'] = $delay_array;
+            $fulldata[] = $usernamear;
+            $usernamear = array();
+        }
+        if (empty($fulldata)) {
+            // return response()->json(206, 206);
+            return response()->json([
+                'status' => config::get('constant.DB_Search_Error')
+            ], config::get('constant.DB_Search_Error'));
+            // $aa = config::get('constant.DB_Search_Error');
+            // return $aa;
+            // return config::get('constant.DB_Search_Error')
+        } else {
+            // $aa = config::get('constant.DB_Save_Error');
+            // return $aa;
+            return $fulldata;
+        }
+        // return $fulldata;
+
     }
 
     /**

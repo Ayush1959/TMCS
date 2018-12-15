@@ -71,7 +71,7 @@ export default {
     var x = this;
     // `this` points to the vm instance
     axios
-      .get("http://127.0.0.1:8000/projectuser", {})
+      .get(`${x.$Url}projectuser`, {})
       .then(function(response) {
         if (response.status == 200) {
           console.log(response.data);
@@ -101,7 +101,7 @@ export default {
     scoreUpdate() {
       var x = this;
       axios
-        .put(`http://127.0.0.1:8000/projectuser/${x.selectedClient}`, {
+        .put(`${x.$Url}projectuser/${x.selectedClient}`, {
           score: this.score,
           type: this.Type,
           id: this.selectedClient,

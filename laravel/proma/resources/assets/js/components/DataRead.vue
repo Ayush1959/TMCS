@@ -85,9 +85,10 @@ export default {
   },
   // LOADS DATA WHILE LOADING PAGE
   created: function() {
+    // window.location.origin+/
     var x = this;
     axios
-      .get("http://127.0.0.1:8000/projectuserdata", {})
+      .get(`${x.$Url}projectuserdata`, {})
       .then(function(response) {
         if (response.status == 200) {
           console.log(response.data.data);
@@ -155,7 +156,7 @@ export default {
     dataChange() {
       var x = this;
       axios
-        .get(`http://127.0.0.1:8000/projectuserdatedata/${x.selectedDate}`, {})
+        .get(`${x.$Url}projectuserdatedata/${x.selectedDate}`, {})
         .then(function(response) {
           if (response.status == 200) {
             console.log(response.data.data);

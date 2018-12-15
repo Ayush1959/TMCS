@@ -1,115 +1,500 @@
 <template>
   <div class="container">
-    <!-- {{ selectedClient }} -->
-    <button @click="getAllData()">Get</button>
-    <button @click="getAll()">Month</button>
-    <!-- {{ Type }} -->
-    <!-- <div class="col-md-6 col-md-offset-2">
-      <div id="success_message" class="alert alert-success" v-if="xx == 1">Score Changed</div>
-      <form name="myform">
-        <label for="empl">Employee:</label>
-        <select v-model="selectedClient" class="form-control sell" id="empl">
-          <option v-for="option in items1" :value="option.id">{{ option.user_name }}</option>
-        </select>
-        <label for="typ">Type:</label>
-        <select v-model="Type" class="form-control sell" id="typ">
-          <option v-for="option in types" :value="option">{{ option }}</option>
-        </select>
-        <label for="typ">Score:</label>
-        <input type="number" class="form-control" v-model="score" id="scr">
-        <label for="typ">Comments:</label>
-        <input type="text" class="form-control" v-model="comments" id="cmnt">
-      </form>
-      <br>
-      <br>
-      <button @click="scoreUpdate()" class="btn btn-primary fr">Update Score</button>
-    </div>-->
+    <br>
+    <!-- {{ displayTable }} -->
+    <button class="btn btn-primary" @click="searchNonMonitored(1)">Get Monitored Data</button>
+    <button class="btn btn-primary" @click="searchNonMonitored(0)">Get Non Monitored Data Data</button>
+    <br>
+    <br>
+    <br>
+    <!-- PopUp Start -->
+    <modal name="delayPopup">
+      <div class="container-fluid">
+        <div class="col-md-10">
+          <form>
+            <select
+              v-model="selectedClient"
+              class="form-control sele mrgt"
+              @blur="$v.selectedClient.$touch()"
+            >
+              <option v-for="option in projectMembers" :value="option.id">{{ option.user_name }}</option>
+            </select>
+            <p
+              v-if="$v.selectedClient.$dirty &&  !$v.selectedClient.required"
+              class="error-message"
+            >Select a user</p>
+            <br>
+            <div
+              id="success_message"
+              class="alert alert-danger"
+              v-if="userInDelayTable == 1"
+            >Already in Delay Table</div>
+            <div
+              id="success_message"
+              class="alert alert-success"
+              v-if="addToDelayTable == 1"
+            >Added to delay table</div>
+            <div id="success_message" class="alert alert-danger" v-if="removeFromDelayTable == 1">
+              Removed from Delay
+              table
+            </div>
+            <div>
+              <div class="col-md-7 col-md-offset-1">
+                <table class="table table-bordered">
+                  <thead>
+                    <tr>
+                      <th>User Name</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tr v-for="option in delayedUsers">
+                    <td>{{ option.user_name }}</td>
+                    <td>
+                      <button
+                        class="btn btn-primary btn-xs"
+                        @click.prevent="submitted"
+                        @click="removeUserFromDelayTable(option.id)"
+                      >Remove</button>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="col-md-2">
+          <button
+            class="btn btn-primary okk mrgt"
+            @click.prevent="submitted"
+            @click="addUserToDelayTable()"
+            :disabled="$v.selectedClient.$invalid"
+          >Add</button>
+          <button
+            class="btn btn-primary cncl"
+            @click.prevent="submitted"
+            @click="hidePopup()"
+          >Cancel</button>
+        </div>
+      </div>
+    </modal>
+
+    <!-- PopUp Ends -->
+    <!-- Template Starts -->
+    <div>
+      <div>
+        <div
+          id="success_message"
+          class="alert alert-success"
+          v-if="monitorAlert == 1"
+        >Status Changed</div>
+
+        <div v-if="displayTable == 1">
+          <div
+            id="error_message"
+            class="alert alert-danger"
+            v-if="searchError == 1"
+          >Project Not Found</div>
+          <!-- SEARCH BUTTON -->
+          <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+              <form action class="search-form">
+                <div class="form-group col-md-10">
+                  <label for="search" class="sr-only">Search</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="search"
+                    id="search"
+                    @blur="$v.searchQuery.$touch()"
+                    v-model="searchQuery"
+                    placeholder="search"
+                  >
+                </div>
+              </form>
+              <button
+                class="btn btn-primary"
+                :disabled="$v.searchQuery.$invalid"
+                @click="searchNonMonitored(1)"
+              >
+                <!-- <i class="fa fa-search"></i> -->
+                <i class="glyphicon glyphicon-search"></i>
+              </button>
+            </div>
+          </div>
+          <!-- Table for monitored Data -->
+          <table class="table table-bordered table-responsive">
+            <thead>
+              <tr v-if="displayTable == 1">
+                <th>Id</th>
+                <th>Project</th>
+                <th>Users</th>
+                <th>Start Date</th>
+                <th>Expected Date</th>
+                <th>Actual Close</th>
+                <th>Delayed by</th>
+                <th>Actions</th>
+                <th>Delay Responsive</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="item in projectData" :key="item.id" v-if="displayTable == 1" class="brdr">
+                <td>{{ item.id }}</td>
+                <td>{{ item.title }}</td>
+                <table class="nobrdr">
+                  <tr v-for="ite in item.user_names">{{ ite.user_name }}</tr>
+                </table>
+                <td>{{ item.start_date }}</td>
+                <td>{{ item.end_date }}</td>
+                <td>{{ item.actual_close }}</td>
+                <table class="nobrdr">
+                  <tr v-for="ite in item.delay">{{ ite.user_name }}</tr>
+                </table>
+                <td>
+                  <button
+                    class="btn btn-danger btn-xs mrg"
+                    @click="doNotMonitor(item.id)"
+                  >Stop Monitoring</button>
+                </td>
+                <td>
+                  <button class="btn btn-primary btn-xs mrg" @click="showPopup(item.id)">Delay</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div v-if="displayTable == 2">
+          <div
+            id="error_message"
+            class="alert alert-danger"
+            v-if="searchError == 1"
+          >Project Not Found</div>
+          <!-- SEARCH BUTTON -->
+          <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+              <form action class="search-form">
+                <div class="form-group col-md-10">
+                  <label for="search" class="sr-only">Search</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="search"
+                    id="search"
+                    @blur="$v.searchQuery.$touch()"
+                    v-model="searchQuery"
+                    placeholder="search"
+                  >
+                </div>
+              </form>
+              <button
+                class="btn btn-primary"
+                :disabled="$v.searchQuery.$invalid"
+                @click="searchNonMonitored(0)"
+              >
+                <!-- <i class="fa fa-search"></i> -->
+                <i class="glyphicon glyphicon-search"></i>
+              </button>
+            </div>
+          </div>
+          <!-- Table For Non Monitored Data -->
+          <table class="table table-bordered table-responsive">
+            <thead>
+              <tr v-if="displayTable == 2">
+                <th>Id</th>
+                <th>Project</th>
+                <th>Users</th>
+                <th>Start Date</th>
+                <th>Expected Date</th>
+                <th>Actual Close</th>
+                <th>Delayed by</th>
+                <th>Actions</th>
+                <th>Delay Responsive</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="item in projectData" :key="item.id" v-if="displayTable == 2" class="brdr">
+                <td>{{ item.id }}</td>
+                <td>{{ item.title }}</td>
+                <table class="nobrdr">
+                  <tr v-for="ite in item.user_names">{{ ite.user_name }}</tr>
+                </table>
+                <td>{{ item.start_date }}</td>
+                <td>{{ item.end_date }}</td>
+                <td>{{ item.actual_close }}</td>
+                <table class="nobrdr">
+                  <tr v-for="ite in item.delay">{{ ite.user_name }}</tr>
+                </table>
+                <td>
+                  <button
+                    class="btn btn-success btn-xs mrg"
+                    @click="doMonitor(item.id)"
+                  >Start Monitoring</button>
+                </td>
+                <td>
+                  <button class="btn btn-primary btn-xs mrg" @click="showPopup(item.id)">Delay</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Template Ends -->
   </div>
 </template>
 
 <script>
+import {
+  required,
+  minLength,
+  between,
+  integer,
+  email
+} from "vuelidate/lib/validators";
+// import { EventBus } from "../main";
 export default {
   data() {
     return {
-      items1: [],
-      types: ["Credit", "Debit"],
-      Type: null,
+      projectData: [],
+      projectMembers: [],
+      delayedUsers: [],
+      selectedProjectId: 0,
+      isSubmitted: false,
       selectedClient: null,
-      score: null,
-      xx: 0,
-      comments: null
+      DeselectedClient: null,
+      displayTable: 0,
+      searchQuery: null,
+      monitorAlert: 0,
+      monitoring: null,
+      searchError: 0,
+      addToDelayTable: 0,
+      userInDelayTable: 0,
+      removeFromDelayTable: 0
     };
   },
-  // created: function() {
-  //   var x = this;
-  //   // `this` points to the vm instance
-  //   axios
-  //     .get("http://127.0.0.1:8000/projectuser", {})
-  //     .then(function(response) {
-  //       if (response.status == 200) {
-  //         console.log(response.data);
-  //         x.items1 = response.data;
-  //         // x.items2 = response.data[2];
-  //         // x.looper(response.data);
-  //         //x.items0 = response.data;
-  //       } else {
-  //         alert("Error");
-  //       }
-  //       console.log(response);
-  //     })
-  //     .catch(function(error) {
-  //       console.log(error);
-  //     });
-  // },
+  // Get data on the page while loading
+  created: function() {
+    this.searchNonMonitored(1);
+    // this.searchMonitored();
+    // this.displayTable = 1;
+    // var x = this;
+    // x.Newdata = true;
+    // axios
+    //   .get(`${x.$Url}project`, {})
+    //   .then(function(response) {
+    //     if (response.status == 200) {
+    //       console.log(response.data);
+    //       x.projectData = response.data;
+    //     } else {
+    //       alert("Error");
+    //     }
+    //     console.log(response);
+    //   })
+    //   .catch(function(error) {
+    //     console.log(error);
+    //   });
+  },
+  validations: {
+    selectedClient: {
+      required
+    },
+    searchQuery: {
+      required
+    }
+  },
   methods: {
-    scoreUpdate() {
+    searchNonMonitored(index) {
+      this.monitoring = index;
+      if (this.monitoring == 1) {
+        this.displayTable = 1;
+      } else {
+        this.displayTable = 2;
+      }
       var x = this;
-      //   axios
-      //     .all([
-      //       axios.put(`http://127.0.0.1:8000/projectuser/${x.selectedClient}`, {
-      //         score: this.score,
-      //         type: this.Type
-      //       }),
-      //       axios.post("http://127.0.0.1:8000/projectuser", {
-      //         id: this.selectedClient,
-      //         comments: this.comments
-      //       })
-      //     ])
-      //     .then(
-      //       axios.spread((firstResponse, secondResponse) => {
-      //         console.log(firstResponse.data, secondResponse.data);
-      //         // console.log(secondResponse.status);
-      //         if (secondResponse.status == 200) {
-      //           x.xx = 1;
-      //           x.selectedClient = null;
-      //           x.Type = null;
-      //           x.score = null;
-      //           setTimeout(function() {
-      //             x.xx = 0;
-      //           }, 3000);
-      //         } else {
-      //           alert("Error");
-      //         }
-      //       })
-      //     )
-      //     .catch(error => console.log(error));
       axios
-        .put(`http://127.0.0.1:8000/projectuser/${x.selectedClient}`, {
-          score: this.score,
-          type: this.Type,
-          id: this.selectedClient,
-          comments: this.comments
+        .post(`${x.$Url}projectSearchNonMonitor`, {
+          title: this.searchQuery,
+          monitor: this.monitoring
+        })
+        .then(function(response) {
+          if (response.status == 206) {
+            console.log(response.data);
+            x.searchQuery = null;
+            x.searchError = 1;
+            setTimeout(function() {
+              x.searchError = 0;
+            }, 3000);
+          } else if (response.status == 200) {
+            console.log(response.data.status);
+            x.searchQuery = null;
+            console.log(response.data);
+            x.projectData = response.data;
+            // x.projectMembers = response.data[1];
+            // x.delayedUsers = response.data[2];
+          } else {
+            alert("Error");
+          }
+          console.log(response);
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+    },
+    searchMonitored() {
+      var x = this;
+      axios
+        .post(`${x.$Url}projectSearch`, {
+          title: this.searchQuery,
+          monitor: 1
+        })
+        .then(function(response) {
+          if (response.status == 206) {
+            console.log(response.data.status);
+            x.searchError = 1;
+            setTimeout(function() {
+              x.searchError = 0;
+            }, 3000);
+          } else if (response.status == 200) {
+            console.log(response.data.status);
+            console.log(response.data);
+            x.projectData = response.data;
+            // x.projectMembers = response.data[1];
+            // x.delayedUsers = response.data[2];
+          } else {
+            alert("Error");
+          }
+          console.log(response);
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+    },
+    status(validation) {
+      return {
+        error: validation.$error,
+        dirty: validation.$dirty
+      };
+    },
+    submitted() {
+      this.isSubmitted = true;
+    },
+    // To Remove Users from the delayresponsible table
+    removeUserFromDelayTable(index) {
+      this.DeselectedClient = index;
+      var x = this;
+      axios
+        .delete(`${x.$Url}projectde/${x.DeselectedClient}`, {})
+        .then(function(response) {
+          if (response.status == 204) {
+            console.log(response.data);
+            x.showPopup(x.selectedProjectId);
+            x.removeFromDelayTable = 1;
+            setTimeout(function() {
+              x.removeFromDelayTable = 0;
+            }, 3000);
+            x.getMonitoredData();
+          } else {
+            alert("Error");
+          }
+          console.log(response);
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+    },
+    //  Add Users into the delayresponsible table
+    addUserToDelayTable() {
+      var x = this;
+      axios
+        .post(`${x.$Url}projectdelay`, {
+          selectedProjectId: this.selectedProjectId,
+          selectedClient: this.selectedClient
+        })
+        .then(function(response) {
+          if (response.status == 208) {
+            x.userInDelayTable = 1;
+            setTimeout(function() {
+              x.userInDelayTable = 0;
+            }, 3000);
+          } else if (response.status == 200) {
+            console.log(response.data);
+            x.showPopup(x.selectedProjectId);
+            x.addToDelayTable = 1;
+            setTimeout(function() {
+              x.addToDelayTable = 0;
+            }, 3000);
+            x.getMonitoredData();
+          } else {
+            alert("Error");
+          }
+          console.log(response);
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+    },
+    //Shows Popup
+    showPopup(index) {
+      this.selectedProjectId = index;
+      var x = this;
+      axios
+        .get(`${x.$Url}projectid/${x.selectedProjectId}`, {})
+        .then(function(response) {
+          if (response.status == 200) {
+            console.log(response.data);
+            x.projectMembers = response.data[1];
+            x.delayedUsers = response.data[2];
+          } else {
+            alert("Error");
+          }
+          console.log(response);
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+
+      this.$modal.show("delayPopup");
+    },
+    //Hide Popup
+    hidePopup() {
+      this.$modal.hide("delayPopup");
+    },
+    //Get all monitored projects
+    getMonitoredData() {
+      this.displayTable = 1;
+      var x = this;
+      x.Newdata = true;
+      axios
+        .get(`${x.$Url}project`, {})
+        .then(function(response) {
+          if (response.status == 200) {
+            console.log(response.data);
+            x.projectData = response.data;
+          } else {
+            alert("Error");
+          }
+          console.log(response);
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+    },
+    //Stop monitoring a project
+    doNotMonitor(index) {
+      this.displayTable = 1;
+      this.selectedProjectId = index;
+      var x = this;
+      axios
+        .put(`${x.$Url}project/${x.selectedProjectId}`, {
+          monitoring: 0
         })
         .then(function(response) {
           if (response.status == 200) {
-            console.log(response);
-            x.xx = 1;
-            x.selectedClient = null;
-            x.Type = null;
-            x.score = null;
-            x.comments = null;
+            x.getMonitoredData();
+            x.monitorAlert = 1;
             setTimeout(function() {
-              x.xx = 0;
+              x.monitorAlert = 0;
             }, 3000);
           } else {
             alert("Error");
@@ -120,17 +505,18 @@ export default {
           console.log(error);
         });
     },
-    getAllData() {
-      //   this.bttn = false;
-      //   this.mrdata = 1;
+    //get all projects which are not monitored
+    getNonMonitoredData() {
+      this.displayTable = 2;
       var x = this;
-      //   x.Newdata = true;
+      x.Newdata = true;
       axios
-        .get("http://127.0.0.1:8000/projectcontroller", {})
+        .get(`${x.$Url}projects`, {})
         .then(function(response) {
           if (response.status == 200) {
-            console.log(response.data);
-            // x.items = response.data;
+            x.projectData = response.data;
+            // x.nurl = response.data.next_page_url;
+            // x.purl = response.data.prev_page_url;
           } else {
             alert("Error");
           }
@@ -140,17 +526,22 @@ export default {
           console.log(error);
         });
     },
-    getAll() {
-      //   this.bttn = false;
-      //   this.mrdata = 1;
+    //Start monitoring specific project
+    doMonitor(index) {
+      this.displayTable = 2;
+      this.selectedProjectId = index;
       var x = this;
-      //   x.Newdata = true;
       axios
-        .get("http://127.0.0.1:8000/projectmonthly", {})
+        .put(`${x.$Url}project/${x.selectedProjectId}`, {
+          monitoring: 1
+        })
         .then(function(response) {
           if (response.status == 200) {
-            console.log(response.data);
-            // x.items = response.data;
+            x.getNonMonitoredData();
+            x.monitorAlert = 1;
+            setTimeout(function() {
+              x.monitorAlert = 0;
+            }, 3000);
           } else {
             alert("Error");
           }
@@ -164,8 +555,83 @@ export default {
 };
 </script>
 
-<style>
-.fr {
-  float: right;
+<style scoped>
+.sele {
+  width: 80%;
 }
+
+.mrgt {
+  margin-top: 10px;
+}
+
+.mrg {
+  /* margin-top: 50%; */
+}
+
+.brdr {
+  border-bottom: #dadada 1px solid;
+}
+
+.nobrdr {
+  border: transparent;
+  margin: 5px;
+}
+
+.ull {
+  margin-top: 20px;
+}
+
+.cncl {
+  margin-top: 210px;
+}
+
+/* table {
+  border: 2px solid #42b983;
+  border-radius: 3px;
+  background-color: #fff;
+}
+
+th {
+  background-color: #42b983;
+  color: rgba(255, 255, 255, 0.66);
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+td {
+  background-color: #f9f9f9;
+  border: #42b983 1px solid;
+}
+
+th,
+td {
+  min-width: 130px;
+  padding: 10px 20px;
+}
+
+th.active {
+  color: #fff;
+}
+
+th.active .arrow {
+  opacity: 1;
+}
+
+.arrow {
+  display: inline-block;
+  vertical-align: middle;
+  width: 0;
+  height: 0;
+  margin-left: 5px;
+  opacity: 0.66;
+}
+
+.arrow.asc {
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-bottom: 4px solid #fff;
+} */
 </style>

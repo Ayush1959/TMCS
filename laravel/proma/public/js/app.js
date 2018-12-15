@@ -150,7 +150,7 @@ exports.regex = regex;
 "use strict";
 
 
-var bind = __webpack_require__(7);
+var bind = __webpack_require__(8);
 var isBuffer = __webpack_require__(25);
 
 /*global toString:true*/
@@ -904,6 +904,194 @@ function applyToTag (styleElement, obj) {
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+Object.defineProperty(exports, "alpha", {
+  enumerable: true,
+  get: function get() {
+    return _alpha.default;
+  }
+});
+Object.defineProperty(exports, "alphaNum", {
+  enumerable: true,
+  get: function get() {
+    return _alphaNum.default;
+  }
+});
+Object.defineProperty(exports, "numeric", {
+  enumerable: true,
+  get: function get() {
+    return _numeric.default;
+  }
+});
+Object.defineProperty(exports, "between", {
+  enumerable: true,
+  get: function get() {
+    return _between.default;
+  }
+});
+Object.defineProperty(exports, "email", {
+  enumerable: true,
+  get: function get() {
+    return _email.default;
+  }
+});
+Object.defineProperty(exports, "ipAddress", {
+  enumerable: true,
+  get: function get() {
+    return _ipAddress.default;
+  }
+});
+Object.defineProperty(exports, "macAddress", {
+  enumerable: true,
+  get: function get() {
+    return _macAddress.default;
+  }
+});
+Object.defineProperty(exports, "maxLength", {
+  enumerable: true,
+  get: function get() {
+    return _maxLength.default;
+  }
+});
+Object.defineProperty(exports, "minLength", {
+  enumerable: true,
+  get: function get() {
+    return _minLength.default;
+  }
+});
+Object.defineProperty(exports, "required", {
+  enumerable: true,
+  get: function get() {
+    return _required.default;
+  }
+});
+Object.defineProperty(exports, "requiredIf", {
+  enumerable: true,
+  get: function get() {
+    return _requiredIf.default;
+  }
+});
+Object.defineProperty(exports, "requiredUnless", {
+  enumerable: true,
+  get: function get() {
+    return _requiredUnless.default;
+  }
+});
+Object.defineProperty(exports, "sameAs", {
+  enumerable: true,
+  get: function get() {
+    return _sameAs.default;
+  }
+});
+Object.defineProperty(exports, "url", {
+  enumerable: true,
+  get: function get() {
+    return _url.default;
+  }
+});
+Object.defineProperty(exports, "or", {
+  enumerable: true,
+  get: function get() {
+    return _or.default;
+  }
+});
+Object.defineProperty(exports, "and", {
+  enumerable: true,
+  get: function get() {
+    return _and.default;
+  }
+});
+Object.defineProperty(exports, "not", {
+  enumerable: true,
+  get: function get() {
+    return _not.default;
+  }
+});
+Object.defineProperty(exports, "minValue", {
+  enumerable: true,
+  get: function get() {
+    return _minValue.default;
+  }
+});
+Object.defineProperty(exports, "maxValue", {
+  enumerable: true,
+  get: function get() {
+    return _maxValue.default;
+  }
+});
+Object.defineProperty(exports, "integer", {
+  enumerable: true,
+  get: function get() {
+    return _integer.default;
+  }
+});
+Object.defineProperty(exports, "decimal", {
+  enumerable: true,
+  get: function get() {
+    return _decimal.default;
+  }
+});
+exports.helpers = void 0;
+
+var _alpha = _interopRequireDefault(__webpack_require__(62));
+
+var _alphaNum = _interopRequireDefault(__webpack_require__(65));
+
+var _numeric = _interopRequireDefault(__webpack_require__(66));
+
+var _between = _interopRequireDefault(__webpack_require__(67));
+
+var _email = _interopRequireDefault(__webpack_require__(68));
+
+var _ipAddress = _interopRequireDefault(__webpack_require__(69));
+
+var _macAddress = _interopRequireDefault(__webpack_require__(70));
+
+var _maxLength = _interopRequireDefault(__webpack_require__(71));
+
+var _minLength = _interopRequireDefault(__webpack_require__(72));
+
+var _required = _interopRequireDefault(__webpack_require__(73));
+
+var _requiredIf = _interopRequireDefault(__webpack_require__(74));
+
+var _requiredUnless = _interopRequireDefault(__webpack_require__(75));
+
+var _sameAs = _interopRequireDefault(__webpack_require__(76));
+
+var _url = _interopRequireDefault(__webpack_require__(77));
+
+var _or = _interopRequireDefault(__webpack_require__(78));
+
+var _and = _interopRequireDefault(__webpack_require__(79));
+
+var _not = _interopRequireDefault(__webpack_require__(80));
+
+var _minValue = _interopRequireDefault(__webpack_require__(81));
+
+var _maxValue = _interopRequireDefault(__webpack_require__(82));
+
+var _integer = _interopRequireDefault(__webpack_require__(83));
+
+var _decimal = _interopRequireDefault(__webpack_require__(84));
+
+var helpers = _interopRequireWildcard(__webpack_require__(0));
+
+exports.helpers = helpers;
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/***/ }),
+/* 7 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
 /* WEBPACK VAR INJECTION */(function(process) {
 
 var utils = __webpack_require__(1);
@@ -923,10 +1111,10 @@ function getDefaultAdapter() {
   var adapter;
   if (typeof XMLHttpRequest !== 'undefined') {
     // For browsers use XHR adapter
-    adapter = __webpack_require__(9);
+    adapter = __webpack_require__(10);
   } else if (typeof process !== 'undefined') {
     // For node use HTTP adapter
-    adapter = __webpack_require__(9);
+    adapter = __webpack_require__(10);
   }
   return adapter;
 }
@@ -997,10 +1185,10 @@ utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
 
 module.exports = defaults;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)))
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1018,7 +1206,7 @@ module.exports = function bind(fn, thisArg) {
 
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -1208,7 +1396,7 @@ process.umask = function() { return 0; };
 
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1219,7 +1407,7 @@ var settle = __webpack_require__(28);
 var buildURL = __webpack_require__(30);
 var parseHeaders = __webpack_require__(31);
 var isURLSameOrigin = __webpack_require__(32);
-var createError = __webpack_require__(10);
+var createError = __webpack_require__(11);
 var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(33);
 
 module.exports = function xhrAdapter(config) {
@@ -1395,7 +1583,7 @@ module.exports = function xhrAdapter(config) {
 
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1420,7 +1608,7 @@ module.exports = function createError(message, config, code, request, response) 
 
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1432,7 +1620,7 @@ module.exports = function isCancel(value) {
 
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1458,7 +1646,7 @@ module.exports = Cancel;
 
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1559,194 +1747,6 @@ function withParams(paramsOrClosure, maybeValidator) {
 }
 
 /***/ }),
-/* 14 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-Object.defineProperty(exports, "alpha", {
-  enumerable: true,
-  get: function get() {
-    return _alpha.default;
-  }
-});
-Object.defineProperty(exports, "alphaNum", {
-  enumerable: true,
-  get: function get() {
-    return _alphaNum.default;
-  }
-});
-Object.defineProperty(exports, "numeric", {
-  enumerable: true,
-  get: function get() {
-    return _numeric.default;
-  }
-});
-Object.defineProperty(exports, "between", {
-  enumerable: true,
-  get: function get() {
-    return _between.default;
-  }
-});
-Object.defineProperty(exports, "email", {
-  enumerable: true,
-  get: function get() {
-    return _email.default;
-  }
-});
-Object.defineProperty(exports, "ipAddress", {
-  enumerable: true,
-  get: function get() {
-    return _ipAddress.default;
-  }
-});
-Object.defineProperty(exports, "macAddress", {
-  enumerable: true,
-  get: function get() {
-    return _macAddress.default;
-  }
-});
-Object.defineProperty(exports, "maxLength", {
-  enumerable: true,
-  get: function get() {
-    return _maxLength.default;
-  }
-});
-Object.defineProperty(exports, "minLength", {
-  enumerable: true,
-  get: function get() {
-    return _minLength.default;
-  }
-});
-Object.defineProperty(exports, "required", {
-  enumerable: true,
-  get: function get() {
-    return _required.default;
-  }
-});
-Object.defineProperty(exports, "requiredIf", {
-  enumerable: true,
-  get: function get() {
-    return _requiredIf.default;
-  }
-});
-Object.defineProperty(exports, "requiredUnless", {
-  enumerable: true,
-  get: function get() {
-    return _requiredUnless.default;
-  }
-});
-Object.defineProperty(exports, "sameAs", {
-  enumerable: true,
-  get: function get() {
-    return _sameAs.default;
-  }
-});
-Object.defineProperty(exports, "url", {
-  enumerable: true,
-  get: function get() {
-    return _url.default;
-  }
-});
-Object.defineProperty(exports, "or", {
-  enumerable: true,
-  get: function get() {
-    return _or.default;
-  }
-});
-Object.defineProperty(exports, "and", {
-  enumerable: true,
-  get: function get() {
-    return _and.default;
-  }
-});
-Object.defineProperty(exports, "not", {
-  enumerable: true,
-  get: function get() {
-    return _not.default;
-  }
-});
-Object.defineProperty(exports, "minValue", {
-  enumerable: true,
-  get: function get() {
-    return _minValue.default;
-  }
-});
-Object.defineProperty(exports, "maxValue", {
-  enumerable: true,
-  get: function get() {
-    return _maxValue.default;
-  }
-});
-Object.defineProperty(exports, "integer", {
-  enumerable: true,
-  get: function get() {
-    return _integer.default;
-  }
-});
-Object.defineProperty(exports, "decimal", {
-  enumerable: true,
-  get: function get() {
-    return _decimal.default;
-  }
-});
-exports.helpers = void 0;
-
-var _alpha = _interopRequireDefault(__webpack_require__(62));
-
-var _alphaNum = _interopRequireDefault(__webpack_require__(65));
-
-var _numeric = _interopRequireDefault(__webpack_require__(66));
-
-var _between = _interopRequireDefault(__webpack_require__(67));
-
-var _email = _interopRequireDefault(__webpack_require__(68));
-
-var _ipAddress = _interopRequireDefault(__webpack_require__(69));
-
-var _macAddress = _interopRequireDefault(__webpack_require__(70));
-
-var _maxLength = _interopRequireDefault(__webpack_require__(71));
-
-var _minLength = _interopRequireDefault(__webpack_require__(72));
-
-var _required = _interopRequireDefault(__webpack_require__(73));
-
-var _requiredIf = _interopRequireDefault(__webpack_require__(74));
-
-var _requiredUnless = _interopRequireDefault(__webpack_require__(75));
-
-var _sameAs = _interopRequireDefault(__webpack_require__(76));
-
-var _url = _interopRequireDefault(__webpack_require__(77));
-
-var _or = _interopRequireDefault(__webpack_require__(78));
-
-var _and = _interopRequireDefault(__webpack_require__(79));
-
-var _not = _interopRequireDefault(__webpack_require__(80));
-
-var _minValue = _interopRequireDefault(__webpack_require__(81));
-
-var _maxValue = _interopRequireDefault(__webpack_require__(82));
-
-var _integer = _interopRequireDefault(__webpack_require__(83));
-
-var _decimal = _interopRequireDefault(__webpack_require__(84));
-
-var helpers = _interopRequireWildcard(__webpack_require__(0));
-
-exports.helpers = helpers;
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-/***/ }),
 /* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1836,6 +1836,7 @@ window.Vue = __webpack_require__(42);
 window.Vue.use(__WEBPACK_IMPORTED_MODULE_2_vuelidate___default.a);
 window.Vue.use(__WEBPACK_IMPORTED_MODULE_1_vue_js_modal___default.a);
 window.Vue.use(__WEBPACK_IMPORTED_MODULE_0_vue_router__["a" /* default */]);
+Vue.prototype.$Url = window.location.origin + "/";
 // Vue.component('pagination', require('laravel-vue-pagination'));
 // validator.isEmail('foo@bar.com');
 // Vue.component('b-modal', bModal);
@@ -31850,9 +31851,9 @@ module.exports = __webpack_require__(24);
 
 
 var utils = __webpack_require__(1);
-var bind = __webpack_require__(7);
+var bind = __webpack_require__(8);
 var Axios = __webpack_require__(26);
-var defaults = __webpack_require__(6);
+var defaults = __webpack_require__(7);
 
 /**
  * Create an instance of Axios
@@ -31885,9 +31886,9 @@ axios.create = function create(instanceConfig) {
 };
 
 // Expose Cancel & CancelToken
-axios.Cancel = __webpack_require__(12);
+axios.Cancel = __webpack_require__(13);
 axios.CancelToken = __webpack_require__(40);
-axios.isCancel = __webpack_require__(11);
+axios.isCancel = __webpack_require__(12);
 
 // Expose all/spread
 axios.all = function all(promises) {
@@ -31935,7 +31936,7 @@ function isSlowBuffer (obj) {
 "use strict";
 
 
-var defaults = __webpack_require__(6);
+var defaults = __webpack_require__(7);
 var utils = __webpack_require__(1);
 var InterceptorManager = __webpack_require__(35);
 var dispatchRequest = __webpack_require__(36);
@@ -32047,7 +32048,7 @@ module.exports = function normalizeHeaderName(headers, normalizedName) {
 "use strict";
 
 
-var createError = __webpack_require__(10);
+var createError = __webpack_require__(11);
 
 /**
  * Resolve or reject a Promise based on response status.
@@ -32466,8 +32467,8 @@ module.exports = InterceptorManager;
 
 var utils = __webpack_require__(1);
 var transformData = __webpack_require__(37);
-var isCancel = __webpack_require__(11);
-var defaults = __webpack_require__(6);
+var isCancel = __webpack_require__(12);
+var defaults = __webpack_require__(7);
 
 /**
  * Throws a `Cancel` if cancellation has been requested.
@@ -32619,7 +32620,7 @@ module.exports = function combineURLs(baseURL, relativeURL) {
 "use strict";
 
 
-var Cancel = __webpack_require__(12);
+var Cancel = __webpack_require__(13);
 
 /**
  * A `CancelToken` is an object that can be used to request cancellation of an operation.
@@ -43937,7 +43938,7 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
     attachTo.clearImmediate = clearImmediate;
 }(typeof self === "undefined" ? typeof global === "undefined" ? this : global : self));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3), __webpack_require__(8)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3), __webpack_require__(9)))
 
 /***/ }),
 /* 45 */
@@ -47613,7 +47614,7 @@ exports.default = exports.validationMixin = void 0;
 
 var _vval = __webpack_require__(48);
 
-var _params = __webpack_require__(13);
+var _params = __webpack_require__(14);
 
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
 
@@ -48806,7 +48807,7 @@ exports.push([module.i, "\n.sele[data-v-250acfbd] {\r\n  width: 80%;\n}\n.mrgt[d
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__);
 //
 //
@@ -49011,7 +49012,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     this.displayTable = 1;
     var x = this;
     x.Newdata = true;
-    axios.get("http://127.0.0.1:8000/project", {}).then(function (response) {
+    axios.get(x.$Url + "project", {}).then(function (response) {
       if (response.status == 200) {
         console.log(response.data);
         x.projectData = response.data;
@@ -49043,7 +49044,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     removeUserFromDelayTable: function removeUserFromDelayTable(index) {
       this.DeselectedClient = index;
       var x = this;
-      axios.delete("http://127.0.0.1:8000/projectde/" + x.DeselectedClient, {}).then(function (response) {
+      axios.delete(x.$Url + "projectde/" + x.DeselectedClient, {}).then(function (response) {
         if (response.status == 204) {
           console.log(response.data);
           x.showPopup(x.selectedProjectId);
@@ -49064,7 +49065,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     //  Add Users into the delayresponsible table
     addUserToDelayTable: function addUserToDelayTable() {
       var x = this;
-      axios.post("http://127.0.0.1:8000/projectdelay", {
+      axios.post(x.$Url + "projectdelay", {
         selectedProjectId: this.selectedProjectId,
         selectedClient: this.selectedClient
       }).then(function (response) {
@@ -49094,7 +49095,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     showPopup: function showPopup(index) {
       this.selectedProjectId = index;
       var x = this;
-      axios.get("http://127.0.0.1:8000/projectid/" + x.selectedProjectId, {}).then(function (response) {
+      axios.get(x.$Url + "projectid/" + x.selectedProjectId, {}).then(function (response) {
         if (response.status == 200) {
           console.log(response.data);
           x.projectMembers = response.data[1];
@@ -49120,7 +49121,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       this.displayTable = 1;
       var x = this;
       x.Newdata = true;
-      axios.get("http://127.0.0.1:8000/project", {}).then(function (response) {
+      axios.get(x.$Url + "project", {}).then(function (response) {
         if (response.status == 200) {
           console.log(response.data);
           x.projectData = response.data;
@@ -49138,7 +49139,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       this.displayTable = 1;
       this.selectedProjectId = index;
       var x = this;
-      axios.put("http://127.0.0.1:8000/project/" + x.selectedProjectId, {
+      axios.put(x.$Url + "project/" + x.selectedProjectId, {
         monitoring: 0
       }).then(function (response) {
         if (response.status == 200) {
@@ -49161,7 +49162,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       this.displayTable = 2;
       var x = this;
       x.Newdata = true;
-      axios.get("http://127.0.0.1:8000/projects", {}).then(function (response) {
+      axios.get(x.$Url + "projects", {}).then(function (response) {
         if (response.status == 200) {
           x.projectData = response.data;
           // x.nurl = response.data.next_page_url;
@@ -49180,7 +49181,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       this.displayTable = 2;
       this.selectedProjectId = index;
       var x = this;
-      axios.put("http://127.0.0.1:8000/project/" + x.selectedProjectId, {
+      axios.put(x.$Url + "project/" + x.selectedProjectId, {
         monitoring: 1
       }).then(function (response) {
         if (response.status == 200) {
@@ -49229,7 +49230,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
-var withParams = Object({"NODE_ENV":"development"}).BUILD === 'web' ? __webpack_require__(64).withParams : __webpack_require__(13).withParams;
+var withParams = Object({"NODE_ENV":"development"}).BUILD === 'web' ? __webpack_require__(64).withParams : __webpack_require__(14).withParams;
 var _default = withParams;
 exports.default = _default;
 
@@ -50253,7 +50254,7 @@ exports.push([module.i, "\n.row[data-v-04eb2197] {\r\n  margin-top: 15px;\n}\n.w
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__);
 //
 //
@@ -50337,8 +50338,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
   // LOADS DATA WHILE LOADING PAGE
   created: function created() {
+    // window.location.origin+/
     var x = this;
-    axios.get("http://127.0.0.1:8000/projectuserdata", {}).then(function (response) {
+    axios.get(x.$Url + "projectuserdata", {}).then(function (response) {
       if (response.status == 200) {
         console.log(response.data.data);
         x.userData = response.data.data;
@@ -50398,7 +50400,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     // New data according to date
     dataChange: function dataChange() {
       var x = this;
-      axios.get("http://127.0.0.1:8000/projectuserdatedata/" + x.selectedDate, {}).then(function (response) {
+      axios.get(x.$Url + "projectuserdatedata/" + x.selectedDate, {}).then(function (response) {
         if (response.status == 200) {
           console.log(response.data.data);
           x.nextUrl = response.data.next_page_url;
@@ -50580,19 +50582,19 @@ if (false) {
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(110)
+  __webpack_require__(91)
 }
 var normalizeComponent = __webpack_require__(2)
 /* script */
 var __vue_script__ = __webpack_require__(93)
 /* template */
-var __vue_template__ = __webpack_require__(112)
+var __vue_template__ = __webpack_require__(94)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
 var __vue_styles__ = injectStyle
 /* scopeId */
-var __vue_scopeId__ = null
+var __vue_scopeId__ = "data-v-5e43a5b2"
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
@@ -50625,13 +50627,270 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 91 */,
-/* 92 */,
+/* 91 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(92);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(5)("861491fa", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-5e43a5b2\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Table.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-5e43a5b2\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Table.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 92 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(4)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.sele[data-v-5e43a5b2] {\r\n  width: 80%;\n}\n.mrgt[data-v-5e43a5b2] {\r\n  margin-top: 10px;\n}\n.mrg[data-v-5e43a5b2] {\r\n  /* margin-top: 50%; */\n}\n.brdr[data-v-5e43a5b2] {\r\n  border-bottom: #dadada 1px solid;\n}\n.nobrdr[data-v-5e43a5b2] {\r\n  border: transparent;\r\n  margin: 5px;\n}\n.ull[data-v-5e43a5b2] {\r\n  margin-top: 20px;\n}\n.cncl[data-v-5e43a5b2] {\r\n  margin-top: 210px;\n}\r\n\r\n/* table {\r\n  border: 2px solid #42b983;\r\n  border-radius: 3px;\r\n  background-color: #fff;\r\n}\r\n\r\nth {\r\n  background-color: #42b983;\r\n  color: rgba(255, 255, 255, 0.66);\r\n  cursor: pointer;\r\n  -webkit-user-select: none;\r\n  -moz-user-select: none;\r\n  -ms-user-select: none;\r\n  user-select: none;\r\n}\r\n\r\ntd {\r\n  background-color: #f9f9f9;\r\n  border: #42b983 1px solid;\r\n}\r\n\r\nth,\r\ntd {\r\n  min-width: 130px;\r\n  padding: 10px 20px;\r\n}\r\n\r\nth.active {\r\n  color: #fff;\r\n}\r\n\r\nth.active .arrow {\r\n  opacity: 1;\r\n}\r\n\r\n.arrow {\r\n  display: inline-block;\r\n  vertical-align: middle;\r\n  width: 0;\r\n  height: 0;\r\n  margin-left: 5px;\r\n  opacity: 0.66;\r\n}\r\n\r\n.arrow.asc {\r\n  border-left: 4px solid transparent;\r\n  border-right: 4px solid transparent;\r\n  border-bottom: 4px solid #fff;\r\n} */\r\n", ""]);
+
+// exports
+
+
+/***/ }),
 /* 93 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -50662,87 +50921,237 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
+
+// import { EventBus } from "../main";
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      items1: [],
-      types: ["Credit", "Debit"],
-      Type: null,
+      projectData: [],
+      projectMembers: [],
+      delayedUsers: [],
+      selectedProjectId: 0,
+      isSubmitted: false,
       selectedClient: null,
-      score: null,
-      xx: 0,
-      comments: null
+      DeselectedClient: null,
+      displayTable: 0,
+      searchQuery: null,
+      monitorAlert: 0,
+      monitoring: null,
+      searchError: 0,
+      addToDelayTable: 0,
+      userInDelayTable: 0,
+      removeFromDelayTable: 0
     };
   },
 
-  // created: function() {
-  //   var x = this;
-  //   // `this` points to the vm instance
-  //   axios
-  //     .get("http://127.0.0.1:8000/projectuser", {})
-  //     .then(function(response) {
-  //       if (response.status == 200) {
-  //         console.log(response.data);
-  //         x.items1 = response.data;
-  //         // x.items2 = response.data[2];
-  //         // x.looper(response.data);
-  //         //x.items0 = response.data;
-  //       } else {
-  //         alert("Error");
-  //       }
-  //       console.log(response);
-  //     })
-  //     .catch(function(error) {
-  //       console.log(error);
-  //     });
-  // },
+  // Get data on the page while loading
+  created: function created() {
+    this.searchNonMonitored(1);
+    // this.searchMonitored();
+    // this.displayTable = 1;
+    // var x = this;
+    // x.Newdata = true;
+    // axios
+    //   .get(`${x.$Url}project`, {})
+    //   .then(function(response) {
+    //     if (response.status == 200) {
+    //       console.log(response.data);
+    //       x.projectData = response.data;
+    //     } else {
+    //       alert("Error");
+    //     }
+    //     console.log(response);
+    //   })
+    //   .catch(function(error) {
+    //     console.log(error);
+    //   });
+  },
+  validations: {
+    selectedClient: {
+      required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"]
+    },
+    searchQuery: {
+      required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"]
+    }
+  },
   methods: {
-    scoreUpdate: function scoreUpdate() {
+    searchNonMonitored: function searchNonMonitored(index) {
+      this.monitoring = index;
+      if (this.monitoring == 1) {
+        this.displayTable = 1;
+      } else {
+        this.displayTable = 2;
+      }
       var x = this;
-      //   axios
-      //     .all([
-      //       axios.put(`http://127.0.0.1:8000/projectuser/${x.selectedClient}`, {
-      //         score: this.score,
-      //         type: this.Type
-      //       }),
-      //       axios.post("http://127.0.0.1:8000/projectuser", {
-      //         id: this.selectedClient,
-      //         comments: this.comments
-      //       })
-      //     ])
-      //     .then(
-      //       axios.spread((firstResponse, secondResponse) => {
-      //         console.log(firstResponse.data, secondResponse.data);
-      //         // console.log(secondResponse.status);
-      //         if (secondResponse.status == 200) {
-      //           x.xx = 1;
-      //           x.selectedClient = null;
-      //           x.Type = null;
-      //           x.score = null;
-      //           setTimeout(function() {
-      //             x.xx = 0;
-      //           }, 3000);
-      //         } else {
-      //           alert("Error");
-      //         }
-      //       })
-      //     )
-      //     .catch(error => console.log(error));
-      axios.put("http://127.0.0.1:8000/projectuser/" + x.selectedClient, {
-        score: this.score,
-        type: this.Type,
-        id: this.selectedClient,
-        comments: this.comments
+      axios.post(x.$Url + "projectSearchNonMonitor", {
+        title: this.searchQuery,
+        monitor: this.monitoring
+      }).then(function (response) {
+        if (response.status == 206) {
+          console.log(response.data);
+          x.searchQuery = null;
+          x.searchError = 1;
+          setTimeout(function () {
+            x.searchError = 0;
+          }, 3000);
+        } else if (response.status == 200) {
+          console.log(response.data.status);
+          x.searchQuery = null;
+          console.log(response.data);
+          x.projectData = response.data;
+          // x.projectMembers = response.data[1];
+          // x.delayedUsers = response.data[2];
+        } else {
+          alert("Error");
+        }
+        console.log(response);
+      }).catch(function (error) {
+        console.log(error);
+      });
+    },
+    searchMonitored: function searchMonitored() {
+      var x = this;
+      axios.post(x.$Url + "projectSearch", {
+        title: this.searchQuery,
+        monitor: 1
+      }).then(function (response) {
+        if (response.status == 206) {
+          console.log(response.data.status);
+          x.searchError = 1;
+          setTimeout(function () {
+            x.searchError = 0;
+          }, 3000);
+        } else if (response.status == 200) {
+          console.log(response.data.status);
+          console.log(response.data);
+          x.projectData = response.data;
+          // x.projectMembers = response.data[1];
+          // x.delayedUsers = response.data[2];
+        } else {
+          alert("Error");
+        }
+        console.log(response);
+      }).catch(function (error) {
+        console.log(error);
+      });
+    },
+    status: function status(validation) {
+      return {
+        error: validation.$error,
+        dirty: validation.$dirty
+      };
+    },
+    submitted: function submitted() {
+      this.isSubmitted = true;
+    },
+
+    // To Remove Users from the delayresponsible table
+    removeUserFromDelayTable: function removeUserFromDelayTable(index) {
+      this.DeselectedClient = index;
+      var x = this;
+      axios.delete(x.$Url + "projectde/" + x.DeselectedClient, {}).then(function (response) {
+        if (response.status == 204) {
+          console.log(response.data);
+          x.showPopup(x.selectedProjectId);
+          x.removeFromDelayTable = 1;
+          setTimeout(function () {
+            x.removeFromDelayTable = 0;
+          }, 3000);
+          x.getMonitoredData();
+        } else {
+          alert("Error");
+        }
+        console.log(response);
+      }).catch(function (error) {
+        console.log(error);
+      });
+    },
+
+    //  Add Users into the delayresponsible table
+    addUserToDelayTable: function addUserToDelayTable() {
+      var x = this;
+      axios.post(x.$Url + "projectdelay", {
+        selectedProjectId: this.selectedProjectId,
+        selectedClient: this.selectedClient
+      }).then(function (response) {
+        if (response.status == 208) {
+          x.userInDelayTable = 1;
+          setTimeout(function () {
+            x.userInDelayTable = 0;
+          }, 3000);
+        } else if (response.status == 200) {
+          console.log(response.data);
+          x.showPopup(x.selectedProjectId);
+          x.addToDelayTable = 1;
+          setTimeout(function () {
+            x.addToDelayTable = 0;
+          }, 3000);
+          x.getMonitoredData();
+        } else {
+          alert("Error");
+        }
+        console.log(response);
+      }).catch(function (error) {
+        console.log(error);
+      });
+    },
+
+    //Shows Popup
+    showPopup: function showPopup(index) {
+      this.selectedProjectId = index;
+      var x = this;
+      axios.get(x.$Url + "projectid/" + x.selectedProjectId, {}).then(function (response) {
+        if (response.status == 200) {
+          console.log(response.data);
+          x.projectMembers = response.data[1];
+          x.delayedUsers = response.data[2];
+        } else {
+          alert("Error");
+        }
+        console.log(response);
+      }).catch(function (error) {
+        console.log(error);
+      });
+
+      this.$modal.show("delayPopup");
+    },
+
+    //Hide Popup
+    hidePopup: function hidePopup() {
+      this.$modal.hide("delayPopup");
+    },
+
+    //Get all monitored projects
+    getMonitoredData: function getMonitoredData() {
+      this.displayTable = 1;
+      var x = this;
+      x.Newdata = true;
+      axios.get(x.$Url + "project", {}).then(function (response) {
+        if (response.status == 200) {
+          console.log(response.data);
+          x.projectData = response.data;
+        } else {
+          alert("Error");
+        }
+        console.log(response);
+      }).catch(function (error) {
+        console.log(error);
+      });
+    },
+
+    //Stop monitoring a project
+    doNotMonitor: function doNotMonitor(index) {
+      this.displayTable = 1;
+      this.selectedProjectId = index;
+      var x = this;
+      axios.put(x.$Url + "project/" + x.selectedProjectId, {
+        monitoring: 0
       }).then(function (response) {
         if (response.status == 200) {
-          console.log(response);
-          x.xx = 1;
-          x.selectedClient = null;
-          x.Type = null;
-          x.score = null;
-          x.comments = null;
+          x.getMonitoredData();
+          x.monitorAlert = 1;
           setTimeout(function () {
-            x.xx = 0;
+            x.monitorAlert = 0;
           }, 3000);
         } else {
           alert("Error");
@@ -50752,15 +51161,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         console.log(error);
       });
     },
-    getAllData: function getAllData() {
-      //   this.bttn = false;
-      //   this.mrdata = 1;
+
+    //get all projects which are not monitored
+    getNonMonitoredData: function getNonMonitoredData() {
+      this.displayTable = 2;
       var x = this;
-      //   x.Newdata = true;
-      axios.get("http://127.0.0.1:8000/projectcontroller", {}).then(function (response) {
+      x.Newdata = true;
+      axios.get(x.$Url + "projects", {}).then(function (response) {
         if (response.status == 200) {
-          console.log(response.data);
-          // x.items = response.data;
+          x.projectData = response.data;
+          // x.nurl = response.data.next_page_url;
+          // x.purl = response.data.prev_page_url;
         } else {
           alert("Error");
         }
@@ -50769,15 +51180,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         console.log(error);
       });
     },
-    getAll: function getAll() {
-      //   this.bttn = false;
-      //   this.mrdata = 1;
+
+    //Start monitoring specific project
+    doMonitor: function doMonitor(index) {
+      this.displayTable = 2;
+      this.selectedProjectId = index;
       var x = this;
-      //   x.Newdata = true;
-      axios.get("http://127.0.0.1:8000/projectmonthly", {}).then(function (response) {
+      axios.put(x.$Url + "project/" + x.selectedProjectId, {
+        monitoring: 1
+      }).then(function (response) {
         if (response.status == 200) {
-          console.log(response.data);
-          // x.items = response.data;
+          x.getNonMonitoredData();
+          x.monitorAlert = 1;
+          setTimeout(function () {
+            x.monitorAlert = 0;
+          }, 3000);
         } else {
           alert("Error");
         }
@@ -50790,7 +51207,616 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 94 */,
+/* 94 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "container" },
+    [
+      _c("br"),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-primary",
+          on: {
+            click: function($event) {
+              _vm.searchNonMonitored(1)
+            }
+          }
+        },
+        [_vm._v("Get Monitored Data")]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-primary",
+          on: {
+            click: function($event) {
+              _vm.searchNonMonitored(0)
+            }
+          }
+        },
+        [_vm._v("Get Non Monitored Data Data")]
+      ),
+      _vm._v(" "),
+      _c("br"),
+      _vm._v(" "),
+      _c("br"),
+      _vm._v(" "),
+      _c("br"),
+      _vm._v(" "),
+      _c("modal", { attrs: { name: "delayPopup" } }, [
+        _c("div", { staticClass: "container-fluid" }, [
+          _c("div", { staticClass: "col-md-10" }, [
+            _c("form", [
+              _c(
+                "select",
+                {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.selectedClient,
+                      expression: "selectedClient"
+                    }
+                  ],
+                  staticClass: "form-control sele mrgt",
+                  on: {
+                    blur: function($event) {
+                      _vm.$v.selectedClient.$touch()
+                    },
+                    change: function($event) {
+                      var $$selectedVal = Array.prototype.filter
+                        .call($event.target.options, function(o) {
+                          return o.selected
+                        })
+                        .map(function(o) {
+                          var val = "_value" in o ? o._value : o.value
+                          return val
+                        })
+                      _vm.selectedClient = $event.target.multiple
+                        ? $$selectedVal
+                        : $$selectedVal[0]
+                    }
+                  }
+                },
+                _vm._l(_vm.projectMembers, function(option) {
+                  return _c("option", { domProps: { value: option.id } }, [
+                    _vm._v(_vm._s(option.user_name))
+                  ])
+                })
+              ),
+              _vm._v(" "),
+              _vm.$v.selectedClient.$dirty && !_vm.$v.selectedClient.required
+                ? _c("p", { staticClass: "error-message" }, [
+                    _vm._v("Select a user")
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
+              _c("br"),
+              _vm._v(" "),
+              _vm.userInDelayTable == 1
+                ? _c(
+                    "div",
+                    {
+                      staticClass: "alert alert-danger",
+                      attrs: { id: "success_message" }
+                    },
+                    [_vm._v("Already in Delay Table")]
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.addToDelayTable == 1
+                ? _c(
+                    "div",
+                    {
+                      staticClass: "alert alert-success",
+                      attrs: { id: "success_message" }
+                    },
+                    [_vm._v("Added to delay table")]
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.removeFromDelayTable == 1
+                ? _c(
+                    "div",
+                    {
+                      staticClass: "alert alert-danger",
+                      attrs: { id: "success_message" }
+                    },
+                    [
+                      _vm._v(
+                        "\n            Removed from Delay\n            table\n          "
+                      )
+                    ]
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              _c("div", [
+                _c("div", { staticClass: "col-md-7 col-md-offset-1" }, [
+                  _c(
+                    "table",
+                    { staticClass: "table table-bordered" },
+                    [
+                      _c("thead", [
+                        _c("tr", [
+                          _c("th", [_vm._v("User Name")]),
+                          _vm._v(" "),
+                          _c("th", [_vm._v("Action")])
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _vm._l(_vm.delayedUsers, function(option) {
+                        return _c("tr", [
+                          _c("td", [_vm._v(_vm._s(option.user_name))]),
+                          _vm._v(" "),
+                          _c("td", [
+                            _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-primary btn-xs",
+                                on: {
+                                  click: [
+                                    function($event) {
+                                      $event.preventDefault()
+                                      return _vm.submitted($event)
+                                    },
+                                    function($event) {
+                                      _vm.removeUserFromDelayTable(option.id)
+                                    }
+                                  ]
+                                }
+                              },
+                              [_vm._v("Remove")]
+                            )
+                          ])
+                        ])
+                      })
+                    ],
+                    2
+                  )
+                ])
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-md-2" }, [
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-primary okk mrgt",
+                attrs: { disabled: _vm.$v.selectedClient.$invalid },
+                on: {
+                  click: [
+                    function($event) {
+                      $event.preventDefault()
+                      return _vm.submitted($event)
+                    },
+                    function($event) {
+                      _vm.addUserToDelayTable()
+                    }
+                  ]
+                }
+              },
+              [_vm._v("Add")]
+            ),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-primary cncl",
+                on: {
+                  click: [
+                    function($event) {
+                      $event.preventDefault()
+                      return _vm.submitted($event)
+                    },
+                    function($event) {
+                      _vm.hidePopup()
+                    }
+                  ]
+                }
+              },
+              [_vm._v("Cancel")]
+            )
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", [
+        _c("div", [
+          _vm.monitorAlert == 1
+            ? _c(
+                "div",
+                {
+                  staticClass: "alert alert-success",
+                  attrs: { id: "success_message" }
+                },
+                [_vm._v("Status Changed")]
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.displayTable == 1
+            ? _c("div", [
+                _vm.searchError == 1
+                  ? _c(
+                      "div",
+                      {
+                        staticClass: "alert alert-danger",
+                        attrs: { id: "error_message" }
+                      },
+                      [_vm._v("Project Not Found")]
+                    )
+                  : _vm._e(),
+                _vm._v(" "),
+                _c("div", { staticClass: "row" }, [
+                  _c("div", { staticClass: "col-md-6 col-md-offset-3" }, [
+                    _c(
+                      "form",
+                      { staticClass: "search-form", attrs: { action: "" } },
+                      [
+                        _c("div", { staticClass: "form-group col-md-10" }, [
+                          _c(
+                            "label",
+                            {
+                              staticClass: "sr-only",
+                              attrs: { for: "search" }
+                            },
+                            [_vm._v("Search")]
+                          ),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.searchQuery,
+                                expression: "searchQuery"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: {
+                              type: "text",
+                              name: "search",
+                              id: "search",
+                              placeholder: "search"
+                            },
+                            domProps: { value: _vm.searchQuery },
+                            on: {
+                              blur: function($event) {
+                                _vm.$v.searchQuery.$touch()
+                              },
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.searchQuery = $event.target.value
+                              }
+                            }
+                          })
+                        ])
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-primary",
+                        attrs: { disabled: _vm.$v.searchQuery.$invalid },
+                        on: {
+                          click: function($event) {
+                            _vm.searchNonMonitored(1)
+                          }
+                        }
+                      },
+                      [_c("i", { staticClass: "glyphicon glyphicon-search" })]
+                    )
+                  ])
+                ]),
+                _vm._v(" "),
+                _c(
+                  "table",
+                  { staticClass: "table table-bordered table-responsive" },
+                  [
+                    _c("thead", [
+                      _vm.displayTable == 1
+                        ? _c("tr", [
+                            _c("th", [_vm._v("Id")]),
+                            _vm._v(" "),
+                            _c("th", [_vm._v("Project")]),
+                            _vm._v(" "),
+                            _c("th", [_vm._v("Users")]),
+                            _vm._v(" "),
+                            _c("th", [_vm._v("Start Date")]),
+                            _vm._v(" "),
+                            _c("th", [_vm._v("Expected Date")]),
+                            _vm._v(" "),
+                            _c("th", [_vm._v("Actual Close")]),
+                            _vm._v(" "),
+                            _c("th", [_vm._v("Delayed by")]),
+                            _vm._v(" "),
+                            _c("th", [_vm._v("Actions")]),
+                            _vm._v(" "),
+                            _c("th", [_vm._v("Delay Responsive")])
+                          ])
+                        : _vm._e()
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "tbody",
+                      _vm._l(_vm.projectData, function(item) {
+                        return _vm.displayTable == 1
+                          ? _c("tr", { key: item.id, staticClass: "brdr" }, [
+                              _c("td", [_vm._v(_vm._s(item.id))]),
+                              _vm._v(" "),
+                              _c("td", [_vm._v(_vm._s(item.title))]),
+                              _vm._v(" "),
+                              _c(
+                                "table",
+                                { staticClass: "nobrdr" },
+                                _vm._l(item.user_names, function(ite) {
+                                  return _c("tr", [
+                                    _vm._v(_vm._s(ite.user_name))
+                                  ])
+                                })
+                              ),
+                              _vm._v(" "),
+                              _c("td", [_vm._v(_vm._s(item.start_date))]),
+                              _vm._v(" "),
+                              _c("td", [_vm._v(_vm._s(item.end_date))]),
+                              _vm._v(" "),
+                              _c("td", [_vm._v(_vm._s(item.actual_close))]),
+                              _vm._v(" "),
+                              _c(
+                                "table",
+                                { staticClass: "nobrdr" },
+                                _vm._l(item.delay, function(ite) {
+                                  return _c("tr", [
+                                    _vm._v(_vm._s(ite.user_name))
+                                  ])
+                                })
+                              ),
+                              _vm._v(" "),
+                              _c("td", [
+                                _c(
+                                  "button",
+                                  {
+                                    staticClass: "btn btn-danger btn-xs mrg",
+                                    on: {
+                                      click: function($event) {
+                                        _vm.doNotMonitor(item.id)
+                                      }
+                                    }
+                                  },
+                                  [_vm._v("Stop Monitoring")]
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("td", [
+                                _c(
+                                  "button",
+                                  {
+                                    staticClass: "btn btn-primary btn-xs mrg",
+                                    on: {
+                                      click: function($event) {
+                                        _vm.showPopup(item.id)
+                                      }
+                                    }
+                                  },
+                                  [_vm._v("Delay")]
+                                )
+                              ])
+                            ])
+                          : _vm._e()
+                      })
+                    )
+                  ]
+                )
+              ])
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.displayTable == 2
+            ? _c("div", [
+                _vm.searchError == 1
+                  ? _c(
+                      "div",
+                      {
+                        staticClass: "alert alert-danger",
+                        attrs: { id: "error_message" }
+                      },
+                      [_vm._v("Project Not Found")]
+                    )
+                  : _vm._e(),
+                _vm._v(" "),
+                _c("div", { staticClass: "row" }, [
+                  _c("div", { staticClass: "col-md-6 col-md-offset-3" }, [
+                    _c(
+                      "form",
+                      { staticClass: "search-form", attrs: { action: "" } },
+                      [
+                        _c("div", { staticClass: "form-group col-md-10" }, [
+                          _c(
+                            "label",
+                            {
+                              staticClass: "sr-only",
+                              attrs: { for: "search" }
+                            },
+                            [_vm._v("Search")]
+                          ),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.searchQuery,
+                                expression: "searchQuery"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: {
+                              type: "text",
+                              name: "search",
+                              id: "search",
+                              placeholder: "search"
+                            },
+                            domProps: { value: _vm.searchQuery },
+                            on: {
+                              blur: function($event) {
+                                _vm.$v.searchQuery.$touch()
+                              },
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.searchQuery = $event.target.value
+                              }
+                            }
+                          })
+                        ])
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-primary",
+                        attrs: { disabled: _vm.$v.searchQuery.$invalid },
+                        on: {
+                          click: function($event) {
+                            _vm.searchNonMonitored(0)
+                          }
+                        }
+                      },
+                      [_c("i", { staticClass: "glyphicon glyphicon-search" })]
+                    )
+                  ])
+                ]),
+                _vm._v(" "),
+                _c(
+                  "table",
+                  { staticClass: "table table-bordered table-responsive" },
+                  [
+                    _c("thead", [
+                      _vm.displayTable == 2
+                        ? _c("tr", [
+                            _c("th", [_vm._v("Id")]),
+                            _vm._v(" "),
+                            _c("th", [_vm._v("Project")]),
+                            _vm._v(" "),
+                            _c("th", [_vm._v("Users")]),
+                            _vm._v(" "),
+                            _c("th", [_vm._v("Start Date")]),
+                            _vm._v(" "),
+                            _c("th", [_vm._v("Expected Date")]),
+                            _vm._v(" "),
+                            _c("th", [_vm._v("Actual Close")]),
+                            _vm._v(" "),
+                            _c("th", [_vm._v("Delayed by")]),
+                            _vm._v(" "),
+                            _c("th", [_vm._v("Actions")]),
+                            _vm._v(" "),
+                            _c("th", [_vm._v("Delay Responsive")])
+                          ])
+                        : _vm._e()
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "tbody",
+                      _vm._l(_vm.projectData, function(item) {
+                        return _vm.displayTable == 2
+                          ? _c("tr", { key: item.id, staticClass: "brdr" }, [
+                              _c("td", [_vm._v(_vm._s(item.id))]),
+                              _vm._v(" "),
+                              _c("td", [_vm._v(_vm._s(item.title))]),
+                              _vm._v(" "),
+                              _c(
+                                "table",
+                                { staticClass: "nobrdr" },
+                                _vm._l(item.user_names, function(ite) {
+                                  return _c("tr", [
+                                    _vm._v(_vm._s(ite.user_name))
+                                  ])
+                                })
+                              ),
+                              _vm._v(" "),
+                              _c("td", [_vm._v(_vm._s(item.start_date))]),
+                              _vm._v(" "),
+                              _c("td", [_vm._v(_vm._s(item.end_date))]),
+                              _vm._v(" "),
+                              _c("td", [_vm._v(_vm._s(item.actual_close))]),
+                              _vm._v(" "),
+                              _c(
+                                "table",
+                                { staticClass: "nobrdr" },
+                                _vm._l(item.delay, function(ite) {
+                                  return _c("tr", [
+                                    _vm._v(_vm._s(ite.user_name))
+                                  ])
+                                })
+                              ),
+                              _vm._v(" "),
+                              _c("td", [
+                                _c(
+                                  "button",
+                                  {
+                                    staticClass: "btn btn-success btn-xs mrg",
+                                    on: {
+                                      click: function($event) {
+                                        _vm.doMonitor(item.id)
+                                      }
+                                    }
+                                  },
+                                  [_vm._v("Start Monitoring")]
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("td", [
+                                _c(
+                                  "button",
+                                  {
+                                    staticClass: "btn btn-primary btn-xs mrg",
+                                    on: {
+                                      click: function($event) {
+                                        _vm.showPopup(item.id)
+                                      }
+                                    }
+                                  },
+                                  [_vm._v("Delay")]
+                                )
+                              ])
+                            ])
+                          : _vm._e()
+                      })
+                    )
+                  ]
+                )
+              ])
+            : _vm._e()
+        ])
+      ])
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-5e43a5b2", module.exports)
+  }
+}
+
+/***/ }),
 /* 95 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -50887,7 +51913,7 @@ exports.push([module.i, "\n.fr {\r\n  float: right;\n}\r\n", ""]);
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__);
 //
 //
@@ -50956,7 +51982,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   created: function created() {
     var x = this;
     // `this` points to the vm instance
-    axios.get("http://127.0.0.1:8000/projectuser", {}).then(function (response) {
+    axios.get(x.$Url + "projectuser", {}).then(function (response) {
       if (response.status == 200) {
         console.log(response.data);
         x.usersList = response.data;
@@ -50983,7 +52009,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   methods: {
     scoreUpdate: function scoreUpdate() {
       var x = this;
-      axios.put("http://127.0.0.1:8000/projectuser/" + x.selectedClient, {
+      axios.put(x.$Url + "projectuser/" + x.selectedClient, {
         score: this.score,
         type: this.Type,
         id: this.selectedClient,
@@ -51213,99 +52239,6 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 101 */,
-/* 102 */,
-/* 103 */,
-/* 104 */,
-/* 105 */,
-/* 106 */,
-/* 107 */,
-/* 108 */,
-/* 109 */,
-/* 110 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(111);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var update = __webpack_require__(5)("91342bec", content, false, {});
-// Hot Module Replacement
-if(false) {
- // When the styles change, update the <style> tags
- if(!content.locals) {
-   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-5e43a5b2\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Table.vue", function() {
-     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-5e43a5b2\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Table.vue");
-     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-     update(newContent);
-   });
- }
- // When the module is disposed, remove the <style> tags
- module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
-/* 111 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(4)(false);
-// imports
-
-
-// module
-exports.push([module.i, "\n.fr {\r\n  float: right;\n}\r\n", ""]);
-
-// exports
-
-
-/***/ }),
-/* 112 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container" }, [
-    _c(
-      "button",
-      {
-        on: {
-          click: function($event) {
-            _vm.getAllData()
-          }
-        }
-      },
-      [_vm._v("Get")]
-    ),
-    _vm._v(" "),
-    _c(
-      "button",
-      {
-        on: {
-          click: function($event) {
-            _vm.getAll()
-          }
-        }
-      },
-      [_vm._v("Month")]
-    )
-  ])
-}
-var staticRenderFns = []
-render._withStripped = true
-module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-5e43a5b2", module.exports)
-  }
-}
 
 /***/ })
 /******/ ]);

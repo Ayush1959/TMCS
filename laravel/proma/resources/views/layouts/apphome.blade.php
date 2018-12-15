@@ -9,7 +9,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('Proma', 'Proma') }}</title>
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -66,7 +66,7 @@
                                 <div class="col-md-1">
                                     <span class="glyphicon glyphicon-plus"></span>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-6">
                                     <router-link :to="{name: 'dataScore'}">Add Score</router-link>
                                 </div>
                                 <!-- </li> -->

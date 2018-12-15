@@ -24,7 +24,7 @@ Auth::routes();
 Route::get('projectuserdata', 'ProjectController@userdata'); //username and score
 Route::get('projectuserdatedata/{id}', 'ProjectController@datechangeread'); //username and score after datechange
 
-// Score Change -- DataScore.vue
+// Score Change -- DataScore.vue 
 Route::get('projectuser', 'ProjectController@users'); //gets users list
 Route::put('projectuser/{id}', 'ProjectController@usersupdate'); //change user score
 
@@ -40,6 +40,10 @@ Route::get('projectid/{id}', 'ProjectController@edit'); //single project details
 Route::post('projectdelay', 'ProjectController@delay'); //add users to delay table
 Route::delete('projectde/{id}', 'ProjectController@destroy'); //delete users from delaY table
 
+// Search query
+Route::get('projectSearch/{id}', 'ProjectController@search'); //single project details
+Route::post('projectSearch', 'ProjectController@search'); //monitored project details
+Route::post('projectSearchNonMonitor', 'ProjectController@searchNm'); //single project details
 
 
 
