@@ -46,7 +46,7 @@
 
                     <!-- Branding Image -->
                     <a class="navbar-brand" href="{{ url('/') }}">
-                        <span class="glyphicon glyphicon-euro"></span>
+                        <!-- <span class="glyphicon glyphicon-euro"></span> -->
                         {{ config('Score', 'Score') }}
                     </a>
                 </div>
@@ -71,13 +71,13 @@
                                 </div>
                                 <!-- </li> -->
                                 <!-- <li class="bgb"> -->
-                                <div class="col-md-1">
+                                <!-- <div class="col-md-1">
                                     <span class="glyphicon glyphicon-euro"></span>
-                                </div>
+                                </div> -->
                                 <!-- <div class="col-md-3">
                                     <router-link :to="{name: 'dataRead'}" class="bttn">Score</router-link>
                                 </div> -->
-                                <router-link :to="{name: 'table'}">Table</router-link>
+                                <!-- <router-link :to="{name: 'table'}">Table</router-link> -->
                             </div>
                             <!-- <div>
                                 <li class="bgb">

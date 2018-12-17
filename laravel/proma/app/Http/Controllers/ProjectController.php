@@ -135,7 +135,7 @@ class ProjectController extends Controller
     public function userdata()
     {
         $dates = array();
-        $data_array = user::select('id', 'user_name', 'status', 'score', 'user_type')->where('status', 1)->where('user_type', 4)->paginate(5);
+        $data_array = user::select('id', 'user_name', 'status', 'score', 'user_type')->where('status', 1)->where('user_type', 4)->paginate(12);
         $date_array = project_monthly_log::select('date')->get();
         foreach ($date_array as $aa) {
             array_push($dates, $aa->date);
@@ -268,9 +268,10 @@ class ProjectController extends Controller
         }
         $usernamear = array();
         $fulldata = array();
-        $data_array = $query->get();
+        $datap_array = $query->paginate(3);
+        //return $datap_arr
         // $data_array = project::select('id', 'title', 'start_date', 'end_date', 'actual_close')->where('monitoring', 0)->where('status', 1)->get();
-        foreach ($data_array as $aa) {
+        foreach ($datap_array as $aa) {
             $use_array = DB::table('project_assigned')
                 ->join('users', 'project_assigned.user_id', '=', 'users.id')
                 ->select('users.user_name', 'users.status', 'users.id')
@@ -314,7 +315,15 @@ class ProjectController extends Controller
         } else {
             // $aa = config::get('constant.DB_Save_Error');
             // return $aa;
-            return $fulldata;
+            // $datap_array->append($fulldata);
+            // array_push($datap_array, $fulldata);
+            $passData = array();
+            $passData["data"] = $fulldata;
+            $passData["pageData"] = $datap_array;
+            // array_push($passData, $datap_array);
+            // array_push($passData, $fulldata);
+            return $passData;
+            // return $fulldata;
         }
         // return $fulldata;
 
@@ -331,6 +340,21 @@ class ProjectController extends Controller
     public function datechangeread($id)
     {
         $data_array = project_monthly_log::select('id', 'user_name', 'user_id', 'score')->where('date', $id)->paginate(5);
+        return $data_array;
+
+    }
+
+    /**
+     * @Author Ayush
+     * @Date 17/12/18
+     * @param  int  $id
+     * @return array of user months and scores
+     * * @Description takes username and finds score of users in a project according to date
+     */
+
+    public function userSearch($id)
+    {
+        $data_array = project_monthly_log::select('id', 'user_name', 'date', 'user_id', 'score')->where('user_name', $id)->orderBy('date')->get();
         return $data_array;
 
     }

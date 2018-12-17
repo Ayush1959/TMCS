@@ -4,8 +4,14 @@
     <!-- {{ displayTable }} -->
     <button class="btn btn-primary" @click="searchNonMonitored(1)">Get Monitored Data</button>
     <button class="btn btn-primary" @click="searchNonMonitored(0)">Get Non Monitored Data Data</button>
+    <!-- cp:{{ current_page }}
     <br>
+    {{ nextUrl }}
+    <br>-->
+    <!-- {{ fromNumbers }} -->
+    <!-- cc:{{ currentUrl }} -->
     <br>
+    <!-- {{ previousUrl }} -->
     <br>
     <!-- PopUp Start -->
     <modal name="delayPopup">
@@ -137,8 +143,15 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="item in projectData" :key="item.id" v-if="displayTable == 1" class="brdr">
-                <td>{{ item.id }}</td>
+              <tr
+                v-for="item,key in projectData"
+                :key="item.id"
+                v-if="displayTable == 1"
+                class="brdr"
+              >
+                <!-- <td>{{ inc(fromNumbers) }}</td> -->
+                <!-- inc() -->
+                <td>{{ fromNumbers+key }}</td>
                 <td>{{ item.title }}</td>
                 <table class="nobrdr">
                   <tr v-for="ite in item.user_names">{{ ite.user_name }}</tr>
@@ -151,12 +164,12 @@
                 </table>
                 <td>
                   <button
-                    class="btn btn-danger btn-xs mrg"
+                    class="btn btn-danger btn-xs marg"
                     @click="doNotMonitor(item.id)"
                   >Stop Monitoring</button>
                 </td>
                 <td>
-                  <button class="btn btn-primary btn-xs mrg" @click="showPopup(item.id)">Delay</button>
+                  <button class="btn btn-primary btn-xs marg" @click="showPopup(item.id)">Delay</button>
                 </td>
               </tr>
             </tbody>
@@ -212,8 +225,13 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="item in projectData" :key="item.id" v-if="displayTable == 2" class="brdr">
-                <td>{{ item.id }}</td>
+              <tr
+                v-for="item,key in projectData"
+                :key="item.id"
+                v-if="displayTable == 2"
+                class="brdr"
+              >
+                <td>{{ fromNumbers+key }}</td>
                 <td>{{ item.title }}</td>
                 <table class="nobrdr">
                   <tr v-for="ite in item.user_names">{{ ite.user_name }}</tr>
@@ -226,16 +244,33 @@
                 </table>
                 <td>
                   <button
-                    class="btn btn-success btn-xs mrg"
+                    class="btn btn-success btn-xs marg"
                     @click="doMonitor(item.id)"
                   >Start Monitoring</button>
                 </td>
                 <td>
-                  <button class="btn btn-primary btn-xs mrg" @click="showPopup(item.id)">Delay</button>
+                  <button class="btn btn-primary btn-xs marg" @click="showPopup(item.id)">Delay</button>
                 </td>
               </tr>
             </tbody>
           </table>
+        </div>
+      </div>
+      <!-- PAGINATION -->
+      <div>
+        <div class="col-md-1">
+          <button @click="prevPage" v-if="!!previousUrl">Previous</button>
+        </div>
+        <div class="col-md-10">
+          <div v-for="pages in lastPage">
+            <div class="col-md-1">
+              <button class="btn btn-xs btn-primary" @click="newUrl(pages)">{{ pages }}</button>
+            </div>
+          </div>
+          <!-- <li v-for="index in 10" :key="index"><button>{{ index }}</button></li> -->
+        </div>
+        <div class="col-md-1">
+          <button @click="nextPage" v-if="!!nextUrl">Next</button>
         </div>
       </div>
     </div>
@@ -261,14 +296,26 @@ export default {
       delayedUsers: [],
       selectedProjectId: 0,
       isSubmitted: false,
+      displayNumber: 0,
+      addNumber: 0,
       selectedClient: null,
       DeselectedClient: null,
       displayTable: 0,
       searchQuery: null,
+      previousSearchQuery: null,
       monitorAlert: 0,
+      fromNumbers: null,
       monitoring: null,
       searchError: 0,
+      nextUrl: null,
+      lastPage: null,
+      url: null,
+      currentUrl: null,
+      current_page: null,
+      previousUrl: null,
       addToDelayTable: 0,
+      total: 2,
+      pageUrl: null,
       userInDelayTable: 0,
       removeFromDelayTable: 0
     };
@@ -276,24 +323,6 @@ export default {
   // Get data on the page while loading
   created: function() {
     this.searchNonMonitored(1);
-    // this.searchMonitored();
-    // this.displayTable = 1;
-    // var x = this;
-    // x.Newdata = true;
-    // axios
-    //   .get(`${x.$Url}project`, {})
-    //   .then(function(response) {
-    //     if (response.status == 200) {
-    //       console.log(response.data);
-    //       x.projectData = response.data;
-    //     } else {
-    //       alert("Error");
-    //     }
-    //     console.log(response);
-    //   })
-    //   .catch(function(error) {
-    //     console.log(error);
-    //   });
   },
   validations: {
     selectedClient: {
@@ -304,7 +333,60 @@ export default {
     }
   },
   methods: {
+    newUrl(index) {
+      if (!!this.nextUrl) {
+        this.url = this.nextUrl;
+      } else {
+        this.url = this.previousUrl;
+      }
+      if (this.url) {
+        // alert(typeof this.url);
+        this.pageUrl = this.url.slice(0, -1) + index;
+        var x = this;
+        axios
+          .post(this.pageUrl, {
+            title: this.searchQuery,
+            monitor: this.monitoring
+          })
+          .then(function(response) {
+            if (response.status == 206) {
+              console.log(response.data);
+              x.searchQuery = null;
+              x.searchError = 1;
+              setTimeout(function() {
+                x.searchError = 0;
+              }, 3000);
+            } else if (response.status == 200) {
+              console.log(response);
+              x.searchQuery = null;
+              // console.log(response);
+              x.projectData = response.data["data"];
+              x.nextUrl = response.data["pageData"].next_page_url;
+              x.current_page = response.data["pageData"].current_page;
+              if (!!x.nextUrl) {
+                x.currentUrl =
+                  response.data["pageData"].next_page_url.slice(0, -1) +
+                  x.current_page;
+              } else {
+                x.currentUrl =
+                  response.data["pageData"].prev_page_url.slice(0, -1) +
+                  x.current_page;
+              }
+              x.previousUrl = response.data["pageData"].prev_page_url;
+              x.fromNumbers = response.data["pageData"].from;
+            } else {
+              alert("Error");
+            }
+            // console.log(response);
+          })
+          .catch(function(error) {
+            console.log(error);
+          });
+      }
+    },
     searchNonMonitored(index) {
+      // this.id = 0;
+      this.previousSearchQuery = this.searchQuery;
       this.monitoring = index;
       if (this.monitoring == 1) {
         this.displayTable = 1;
@@ -326,45 +408,182 @@ export default {
               x.searchError = 0;
             }, 3000);
           } else if (response.status == 200) {
-            console.log(response.data.status);
+            console.log(response);
             x.searchQuery = null;
-            console.log(response.data);
-            x.projectData = response.data;
-            // x.projectMembers = response.data[1];
-            // x.delayedUsers = response.data[2];
+            // console.log(response);
+            x.projectData = response.data["data"];
+            x.nextUrl = response.data["pageData"].next_page_url;
+            x.lastPage = response.data["pageData"].last_page;
+            x.current_page = response.data["pageData"].current_page;
+            if (response.data["pageData"].total == 1) {
+              x.total = 1;
+            } else {
+              x.total = 0;
+              x.currentUrl =
+                response.data["pageData"].next_page_url.slice(0, -1) +
+                x.current_page;
+            }
+            // str = str.slice(0, -1);
+            x.previousUrl = response.data["pageData"].prev_page_url;
+            x.fromNumbers = response.data["pageData"].from;
           } else {
             alert("Error");
           }
-          console.log(response);
+          // console.log(response);
         })
         .catch(function(error) {
           console.log(error);
         });
     },
-    searchMonitored() {
+    reloadPage() {
+      if (this.total == 1) {
+        var x = this;
+        axios
+          .post(`${x.$Url}projectSearchNonMonitor`, {
+            title: this.previousSearchQuery,
+            monitor: this.monitoring
+          })
+          .then(function(response) {
+            if (response.status == 206) {
+              console.log(response.data);
+              x.searchQuery = null;
+              x.searchError = 1;
+              setTimeout(function() {
+                x.searchError = 0;
+              }, 3000);
+            } else if (response.status == 200) {
+              console.log(response);
+              x.searchQuery = null;
+              x.projectData = response.data["data"];
+            } else {
+              alert("Error");
+            }
+          })
+          .catch(function(error) {
+            console.log(error);
+          });
+      } else {
+        var x = this;
+        axios
+          .post(this.currentUrl, {
+            title: this.searchQuery,
+            monitor: this.monitoring
+          })
+          .then(function(response) {
+            if (response.status == 206) {
+              console.log(response.data);
+              x.searchQuery = null;
+              x.searchError = 1;
+              setTimeout(function() {
+                x.searchError = 0;
+              }, 3000);
+            } else if (response.status == 200) {
+              console.log(response);
+              x.searchQuery = null;
+              // console.log(response);
+              x.projectData = response.data["data"];
+              x.nextUrl = response.data["pageData"].next_page_url;
+              x.current_page = response.data["pageData"].current_page;
+              if (!!x.nextUrl) {
+                x.currentUrl =
+                  response.data["pageData"].next_page_url.slice(0, -1) +
+                  x.current_page;
+              } else {
+                x.currentUrl =
+                  response.data["pageData"].prev_page_url.slice(0, -1) +
+                  x.current_page;
+              }
+              x.previousUrl = response.data["pageData"].prev_page_url;
+              x.fromNumbers = response.data["pageData"].from;
+            } else {
+              alert("Error");
+            }
+            // console.log(response);
+          })
+          .catch(function(error) {
+            console.log(error);
+          });
+      }
+    },
+    nextPage() {
       var x = this;
       axios
-        .post(`${x.$Url}projectSearch`, {
+        .post(this.nextUrl, {
           title: this.searchQuery,
-          monitor: 1
+          monitor: this.monitoring
         })
         .then(function(response) {
           if (response.status == 206) {
-            console.log(response.data.status);
+            console.log(response.data);
+            x.searchQuery = null;
             x.searchError = 1;
             setTimeout(function() {
               x.searchError = 0;
             }, 3000);
           } else if (response.status == 200) {
-            console.log(response.data.status);
-            console.log(response.data);
-            x.projectData = response.data;
-            // x.projectMembers = response.data[1];
-            // x.delayedUsers = response.data[2];
+            console.log(response);
+            x.searchQuery = null;
+            // console.log(response);
+            x.projectData = response.data["data"];
+            x.nextUrl = response.data["pageData"].next_page_url;
+            x.current_page = response.data["pageData"].current_page;
+            if (!!x.nextUrl) {
+              x.currentUrl =
+                response.data["pageData"].next_page_url.slice(0, -1) +
+                x.current_page;
+            } else {
+              x.currentUrl =
+                response.data["pageData"].prev_page_url.slice(0, -1) +
+                x.current_page;
+            }
+            x.previousUrl = response.data["pageData"].prev_page_url;
+            x.fromNumbers = response.data["pageData"].from;
           } else {
             alert("Error");
           }
-          console.log(response);
+          // console.log(response);
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+    },
+    prevPage() {
+      var x = this;
+      axios
+        .post(this.previousUrl, {
+          title: this.searchQuery,
+          monitor: this.monitoring
+        })
+        .then(function(response) {
+          if (response.status == 206) {
+            console.log(response.data);
+            x.searchQuery = null;
+            x.searchError = 1;
+            setTimeout(function() {
+              x.searchError = 0;
+            }, 3000);
+          } else if (response.status == 200) {
+            console.log(response);
+            x.searchQuery = null;
+            // console.log(response);
+            x.projectData = response.data["data"];
+            x.nextUrl = response.data["pageData"].next_page_url;
+            x.current_page = response.data["pageData"].current_page;
+            if (!!x.nextUrl) {
+              x.currentUrl =
+                response.data["pageData"].next_page_url.slice(0, -1) +
+                x.current_page;
+            } else {
+              x.currentUrl =
+                response.data["pageData"].prev_page_url.slice(0, -1) +
+                x.current_page;
+            }
+            x.previousUrl = response.data["pageData"].prev_page_url;
+            x.fromNumbers = response.data["pageData"].from;
+          } else {
+            alert("Error");
+          }
+          // console.log(response);
         })
         .catch(function(error) {
           console.log(error);
@@ -393,7 +612,10 @@ export default {
             setTimeout(function() {
               x.removeFromDelayTable = 0;
             }, 3000);
-            x.getMonitoredData();
+            x.reloadPage();
+            // x.nextPage();
+            // x.prevPage();
+            // x.searchNonMonitored(x.monitoring);
           } else {
             alert("Error");
           }
@@ -424,7 +646,10 @@ export default {
             setTimeout(function() {
               x.addToDelayTable = 0;
             }, 3000);
-            x.getMonitoredData();
+            x.reloadPage();
+            // x.nextPage();
+            // x.prevPage();
+            // x.searchNonMonitored(x.monitoring);
           } else {
             alert("Error");
           }
@@ -460,26 +685,6 @@ export default {
     hidePopup() {
       this.$modal.hide("delayPopup");
     },
-    //Get all monitored projects
-    getMonitoredData() {
-      this.displayTable = 1;
-      var x = this;
-      x.Newdata = true;
-      axios
-        .get(`${x.$Url}project`, {})
-        .then(function(response) {
-          if (response.status == 200) {
-            console.log(response.data);
-            x.projectData = response.data;
-          } else {
-            alert("Error");
-          }
-          console.log(response);
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
-    },
     //Stop monitoring a project
     doNotMonitor(index) {
       this.displayTable = 1;
@@ -491,32 +696,12 @@ export default {
         })
         .then(function(response) {
           if (response.status == 200) {
-            x.getMonitoredData();
+            // x.searchNonMonitored(1);
+            x.reloadPage();
             x.monitorAlert = 1;
             setTimeout(function() {
               x.monitorAlert = 0;
             }, 3000);
-          } else {
-            alert("Error");
-          }
-          console.log(response);
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
-    },
-    //get all projects which are not monitored
-    getNonMonitoredData() {
-      this.displayTable = 2;
-      var x = this;
-      x.Newdata = true;
-      axios
-        .get(`${x.$Url}projects`, {})
-        .then(function(response) {
-          if (response.status == 200) {
-            x.projectData = response.data;
-            // x.nurl = response.data.next_page_url;
-            // x.purl = response.data.prev_page_url;
           } else {
             alert("Error");
           }
@@ -537,7 +722,8 @@ export default {
         })
         .then(function(response) {
           if (response.status == 200) {
-            x.getNonMonitoredData();
+            // x.searchNonMonitored(0);
+            x.reloadPage();
             x.monitorAlert = 1;
             setTimeout(function() {
               x.monitorAlert = 0;
@@ -564,10 +750,6 @@ export default {
   margin-top: 10px;
 }
 
-.mrg {
-  /* margin-top: 50%; */
-}
-
 .brdr {
   border-bottom: #dadada 1px solid;
 }
@@ -584,54 +766,4 @@ export default {
 .cncl {
   margin-top: 210px;
 }
-
-/* table {
-  border: 2px solid #42b983;
-  border-radius: 3px;
-  background-color: #fff;
-}
-
-th {
-  background-color: #42b983;
-  color: rgba(255, 255, 255, 0.66);
-  cursor: pointer;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
-
-td {
-  background-color: #f9f9f9;
-  border: #42b983 1px solid;
-}
-
-th,
-td {
-  min-width: 130px;
-  padding: 10px 20px;
-}
-
-th.active {
-  color: #fff;
-}
-
-th.active .arrow {
-  opacity: 1;
-}
-
-.arrow {
-  display: inline-block;
-  vertical-align: middle;
-  width: 0;
-  height: 0;
-  margin-left: 5px;
-  opacity: 0.66;
-}
-
-.arrow.asc {
-  border-left: 4px solid transparent;
-  border-right: 4px solid transparent;
-  border-bottom: 4px solid #fff;
-} */
 </style>

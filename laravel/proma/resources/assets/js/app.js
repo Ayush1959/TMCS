@@ -2,11 +2,20 @@ require("./bootstrap");
 
 window.Vue = require("vue");
 import VueRouter from "vue-router";
-import VModal from 'vue-js-modal'
+import VModal from 'vue-js-modal';
 import Vuelidate from "vuelidate";
+import VueGraph from 'vue-graph';
+import GraphLine3D from 'vue-graph/src/components/line3d.js';
+import NoteWidget from 'vue-graph/src/widgets/note.js';
+import LegendWidget from 'vue-graph/src/widgets/legends.js';
 
 
+
+window.Vue.component(GraphLine3D.name, GraphLine3D);
+window.Vue.component(NoteWidget.name, NoteWidget);
+window.Vue.component(LegendWidget.name, LegendWidget);
 window.Vue.use(Vuelidate);
+window.Vue.use(VueGraph);
 window.Vue.use(VModal);
 window.Vue.use(VueRouter);
 Vue.prototype.$Url = window.location.origin + "/";

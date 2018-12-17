@@ -4,14 +4,8 @@
     <!-- {{ displayTable }} -->
     <button class="btn btn-primary" @click="searchNonMonitored(1)">Get Monitored Data</button>
     <button class="btn btn-primary" @click="searchNonMonitored(0)">Get Non Monitored Data Data</button>
-    <!-- cp:{{ current_page }}
     <br>
-    {{ nextUrl }}
-    <br>-->
-    <!-- {{ fromNumbers }} -->
-    <!-- cc:{{ currentUrl }} -->
     <br>
-    <!-- {{ previousUrl }} -->
     <br>
     <!-- PopUp Start -->
     <modal name="delayPopup">
@@ -143,15 +137,8 @@
               </tr>
             </thead>
             <tbody>
-              <tr
-                v-for="item,key in projectData"
-                :key="item.id"
-                v-if="displayTable == 1"
-                class="brdr"
-              >
-                <!-- <td>{{ inc(fromNumbers) }}</td> -->
-                <!-- inc() -->
-                <td>{{ fromNumbers+key }}</td>
+              <tr v-for="item in projectData" :key="item.id" v-if="displayTable == 1" class="brdr">
+                <td>{{ item.id }}</td>
                 <td>{{ item.title }}</td>
                 <table class="nobrdr">
                   <tr v-for="ite in item.user_names">{{ ite.user_name }}</tr>
@@ -225,13 +212,8 @@
               </tr>
             </thead>
             <tbody>
-              <tr
-                v-for="item,key in projectData"
-                :key="item.id"
-                v-if="displayTable == 2"
-                class="brdr"
-              >
-                <td>{{ fromNumbers+key }}</td>
+              <tr v-for="item in projectData" :key="item.id" v-if="displayTable == 2" class="brdr">
+                <td>{{ item.id }}</td>
                 <td>{{ item.title }}</td>
                 <table class="nobrdr">
                   <tr v-for="ite in item.user_names">{{ ite.user_name }}</tr>
@@ -254,16 +236,6 @@
               </tr>
             </tbody>
           </table>
-        </div>
-      </div>
-      <!-- PAGINATION -->
-      <div>
-        <div class="col-md-3">
-          <button @click="prevPage" v-if="!!previousUrl">Previous</button>
-        </div>
-        <div class="col-md-8"></div>
-        <div class="col-md-1">
-          <button @click="nextPage" v-if="!!nextUrl">Next</button>
         </div>
       </div>
     </div>
@@ -289,23 +261,14 @@ export default {
       delayedUsers: [],
       selectedProjectId: 0,
       isSubmitted: false,
-      displayNumber: 0,
-      addNumber: 0,
       selectedClient: null,
       DeselectedClient: null,
       displayTable: 0,
       searchQuery: null,
-      previousSearchQuery: null,
       monitorAlert: 0,
-      fromNumbers: null,
       monitoring: null,
       searchError: 0,
-      nextUrl: null,
-      currentUrl: null,
-      current_page: null,
-      previousUrl: null,
       addToDelayTable: 0,
-      total: 2,
       userInDelayTable: 0,
       removeFromDelayTable: 0
     };
@@ -324,8 +287,6 @@ export default {
   },
   methods: {
     searchNonMonitored(index) {
-      // this.id = 0;
-      this.previousSearchQuery = this.searchQuery;
       this.monitoring = index;
       if (this.monitoring == 1) {
         this.displayTable = 1;
@@ -347,181 +308,14 @@ export default {
               x.searchError = 0;
             }, 3000);
           } else if (response.status == 200) {
-            console.log(response);
+            console.log(response.data.status);
             x.searchQuery = null;
-            // console.log(response);
-            x.projectData = response.data["data"];
-            x.nextUrl = response.data["pageData"].next_page_url;
-            x.current_page = response.data["pageData"].current_page;
-            if (response.data["pageData"].total == 1) {
-              x.total = 1;
-            } else {
-              x.total = 0;
-              x.currentUrl =
-                response.data["pageData"].next_page_url.slice(0, -1) +
-                x.current_page;
-            }
-            // str = str.slice(0, -1);
-            x.previousUrl = response.data["pageData"].prev_page_url;
-            x.fromNumbers = response.data["pageData"].from;
-          } else {
-            alert("Error");
-          }
-          // console.log(response);
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
-    },
-    reloadPage() {
-      if (this.total == 1) {
-        var x = this;
-        axios
-          .post(`${x.$Url}projectSearchNonMonitor`, {
-            title: this.previousSearchQuery,
-            monitor: this.monitoring
-          })
-          .then(function(response) {
-            if (response.status == 206) {
-              console.log(response.data);
-              x.searchQuery = null;
-              x.searchError = 1;
-              setTimeout(function() {
-                x.searchError = 0;
-              }, 3000);
-            } else if (response.status == 200) {
-              console.log(response);
-              x.searchQuery = null;
-              x.projectData = response.data["data"];
-            } else {
-              alert("Error");
-            }
-          })
-          .catch(function(error) {
-            console.log(error);
-          });
-      } else {
-        var x = this;
-        axios
-          .post(this.currentUrl, {
-            title: this.searchQuery,
-            monitor: this.monitoring
-          })
-          .then(function(response) {
-            if (response.status == 206) {
-              console.log(response.data);
-              x.searchQuery = null;
-              x.searchError = 1;
-              setTimeout(function() {
-                x.searchError = 0;
-              }, 3000);
-            } else if (response.status == 200) {
-              console.log(response);
-              x.searchQuery = null;
-              // console.log(response);
-              x.projectData = response.data["data"];
-              x.nextUrl = response.data["pageData"].next_page_url;
-              x.current_page = response.data["pageData"].current_page;
-              if (!!x.nextUrl) {
-                x.currentUrl =
-                  response.data["pageData"].next_page_url.slice(0, -1) +
-                  x.current_page;
-              } else {
-                x.currentUrl =
-                  response.data["pageData"].prev_page_url.slice(0, -1) +
-                  x.current_page;
-              }
-              x.previousUrl = response.data["pageData"].prev_page_url;
-              x.fromNumbers = response.data["pageData"].from;
-            } else {
-              alert("Error");
-            }
-            // console.log(response);
-          })
-          .catch(function(error) {
-            console.log(error);
-          });
-      }
-    },
-    nextPage() {
-      var x = this;
-      axios
-        .post(this.nextUrl, {
-          title: this.searchQuery,
-          monitor: this.monitoring
-        })
-        .then(function(response) {
-          if (response.status == 206) {
             console.log(response.data);
-            x.searchQuery = null;
-            x.searchError = 1;
-            setTimeout(function() {
-              x.searchError = 0;
-            }, 3000);
-          } else if (response.status == 200) {
-            console.log(response);
-            x.searchQuery = null;
-            // console.log(response);
-            x.projectData = response.data["data"];
-            x.nextUrl = response.data["pageData"].next_page_url;
-            x.current_page = response.data["pageData"].current_page;
-            if (!!x.nextUrl) {
-              x.currentUrl =
-                response.data["pageData"].next_page_url.slice(0, -1) +
-                x.current_page;
-            } else {
-              x.currentUrl =
-                response.data["pageData"].prev_page_url.slice(0, -1) +
-                x.current_page;
-            }
-            x.previousUrl = response.data["pageData"].prev_page_url;
-            x.fromNumbers = response.data["pageData"].from;
+            // x.projectData = response.data;
           } else {
             alert("Error");
           }
-          // console.log(response);
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
-    },
-    prevPage() {
-      var x = this;
-      axios
-        .post(this.previousUrl, {
-          title: this.searchQuery,
-          monitor: this.monitoring
-        })
-        .then(function(response) {
-          if (response.status == 206) {
-            console.log(response.data);
-            x.searchQuery = null;
-            x.searchError = 1;
-            setTimeout(function() {
-              x.searchError = 0;
-            }, 3000);
-          } else if (response.status == 200) {
-            console.log(response);
-            x.searchQuery = null;
-            // console.log(response);
-            x.projectData = response.data["data"];
-            x.nextUrl = response.data["pageData"].next_page_url;
-            x.current_page = response.data["pageData"].current_page;
-            if (!!x.nextUrl) {
-              x.currentUrl =
-                response.data["pageData"].next_page_url.slice(0, -1) +
-                x.current_page;
-            } else {
-              x.currentUrl =
-                response.data["pageData"].prev_page_url.slice(0, -1) +
-                x.current_page;
-            }
-            x.previousUrl = response.data["pageData"].prev_page_url;
-            x.fromNumbers = response.data["pageData"].from;
-          } else {
-            alert("Error");
-          }
-          // console.log(response);
+          console.log(response);
         })
         .catch(function(error) {
           console.log(error);
@@ -550,10 +344,7 @@ export default {
             setTimeout(function() {
               x.removeFromDelayTable = 0;
             }, 3000);
-            x.reloadPage();
-            // x.nextPage();
-            // x.prevPage();
-            // x.searchNonMonitored(x.monitoring);
+            x.searchNonMonitored(x.monitoring);
           } else {
             alert("Error");
           }
@@ -584,10 +375,7 @@ export default {
             setTimeout(function() {
               x.addToDelayTable = 0;
             }, 3000);
-            x.reloadPage();
-            // x.nextPage();
-            // x.prevPage();
-            // x.searchNonMonitored(x.monitoring);
+            x.searchNonMonitored(x.monitoring);
           } else {
             alert("Error");
           }
@@ -634,8 +422,7 @@ export default {
         })
         .then(function(response) {
           if (response.status == 200) {
-            // x.searchNonMonitored(1);
-            x.reloadPage();
+            x.searchNonMonitored(1);
             x.monitorAlert = 1;
             setTimeout(function() {
               x.monitorAlert = 0;
@@ -660,8 +447,7 @@ export default {
         })
         .then(function(response) {
           if (response.status == 200) {
-            // x.searchNonMonitored(0);
-            x.reloadPage();
+            x.searchNonMonitored(0);
             x.monitorAlert = 1;
             setTimeout(function() {
               x.monitorAlert = 0;
