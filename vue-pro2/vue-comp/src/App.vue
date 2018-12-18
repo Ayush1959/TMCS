@@ -5,6 +5,7 @@
         <button @click="selectedComponent = 'appQuote'">Quote</button>
         <button @click="selectedComponent = 'appAuthor'">Author</button>
         <button @click="selectedComponent = 'appNew'">New</button>
+        <button @click="selectedComponent = 'appPage'">Page</button>
         <hr>
         <p>{{ selectedComponent }}</p>
         <component :is="selectedComponent">
@@ -23,6 +24,7 @@
 import Quote from './components/Quote.vue';
 import Author from './components/Author.vue';
 import New from './components/New.vue';
+import Page from './components/Page.vue';
 
 export default {
   data: function () {
@@ -34,7 +36,8 @@ export default {
   components: {
     appQuote: Quote,
     appAuthor: Author,
-    appNew: New 
+    appNew: New ,
+    appPage: Page
   }
 }
 </script>

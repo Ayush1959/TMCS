@@ -8,9 +8,10 @@ import VueGraph from 'vue-graph';
 import GraphLine3D from 'vue-graph/src/components/line3d.js';
 import NoteWidget from 'vue-graph/src/widgets/note.js';
 import LegendWidget from 'vue-graph/src/widgets/legends.js';
+// import bPagination from 'bootstrap-vue/es/components/pagination/pagination';
 
 
-
+// window.Vue.component('b-pagination', bPagination);
 window.Vue.component(GraphLine3D.name, GraphLine3D);
 window.Vue.component(NoteWidget.name, NoteWidget);
 window.Vue.component(LegendWidget.name, LegendWidget);
@@ -28,8 +29,6 @@ import DataCreate from "./components/DataCreate.vue";
 import UserData from "./components/DataRead.vue";
 import Table from "./components/Table.vue";
 import DataScore from "./components/DataScore.vue";
-// import bModal from 'bootstrap-vue/es/components/modal/modal';
-// import CompaniesEdit from './components/companies/CompaniesEdit.vue';
 
 const routes = [{
         path: "/test",

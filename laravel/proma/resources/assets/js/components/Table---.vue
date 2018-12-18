@@ -1,9 +1,18 @@
 <template>
   <div class="container">
+    <!-- <router-link :to="{ path: getcomponent() }"></router-link> -->
     <br>
+    <!-- {{ displayTable }} -->
     <button class="btn btn-primary" @click="searchNonMonitored(1)">Get Monitored Data</button>
     <button class="btn btn-primary" @click="searchNonMonitored(0)">Get Non Monitored Data Data</button>
+    <!-- cp:{{ current_page }}
     <br>
+    {{ nextUrl }}
+    <br>-->
+    <!-- {{ fromNumbers }} -->
+    <!-- cc:{{ currentUrl }} -->
+    <br>
+    <!-- {{ previousUrl }} -->
     <br>
     <!-- PopUp Start -->
     <modal name="delayPopup">
@@ -249,7 +258,7 @@
         </div>
       </div>
       <!-- PAGINATION -->
-      <!-- <div>
+      <div>
         <div class="col-md-1">
           <button
             class="btn btn-default someclass"
@@ -262,8 +271,11 @@
         </div>
         <div class="col-md-7 col-md-offset-1">
           <div v-for="pages in lastPage" v-if class="btn-group">
+            <!-- <div class="col-md-1"> -->
             <button class="btn btn-default someclass" @click="newUrl(pages)">{{ pages }}</button>
+            <!-- </div> -->
           </div>
+          <!-- <li v-for="index in 10" :key="index"><button>{{ index }}</button></li> -->
         </div>
         <div class="col-md-1">
           <button class="btn btn-default someclass" @click="newUrl(lastPage)">Last</button>
@@ -271,23 +283,18 @@
         <div class="col-md-1">
           <button
             class="btn btn-default someclass"
-            @click="newUrl(current_page +1)"
+            @click="newUrl(current_page + 1)"
             v-if="!!nextUrl"
           >Next</button>
         </div>
-      </div>-->
+      </div>
     </div>
-    <div class="col-md-offset-2">
-      <pagenation
-        @nextPage="nextPage()"
-        @previousPage="prevPage()"
-        :lastPage.sync="lastPage"
-        :total.sync="total"
-        :displaylist.sync="displaylist"
-        :current_page.sync="current_page"
-        @newUrl="newUrl($event)"
-      ></pagenation>
-    </div>
+    <!-- <pagenation
+      @nextPage="nextPage()"
+      @previousPage="prevPage()"
+      :lastPage="lastPage"
+      @newUrl="newUrl($event)"
+    ></pagenation>-->
     <!-- {{ lastPage }} -->
     <!-- Template Ends -->
   </div>
@@ -326,11 +333,10 @@ export default {
       monitoring: null,
       searchError: 0,
       nextUrl: null,
-      lastPage: 1,
+      lastPage: null,
       url: null,
       currentUrl: null,
       current_page: null,
-      displaylist: [],
       previousUrl: null,
       addToDelayTable: 0,
       total: 2,
@@ -339,19 +345,10 @@ export default {
       removeFromDelayTable: 0
     };
   },
-  watch: {
-    current_page: function() {
-      this.displayPage();
-    }
-  },
   // Get data on the page while loading
   created: function() {
     this.searchNonMonitored(1);
-    // this.displayPage(1);
   },
-  // mounted: function() {
-  //   this.displayPage(1);
-  // },
   validations: {
     selectedClient: {
       required
@@ -361,60 +358,9 @@ export default {
     }
   },
   methods: {
-    displayPage(index) {
-      this.displaylist = [];
-      if (this.total == 1) {
-        this.displaylist.push(this.current_page);
-      } else {
-        if (this.current_page < this.lastPage) {
-          // console.log("Zero" + typeof this.current_page + this.current_page);
-          if (this.current_page == 1) {
-            // console.log("one" + typeof this.current_page + this.current_page);
-
-            this.displaylist.push(this.current_page);
-            this.displaylist.push(this.current_page + 1);
-            this.displaylist.push(this.current_page + 2);
-          } else {
-            // console.log("two" + typeof this.current_page + this.current_page);
-            this.displaylist.push(this.current_page - 1);
-            this.displaylist.push(this.current_page);
-            this.displaylist.push(this.current_page + 1);
-          }
-        } else {
-          // console.log("three" + typeof this.current_page + this.current_page);
-          this.displaylist.push(this.current_page - 2);
-          this.displaylist.push(this.current_page - 1);
-          this.displaylist.push(this.current_page);
-        }
-      }
-      // console.log(typeof this.lastPage + this.lastPage);
-      // console.log(typeof this.current_page + this.current_page);
-
-      // if (!this.current_page) {
-      //   this.displaylist = [1];
-      // } else if (this.current_page === 1) {
-      //   this.displaylist.push(index);
-      //   this.displaylist.push(index + 1);
-      //   this.displaylist.push(index + 2);
-      // } else if (this.current_page < this.lastPage - 1) {
-      //   this.displaylist.push(index - 1);
-      //   this.displaylist.push(index);
-      //   this.displaylist.push(index + 1);
-      // } else if (this.current_page == this.lastPage) {
-      //   this.displaylist.push(index - 2);
-      //   this.displaylist.push(index - 1);
-      //   this.displaylist.push(index);
-      // } else {
-      //   this.displaylist.push(index - 2);
-      //   this.displaylist.push(index - 1);
-      //   this.displaylist.push(index);
-      // }
-      // console.log(this.lastPage);
-      // console.log(this.current_page);
-    },
+    firstPage() {},
+    finalPage() {},
     newUrl(index) {
-      this.displayPage(index);
-      // this.current_page = index;
       if (!!this.nextUrl) {
         this.url = this.nextUrl;
       } else {
@@ -437,6 +383,7 @@ export default {
             if (response.status == 206) {
               console.log(response.data);
               x.searchQuery = null;
+              //   x.current_page = response.data["pageData"].current_page;
               x.searchError = 1;
               setTimeout(function() {
                 x.searchError = 0;
@@ -507,12 +454,10 @@ export default {
               x.currentUrl =
                 response.data["pageData"].next_page_url.slice(0, -1) +
                 x.current_page;
-              x.total = 2;
             }
             // str = str.slice(0, -1);
             x.previousUrl = response.data["pageData"].prev_page_url;
             x.fromNumbers = response.data["pageData"].from;
-            x.displayPage(1);
           } else {
             alert("Error");
           }
@@ -592,90 +537,8 @@ export default {
           });
       }
     },
-    nextPage() {
-      var x = this;
-      axios
-        .post(this.nextUrl, {
-          title: this.searchQuery,
-          monitor: this.monitoring
-        })
-        .then(function(response) {
-          if (response.status == 206) {
-            console.log(response.data);
-            x.searchQuery = null;
-            x.searchError = 1;
-            setTimeout(function() {
-              x.searchError = 0;
-            }, 3000);
-          } else if (response.status == 200) {
-            console.log(response);
-            x.searchQuery = null;
-            // console.log(response);
-            x.projectData = response.data["data"];
-            x.nextUrl = response.data["pageData"].next_page_url;
-            x.current_page = response.data["pageData"].current_page;
-            if (!!x.nextUrl) {
-              x.currentUrl =
-                response.data["pageData"].next_page_url.slice(0, -1) +
-                x.current_page;
-            } else {
-              x.currentUrl =
-                response.data["pageData"].prev_page_url.slice(0, -1) +
-                x.current_page;
-            }
-            x.previousUrl = response.data["pageData"].prev_page_url;
-            x.fromNumbers = response.data["pageData"].from;
-          } else {
-            alert("Error");
-          }
-          // console.log(response);
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
-    },
-    prevPage() {
-      var x = this;
-      axios
-        .post(this.previousUrl, {
-          title: this.searchQuery,
-          monitor: this.monitoring
-        })
-        .then(function(response) {
-          if (response.status == 206) {
-            console.log(response.data);
-            x.searchQuery = null;
-            x.searchError = 1;
-            setTimeout(function() {
-              x.searchError = 0;
-            }, 3000);
-          } else if (response.status == 200) {
-            console.log(response);
-            x.searchQuery = null;
-            // console.log(response);
-            x.projectData = response.data["data"];
-            x.nextUrl = response.data["pageData"].next_page_url;
-            x.current_page = response.data["pageData"].current_page;
-            if (!!x.nextUrl) {
-              x.currentUrl =
-                response.data["pageData"].next_page_url.slice(0, -1) +
-                x.current_page;
-            } else {
-              x.currentUrl =
-                response.data["pageData"].prev_page_url.slice(0, -1) +
-                x.current_page;
-            }
-            x.previousUrl = response.data["pageData"].prev_page_url;
-            x.fromNumbers = response.data["pageData"].from;
-          } else {
-            alert("Error");
-          }
-          // console.log(response);
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
-    },
+    nextPage() {},
+    prevPage() {},
     status(validation) {
       return {
         error: validation.$error,
@@ -686,144 +549,17 @@ export default {
       this.isSubmitted = true;
     },
     // To Remove Users from the delayresponsible table
-    removeUserFromDelayTable(index) {
-      this.DeselectedClient = index;
-      var x = this;
-      axios
-        .delete(`${x.$Url}projectde/${x.DeselectedClient}`, {})
-        .then(function(response) {
-          if (response.status == 204) {
-            console.log(response.data);
-            x.showPopup(x.selectedProjectId);
-            x.removeFromDelayTable = 1;
-            setTimeout(function() {
-              x.removeFromDelayTable = 0;
-            }, 3000);
-            x.reloadPage();
-            // x.nextPage();
-            // x.prevPage();
-            // x.searchNonMonitored(x.monitoring);
-          } else {
-            alert("Error");
-          }
-          console.log(response);
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
-    },
+    removeUserFromDelayTable(index) {},
     //  Add Users into the delayresponsible table
-    addUserToDelayTable() {
-      var x = this;
-      axios
-        .post(`${x.$Url}projectdelay`, {
-          selectedProjectId: this.selectedProjectId,
-          selectedClient: this.selectedClient
-        })
-        .then(function(response) {
-          if (response.status == 208) {
-            x.userInDelayTable = 1;
-            setTimeout(function() {
-              x.userInDelayTable = 0;
-            }, 3000);
-          } else if (response.status == 200) {
-            console.log(response.data);
-            x.showPopup(x.selectedProjectId);
-            x.addToDelayTable = 1;
-            setTimeout(function() {
-              x.addToDelayTable = 0;
-            }, 3000);
-            x.reloadPage();
-            // x.nextPage();
-            // x.prevPage();
-            // x.searchNonMonitored(x.monitoring);
-          } else {
-            alert("Error");
-          }
-          console.log(response);
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
-    },
+    addUserToDelayTable() {},
     //Shows Popup
-    showPopup(index) {
-      this.selectedProjectId = index;
-      var x = this;
-      axios
-        .get(`${x.$Url}projectid/${x.selectedProjectId}`, {})
-        .then(function(response) {
-          if (response.status == 200) {
-            console.log(response.data);
-            x.projectMembers = response.data[1];
-            x.delayedUsers = response.data[2];
-          } else {
-            alert("Error");
-          }
-          console.log(response);
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
-
-      this.$modal.show("delayPopup");
-    },
+    showPopup(index) {},
     //Hide Popup
-    hidePopup() {
-      this.$modal.hide("delayPopup");
-    },
+    hidePopup() {},
     //Stop monitoring a project
-    doNotMonitor(index) {
-      this.displayTable = 1;
-      this.selectedProjectId = index;
-      var x = this;
-      axios
-        .put(`${x.$Url}project/${x.selectedProjectId}`, {
-          monitoring: 0
-        })
-        .then(function(response) {
-          if (response.status == 200) {
-            // x.searchNonMonitored(1);
-            x.reloadPage();
-            x.monitorAlert = 1;
-            setTimeout(function() {
-              x.monitorAlert = 0;
-            }, 3000);
-          } else {
-            alert("Error");
-          }
-          console.log(response);
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
-    },
+    doNotMonitor(index) {},
     //Start monitoring specific project
-    doMonitor(index) {
-      this.displayTable = 2;
-      this.selectedProjectId = index;
-      var x = this;
-      axios
-        .put(`${x.$Url}project/${x.selectedProjectId}`, {
-          monitoring: 1
-        })
-        .then(function(response) {
-          if (response.status == 200) {
-            // x.searchNonMonitored(0);
-            x.reloadPage();
-            x.monitorAlert = 1;
-            setTimeout(function() {
-              x.monitorAlert = 0;
-            }, 3000);
-          } else {
-            alert("Error");
-          }
-          console.log(response);
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
-    }
+    doMonitor(index) {}
   }
 };
 </script>
