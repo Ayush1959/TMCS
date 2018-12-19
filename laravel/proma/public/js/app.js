@@ -73986,7 +73986,7 @@ exports = module.exports = __webpack_require__(12)(false);
 
 
 // module
-exports.push([module.i, "\n.sele[data-v-5e43a5b2] {\r\n  width: 80%;\n}\n.mrgt[data-v-5e43a5b2] {\r\n  margin-top: 10px;\n}\n.brdr[data-v-5e43a5b2] {\r\n  border-bottom: #dadada 1px solid;\n}\n.nobrdr[data-v-5e43a5b2] {\r\n  border: transparent;\r\n  margin: 5px;\n}\n.ull[data-v-5e43a5b2] {\r\n  margin-top: 20px;\n}\n.cncl[data-v-5e43a5b2] {\r\n  margin-top: 210px;\n}\n.someclass[data-v-5e43a5b2] {\r\n  color: #337ab7;\n}\n.someclass[data-v-5e43a5b2]:hover {\r\n  color: #23527c;\n}\r\n", ""]);
+exports.push([module.i, "\n.fade-enter-active[data-v-5e43a5b2],\r\n.fade-leave-active[data-v-5e43a5b2] {\r\n  -webkit-transition: opacity 0.5s;\r\n  transition: opacity 0.5s;\n}\n.fade-enter[data-v-5e43a5b2], .fade-leave-to[data-v-5e43a5b2] /* .fade-leave-active below version 2.1.8 */ {\r\n  opacity: 0;\n}\n.sele[data-v-5e43a5b2] {\r\n  width: 80%;\n}\n.mrgt[data-v-5e43a5b2] {\r\n  margin-top: 10px;\n}\n.brdr[data-v-5e43a5b2] {\r\n  border-bottom: #dadada 1px solid;\n}\n.nobrdr[data-v-5e43a5b2] {\r\n  border: transparent;\r\n  margin: 5px;\n}\n.ull[data-v-5e43a5b2] {\r\n  margin-top: 20px;\n}\n.cncl[data-v-5e43a5b2] {\r\n  margin-top: 210px;\n}\n.someclass[data-v-5e43a5b2] {\r\n  color: #337ab7;\n}\n.someclass[data-v-5e43a5b2]:hover {\r\n  color: #23527c;\n}\n.loader[data-v-5e43a5b2] {\r\n  border: 10px solid #f3f3f3;\r\n  border-radius: 50%;\r\n  border-top: 10px solid #cef375;\r\n  width: 90px;\r\n  position: absolute;\r\n  margin-left: 35%;\r\n  margin-top: 20%;\r\n  height: 90px;\r\n  -webkit-animation: spin-data-v-5e43a5b2 3s linear infinite; /* Safari */\r\n  animation: spin-data-v-5e43a5b2 3s linear infinite;\n}\r\n\r\n/* Safari */\n@-webkit-keyframes spin-data-v-5e43a5b2 {\n0% {\r\n    -webkit-transform: rotate(0deg);\n}\n100% {\r\n    -webkit-transform: rotate(360deg);\n}\n}\n@keyframes spin-data-v-5e43a5b2 {\n0% {\r\n    -webkit-transform: rotate(0deg);\r\n            transform: rotate(0deg);\n}\n100% {\r\n    -webkit-transform: rotate(360deg);\r\n            transform: rotate(360deg);\n}\n}\r\n", ""]);
 
 // exports
 
@@ -74271,31 +74271,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -74309,6 +74284,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       projectData: [],
       projectMembers: [],
       delayedUsers: [],
+      show: true,
       selectedProjectId: 0,
       isSubmitted: false,
       displayNumber: 0,
@@ -74345,11 +74321,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   // Get data on the page while loading
   created: function created() {
     this.searchNonMonitored(1);
-    // this.displayPage(1);
   },
-  // mounted: function() {
-  //   this.displayPage(1);
-  // },
   validations: {
     selectedClient: {
       required: __WEBPACK_IMPORTED_MODULE_1_vuelidate_lib_validators__["required"]
@@ -74365,61 +74337,31 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         this.displaylist.push(this.current_page);
       } else {
         if (this.current_page < this.lastPage) {
-          // console.log("Zero" + typeof this.current_page + this.current_page);
           if (this.current_page == 1) {
-            // console.log("one" + typeof this.current_page + this.current_page);
-
             this.displaylist.push(this.current_page);
             this.displaylist.push(this.current_page + 1);
             this.displaylist.push(this.current_page + 2);
           } else {
-            // console.log("two" + typeof this.current_page + this.current_page);
             this.displaylist.push(this.current_page - 1);
             this.displaylist.push(this.current_page);
             this.displaylist.push(this.current_page + 1);
           }
         } else {
-          // console.log("three" + typeof this.current_page + this.current_page);
           this.displaylist.push(this.current_page - 2);
           this.displaylist.push(this.current_page - 1);
           this.displaylist.push(this.current_page);
         }
       }
-      // console.log(typeof this.lastPage + this.lastPage);
-      // console.log(typeof this.current_page + this.current_page);
-
-      // if (!this.current_page) {
-      //   this.displaylist = [1];
-      // } else if (this.current_page === 1) {
-      //   this.displaylist.push(index);
-      //   this.displaylist.push(index + 1);
-      //   this.displaylist.push(index + 2);
-      // } else if (this.current_page < this.lastPage - 1) {
-      //   this.displaylist.push(index - 1);
-      //   this.displaylist.push(index);
-      //   this.displaylist.push(index + 1);
-      // } else if (this.current_page == this.lastPage) {
-      //   this.displaylist.push(index - 2);
-      //   this.displaylist.push(index - 1);
-      //   this.displaylist.push(index);
-      // } else {
-      //   this.displaylist.push(index - 2);
-      //   this.displaylist.push(index - 1);
-      //   this.displaylist.push(index);
-      // }
-      // console.log(this.lastPage);
-      // console.log(this.current_page);
     },
     newUrl: function newUrl(index) {
+      this.show = false;
       this.displayPage(index);
-      // this.current_page = index;
       if (!!this.nextUrl) {
         this.url = this.nextUrl;
       } else {
         this.url = this.previousUrl;
       }
       if (this.url) {
-        // alert(typeof this.url);
         if (this.current_page == 9) {
           this.pageUrl = this.url.slice(0, -2) + index;
         } else {
@@ -74438,9 +74380,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
               x.searchError = 0;
             }, 3000);
           } else if (response.status == 200) {
+            x.show = true;
             console.log(response);
             x.searchQuery = null;
-            // console.log(response);
             x.projectData = response.data["data"];
             x.nextUrl = response.data["pageData"].next_page_url;
             x.current_page = response.data["pageData"].current_page;
@@ -74454,14 +74396,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           } else {
             alert("Error");
           }
-          // console.log(response);
         }).catch(function (error) {
           console.log(error);
         });
       }
     },
     searchNonMonitored: function searchNonMonitored(index) {
-      // this.id = 0;
       this.previousSearchQuery = this.searchQuery;
       this.monitoring = index;
       if (this.monitoring == 1) {
@@ -74484,7 +74424,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         } else if (response.status == 200) {
           console.log(response);
           x.searchQuery = null;
-          // console.log(response);
           x.projectData = response.data["data"];
           x.nextUrl = response.data["pageData"].next_page_url;
           x.lastPage = response.data["pageData"].last_page;
@@ -74492,18 +74431,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           if (response.data["pageData"].total == 1) {
             x.total = 1;
           } else {
-            // x.Pages = response.data["pageData"].total;
             x.currentUrl = response.data["pageData"].next_page_url.slice(0, -1) + x.current_page;
             x.total = 2;
           }
-          // str = str.slice(0, -1);
           x.previousUrl = response.data["pageData"].prev_page_url;
           x.fromNumbers = response.data["pageData"].from;
           x.displayPage(1);
         } else {
           alert("Error");
         }
-        // console.log(response);
       }).catch(function (error) {
         console.log(error);
       });
@@ -74562,81 +74498,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           } else {
             alert("Error");
           }
-          // console.log(response);
         }).catch(function (error) {
           console.log(error);
         });
       }
-    },
-    nextPage: function nextPage() {
-      var x = this;
-      axios.post(this.nextUrl, {
-        title: this.searchQuery,
-        monitor: this.monitoring
-      }).then(function (response) {
-        if (response.status == 206) {
-          console.log(response.data);
-          x.searchQuery = null;
-          x.searchError = 1;
-          setTimeout(function () {
-            x.searchError = 0;
-          }, 3000);
-        } else if (response.status == 200) {
-          console.log(response);
-          x.searchQuery = null;
-          // console.log(response);
-          x.projectData = response.data["data"];
-          x.nextUrl = response.data["pageData"].next_page_url;
-          x.current_page = response.data["pageData"].current_page;
-          if (!!x.nextUrl) {
-            x.currentUrl = response.data["pageData"].next_page_url.slice(0, -1) + x.current_page;
-          } else {
-            x.currentUrl = response.data["pageData"].prev_page_url.slice(0, -1) + x.current_page;
-          }
-          x.previousUrl = response.data["pageData"].prev_page_url;
-          x.fromNumbers = response.data["pageData"].from;
-        } else {
-          alert("Error");
-        }
-        // console.log(response);
-      }).catch(function (error) {
-        console.log(error);
-      });
-    },
-    prevPage: function prevPage() {
-      var x = this;
-      axios.post(this.previousUrl, {
-        title: this.searchQuery,
-        monitor: this.monitoring
-      }).then(function (response) {
-        if (response.status == 206) {
-          console.log(response.data);
-          x.searchQuery = null;
-          x.searchError = 1;
-          setTimeout(function () {
-            x.searchError = 0;
-          }, 3000);
-        } else if (response.status == 200) {
-          console.log(response);
-          x.searchQuery = null;
-          // console.log(response);
-          x.projectData = response.data["data"];
-          x.nextUrl = response.data["pageData"].next_page_url;
-          x.current_page = response.data["pageData"].current_page;
-          if (!!x.nextUrl) {
-            x.currentUrl = response.data["pageData"].next_page_url.slice(0, -1) + x.current_page;
-          } else {
-            x.currentUrl = response.data["pageData"].prev_page_url.slice(0, -1) + x.current_page;
-          }
-          x.previousUrl = response.data["pageData"].prev_page_url;
-          x.fromNumbers = response.data["pageData"].from;
-        } else {
-          alert("Error");
-        }
-        // console.log(response);
-      }).catch(function (error) {
-        console.log(error);
-      });
     },
     status: function status(validation) {
       return {
@@ -74661,9 +74526,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             x.removeFromDelayTable = 0;
           }, 3000);
           x.reloadPage();
-          // x.nextPage();
-          // x.prevPage();
-          // x.searchNonMonitored(x.monitoring);
         } else {
           alert("Error");
         }
@@ -74871,6 +74733,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -74906,6 +74772,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     newUrl: function newUrl(index) {
       // this.displayPage(index);
       this.$emit("newUrl", index);
+    },
+    arrayLn: function arrayLn() {
+      if (this.displaylist.length == 1) {
+        return false;
+      } else {
+        return true;
+      }
     },
 
     // displayPage(index) {
@@ -75176,376 +75049,433 @@ var render = function() {
       ]),
       _vm._v(" "),
       _c("div", [
-        _c("div", [
-          _vm.monitorAlert == 1
-            ? _c(
-                "div",
-                {
-                  staticClass: "alert alert-success",
-                  attrs: { id: "success_message" }
-                },
-                [_vm._v("Status Changed")]
-              )
-            : _vm._e(),
-          _vm._v(" "),
-          _vm.displayTable == 1
-            ? _c("div", [
-                _vm.searchError == 1
-                  ? _c(
-                      "div",
-                      {
-                        staticClass: "alert alert-danger",
-                        attrs: { id: "error_message" }
-                      },
-                      [_vm._v("Project Not Found")]
-                    )
-                  : _vm._e(),
-                _vm._v(" "),
-                _c("div", { staticClass: "row" }, [
-                  _c("div", { staticClass: "col-md-6 col-md-offset-3" }, [
-                    _c(
-                      "form",
-                      { staticClass: "search-form", attrs: { action: "" } },
-                      [
-                        _c("div", { staticClass: "form-group col-md-10" }, [
-                          _c(
-                            "label",
-                            {
-                              staticClass: "sr-only",
-                              attrs: { for: "search" }
-                            },
-                            [_vm._v("Search")]
-                          ),
+        _c(
+          "div",
+          [
+            _vm.monitorAlert == 1
+              ? _c(
+                  "div",
+                  {
+                    staticClass: "alert alert-success",
+                    attrs: { id: "success_message" }
+                  },
+                  [_vm._v("Status Changed")]
+                )
+              : _vm._e(),
+            _vm._v(" "),
+            !_vm.show ? _c("div", { staticClass: "loader" }) : _vm._e(),
+            _vm._v(" "),
+            _c("transition", { attrs: { name: "fade" } }, [
+              _vm.show
+                ? _c("div", [
+                    _vm.displayTable == 1
+                      ? _c("div", [
+                          _vm.searchError == 1
+                            ? _c(
+                                "div",
+                                {
+                                  staticClass: "alert alert-danger",
+                                  attrs: { id: "error_message" }
+                                },
+                                [_vm._v("Project Not Found")]
+                              )
+                            : _vm._e(),
                           _vm._v(" "),
-                          _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.searchQuery,
-                                expression: "searchQuery"
-                              }
-                            ],
-                            staticClass: "form-control",
-                            attrs: {
-                              type: "text",
-                              name: "search",
-                              id: "search",
-                              placeholder: "search"
-                            },
-                            domProps: { value: _vm.searchQuery },
-                            on: {
-                              blur: function($event) {
-                                _vm.$v.searchQuery.$touch()
-                              },
-                              input: function($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.searchQuery = $event.target.value
-                              }
-                            }
-                          })
-                        ])
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-primary",
-                        attrs: { disabled: _vm.$v.searchQuery.$invalid },
-                        on: {
-                          click: function($event) {
-                            _vm.searchNonMonitored(1)
-                          }
-                        }
-                      },
-                      [_c("i", { staticClass: "glyphicon glyphicon-search" })]
-                    )
-                  ])
-                ]),
-                _vm._v(" "),
-                _c(
-                  "table",
-                  { staticClass: "table table-bordered table-responsive" },
-                  [
-                    _c("thead", [
-                      _vm.displayTable == 1
-                        ? _c("tr", [
-                            _c("th", [_vm._v("Id")]),
-                            _vm._v(" "),
-                            _c("th", [_vm._v("Project")]),
-                            _vm._v(" "),
-                            _c("th", [_vm._v("Users")]),
-                            _vm._v(" "),
-                            _c("th", [_vm._v("Start Date")]),
-                            _vm._v(" "),
-                            _c("th", [_vm._v("Expected Date")]),
-                            _vm._v(" "),
-                            _c("th", [_vm._v("Actual Close")]),
-                            _vm._v(" "),
-                            _c("th", [_vm._v("Delayed by")]),
-                            _vm._v(" "),
-                            _c("th", [_vm._v("Actions")]),
-                            _vm._v(" "),
-                            _c("th", [_vm._v("Delay Responsive")])
-                          ])
-                        : _vm._e()
-                    ]),
-                    _vm._v(" "),
-                    _c(
-                      "tbody",
-                      _vm._l(_vm.projectData, function(item, key) {
-                        return _vm.displayTable == 1
-                          ? _c("tr", { key: item.id, staticClass: "brdr" }, [
-                              _c("td", [_vm._v(_vm._s(_vm.fromNumbers + key))]),
-                              _vm._v(" "),
-                              _c("td", [_vm._v(_vm._s(item.title))]),
-                              _vm._v(" "),
-                              _c(
-                                "table",
-                                { staticClass: "nobrdr" },
-                                _vm._l(item.user_names, function(ite) {
-                                  return _c("tr", [
-                                    _vm._v(_vm._s(ite.user_name))
-                                  ])
-                                })
-                              ),
-                              _vm._v(" "),
-                              _c("td", [_vm._v(_vm._s(item.start_date))]),
-                              _vm._v(" "),
-                              _c("td", [_vm._v(_vm._s(item.end_date))]),
-                              _vm._v(" "),
-                              _c("td", [_vm._v(_vm._s(item.actual_close))]),
-                              _vm._v(" "),
-                              _c(
-                                "table",
-                                { staticClass: "nobrdr" },
-                                _vm._l(item.delay, function(ite) {
-                                  return _c("tr", [
-                                    _vm._v(_vm._s(ite.user_name))
-                                  ])
-                                })
-                              ),
-                              _vm._v(" "),
-                              _c("td", [
+                          _c("div", { staticClass: "row" }, [
+                            _c(
+                              "div",
+                              { staticClass: "col-md-6 col-md-offset-3" },
+                              [
+                                _c(
+                                  "form",
+                                  {
+                                    staticClass: "search-form",
+                                    attrs: { action: "" }
+                                  },
+                                  [
+                                    _c(
+                                      "div",
+                                      { staticClass: "form-group col-md-10" },
+                                      [
+                                        _c(
+                                          "label",
+                                          {
+                                            staticClass: "sr-only",
+                                            attrs: { for: "search" }
+                                          },
+                                          [_vm._v("Search")]
+                                        ),
+                                        _vm._v(" "),
+                                        _c("input", {
+                                          directives: [
+                                            {
+                                              name: "model",
+                                              rawName: "v-model",
+                                              value: _vm.searchQuery,
+                                              expression: "searchQuery"
+                                            }
+                                          ],
+                                          staticClass: "form-control",
+                                          attrs: {
+                                            type: "text",
+                                            name: "search",
+                                            id: "search",
+                                            placeholder: "search"
+                                          },
+                                          domProps: { value: _vm.searchQuery },
+                                          on: {
+                                            blur: function($event) {
+                                              _vm.$v.searchQuery.$touch()
+                                            },
+                                            input: function($event) {
+                                              if ($event.target.composing) {
+                                                return
+                                              }
+                                              _vm.searchQuery =
+                                                $event.target.value
+                                            }
+                                          }
+                                        })
+                                      ]
+                                    )
+                                  ]
+                                ),
+                                _vm._v(" "),
                                 _c(
                                   "button",
                                   {
-                                    staticClass: "btn btn-danger btn-xs marg",
+                                    staticClass: "btn btn-primary",
+                                    attrs: {
+                                      disabled: _vm.$v.searchQuery.$invalid
+                                    },
                                     on: {
                                       click: function($event) {
-                                        _vm.doNotMonitor(item.id)
+                                        _vm.searchNonMonitored(1)
                                       }
                                     }
                                   },
-                                  [_vm._v("Stop Monitoring")]
+                                  [
+                                    _c("i", {
+                                      staticClass: "glyphicon glyphicon-search"
+                                    })
+                                  ]
                                 )
+                              ]
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "table",
+                            {
+                              staticClass:
+                                "table table-bordered table-responsive"
+                            },
+                            [
+                              _c("thead", [
+                                _vm.displayTable == 1
+                                  ? _c("tr", [
+                                      _c("th", [_vm._v("Id")]),
+                                      _vm._v(" "),
+                                      _c("th", [_vm._v("Project")]),
+                                      _vm._v(" "),
+                                      _c("th", [_vm._v("Users")]),
+                                      _vm._v(" "),
+                                      _c("th", [_vm._v("Start Date")]),
+                                      _vm._v(" "),
+                                      _c("th", [_vm._v("Expected Date")]),
+                                      _vm._v(" "),
+                                      _c("th", [_vm._v("Actual Close")]),
+                                      _vm._v(" "),
+                                      _c("th", [_vm._v("Delayed by")]),
+                                      _vm._v(" "),
+                                      _c("th", [_vm._v("Actions")]),
+                                      _vm._v(" "),
+                                      _c("th", [_vm._v("Delay Responsive")])
+                                    ])
+                                  : _vm._e()
                               ]),
                               _vm._v(" "),
-                              _c("td", [
-                                _c(
-                                  "button",
-                                  {
-                                    staticClass: "btn btn-primary btn-xs marg",
-                                    on: {
-                                      click: function($event) {
-                                        _vm.showPopup(item.id)
-                                      }
-                                    }
-                                  },
-                                  [_vm._v("Delay")]
-                                )
-                              ])
-                            ])
-                          : _vm._e()
-                      })
-                    )
-                  ]
-                )
-              ])
-            : _vm._e(),
-          _vm._v(" "),
-          _vm.displayTable == 2
-            ? _c("div", [
-                _vm.searchError == 1
-                  ? _c(
-                      "div",
-                      {
-                        staticClass: "alert alert-danger",
-                        attrs: { id: "error_message" }
-                      },
-                      [_vm._v("Project Not Found")]
-                    )
-                  : _vm._e(),
-                _vm._v(" "),
-                _c("div", { staticClass: "row" }, [
-                  _c("div", { staticClass: "col-md-6 col-md-offset-3" }, [
-                    _c(
-                      "form",
-                      { staticClass: "search-form", attrs: { action: "" } },
-                      [
-                        _c("div", { staticClass: "form-group col-md-10" }, [
-                          _c(
-                            "label",
-                            {
-                              staticClass: "sr-only",
-                              attrs: { for: "search" }
-                            },
-                            [_vm._v("Search")]
-                          ),
-                          _vm._v(" "),
-                          _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.searchQuery,
-                                expression: "searchQuery"
-                              }
-                            ],
-                            staticClass: "form-control",
-                            attrs: {
-                              type: "text",
-                              name: "search",
-                              id: "search",
-                              placeholder: "search"
-                            },
-                            domProps: { value: _vm.searchQuery },
-                            on: {
-                              blur: function($event) {
-                                _vm.$v.searchQuery.$touch()
-                              },
-                              input: function($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.searchQuery = $event.target.value
-                              }
-                            }
-                          })
+                              _c(
+                                "tbody",
+                                _vm._l(_vm.projectData, function(item, key) {
+                                  return _vm.displayTable == 1
+                                    ? _c(
+                                        "tr",
+                                        { key: item.id, staticClass: "brdr" },
+                                        [
+                                          _c("td", [
+                                            _vm._v(
+                                              _vm._s(_vm.fromNumbers + key)
+                                            )
+                                          ]),
+                                          _vm._v(" "),
+                                          _c("td", [
+                                            _vm._v(_vm._s(item.title))
+                                          ]),
+                                          _vm._v(" "),
+                                          _c(
+                                            "table",
+                                            { staticClass: "nobrdr" },
+                                            _vm._l(item.user_names, function(
+                                              ite
+                                            ) {
+                                              return _c("tr", [
+                                                _vm._v(_vm._s(ite.user_name))
+                                              ])
+                                            })
+                                          ),
+                                          _vm._v(" "),
+                                          _c("td", [
+                                            _vm._v(_vm._s(item.start_date))
+                                          ]),
+                                          _vm._v(" "),
+                                          _c("td", [
+                                            _vm._v(_vm._s(item.end_date))
+                                          ]),
+                                          _vm._v(" "),
+                                          _c("td", [
+                                            _vm._v(_vm._s(item.actual_close))
+                                          ]),
+                                          _vm._v(" "),
+                                          _c(
+                                            "table",
+                                            { staticClass: "nobrdr" },
+                                            _vm._l(item.delay, function(ite) {
+                                              return _c("tr", [
+                                                _vm._v(_vm._s(ite.user_name))
+                                              ])
+                                            })
+                                          ),
+                                          _vm._v(" "),
+                                          _c("td", [
+                                            _c(
+                                              "button",
+                                              {
+                                                staticClass:
+                                                  "btn btn-danger btn-xs marg",
+                                                on: {
+                                                  click: function($event) {
+                                                    _vm.doNotMonitor(item.id)
+                                                  }
+                                                }
+                                              },
+                                              [_vm._v("Stop Monitoring")]
+                                            )
+                                          ]),
+                                          _vm._v(" "),
+                                          _c("td", [
+                                            _c(
+                                              "button",
+                                              {
+                                                staticClass:
+                                                  "btn btn-primary btn-xs marg",
+                                                on: {
+                                                  click: function($event) {
+                                                    _vm.showPopup(item.id)
+                                                  }
+                                                }
+                                              },
+                                              [_vm._v("Delay")]
+                                            )
+                                          ])
+                                        ]
+                                      )
+                                    : _vm._e()
+                                })
+                              )
+                            ]
+                          )
                         ])
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-primary",
-                        attrs: { disabled: _vm.$v.searchQuery.$invalid },
-                        on: {
-                          click: function($event) {
-                            _vm.searchNonMonitored(0)
-                          }
-                        }
-                      },
-                      [_c("i", { staticClass: "glyphicon glyphicon-search" })]
-                    )
+                      : _vm._e()
                   ])
-                ]),
-                _vm._v(" "),
-                _c(
-                  "table",
-                  { staticClass: "table table-bordered table-responsive" },
-                  [
-                    _c("thead", [
-                      _vm.displayTable == 2
-                        ? _c("tr", [
-                            _c("th", [_vm._v("Id")]),
+                : _vm._e()
+            ]),
+            _vm._v(" "),
+            _vm.displayTable == 2
+              ? _c("div", [
+                  _vm.searchError == 1
+                    ? _c(
+                        "div",
+                        {
+                          staticClass: "alert alert-danger",
+                          attrs: { id: "error_message" }
+                        },
+                        [_vm._v("Project Not Found")]
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "row" }, [
+                    _c("div", { staticClass: "col-md-6 col-md-offset-3" }, [
+                      _c(
+                        "form",
+                        { staticClass: "search-form", attrs: { action: "" } },
+                        [
+                          _c("div", { staticClass: "form-group col-md-10" }, [
+                            _c(
+                              "label",
+                              {
+                                staticClass: "sr-only",
+                                attrs: { for: "search" }
+                              },
+                              [_vm._v("Search")]
+                            ),
                             _vm._v(" "),
-                            _c("th", [_vm._v("Project")]),
-                            _vm._v(" "),
-                            _c("th", [_vm._v("Users")]),
-                            _vm._v(" "),
-                            _c("th", [_vm._v("Start Date")]),
-                            _vm._v(" "),
-                            _c("th", [_vm._v("Expected Date")]),
-                            _vm._v(" "),
-                            _c("th", [_vm._v("Actual Close")]),
-                            _vm._v(" "),
-                            _c("th", [_vm._v("Delayed by")]),
-                            _vm._v(" "),
-                            _c("th", [_vm._v("Actions")]),
-                            _vm._v(" "),
-                            _c("th", [_vm._v("Delay Responsive")])
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.searchQuery,
+                                  expression: "searchQuery"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              attrs: {
+                                type: "text",
+                                name: "search",
+                                id: "search",
+                                placeholder: "search"
+                              },
+                              domProps: { value: _vm.searchQuery },
+                              on: {
+                                blur: function($event) {
+                                  _vm.$v.searchQuery.$touch()
+                                },
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.searchQuery = $event.target.value
+                                }
+                              }
+                            })
                           ])
-                        : _vm._e()
-                    ]),
-                    _vm._v(" "),
-                    _c(
-                      "tbody",
-                      _vm._l(_vm.projectData, function(item, key) {
-                        return _vm.displayTable == 2
-                          ? _c("tr", { key: item.id, staticClass: "brdr" }, [
-                              _c("td", [_vm._v(_vm._s(_vm.fromNumbers + key))]),
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-primary",
+                          attrs: { disabled: _vm.$v.searchQuery.$invalid },
+                          on: {
+                            click: function($event) {
+                              _vm.searchNonMonitored(0)
+                            }
+                          }
+                        },
+                        [_c("i", { staticClass: "glyphicon glyphicon-search" })]
+                      )
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "table",
+                    { staticClass: "table table-bordered table-responsive" },
+                    [
+                      _c("thead", [
+                        _vm.displayTable == 2
+                          ? _c("tr", [
+                              _c("th", [_vm._v("Id")]),
                               _vm._v(" "),
-                              _c("td", [_vm._v(_vm._s(item.title))]),
+                              _c("th", [_vm._v("Project")]),
                               _vm._v(" "),
-                              _c(
-                                "table",
-                                { staticClass: "nobrdr" },
-                                _vm._l(item.user_names, function(ite) {
-                                  return _c("tr", [
-                                    _vm._v(_vm._s(ite.user_name))
-                                  ])
-                                })
-                              ),
+                              _c("th", [_vm._v("Users")]),
                               _vm._v(" "),
-                              _c("td", [_vm._v(_vm._s(item.start_date))]),
+                              _c("th", [_vm._v("Start Date")]),
                               _vm._v(" "),
-                              _c("td", [_vm._v(_vm._s(item.end_date))]),
+                              _c("th", [_vm._v("Expected Date")]),
                               _vm._v(" "),
-                              _c("td", [_vm._v(_vm._s(item.actual_close))]),
+                              _c("th", [_vm._v("Actual Close")]),
                               _vm._v(" "),
-                              _c(
-                                "table",
-                                { staticClass: "nobrdr" },
-                                _vm._l(item.delay, function(ite) {
-                                  return _c("tr", [
-                                    _vm._v(_vm._s(ite.user_name))
-                                  ])
-                                })
-                              ),
+                              _c("th", [_vm._v("Delayed by")]),
                               _vm._v(" "),
-                              _c("td", [
-                                _c(
-                                  "button",
-                                  {
-                                    staticClass: "btn btn-success btn-xs marg",
-                                    on: {
-                                      click: function($event) {
-                                        _vm.doMonitor(item.id)
-                                      }
-                                    }
-                                  },
-                                  [_vm._v("Start Monitoring")]
-                                )
-                              ]),
+                              _c("th", [_vm._v("Actions")]),
                               _vm._v(" "),
-                              _c("td", [
-                                _c(
-                                  "button",
-                                  {
-                                    staticClass: "btn btn-primary btn-xs marg",
-                                    on: {
-                                      click: function($event) {
-                                        _vm.showPopup(item.id)
-                                      }
-                                    }
-                                  },
-                                  [_vm._v("Delay")]
-                                )
-                              ])
+                              _c("th", [_vm._v("Delay Responsive")])
                             ])
                           : _vm._e()
-                      })
-                    )
-                  ]
-                )
-              ])
-            : _vm._e()
-        ])
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "tbody",
+                        _vm._l(_vm.projectData, function(item, key) {
+                          return _vm.displayTable == 2
+                            ? _c("tr", { key: item.id, staticClass: "brdr" }, [
+                                _c("td", [
+                                  _vm._v(_vm._s(_vm.fromNumbers + key))
+                                ]),
+                                _vm._v(" "),
+                                _c("td", [_vm._v(_vm._s(item.title))]),
+                                _vm._v(" "),
+                                _c(
+                                  "table",
+                                  { staticClass: "nobrdr" },
+                                  _vm._l(item.user_names, function(ite) {
+                                    return _c("tr", [
+                                      _vm._v(_vm._s(ite.user_name))
+                                    ])
+                                  })
+                                ),
+                                _vm._v(" "),
+                                _c("td", [_vm._v(_vm._s(item.start_date))]),
+                                _vm._v(" "),
+                                _c("td", [_vm._v(_vm._s(item.end_date))]),
+                                _vm._v(" "),
+                                _c("td", [_vm._v(_vm._s(item.actual_close))]),
+                                _vm._v(" "),
+                                _c(
+                                  "table",
+                                  { staticClass: "nobrdr" },
+                                  _vm._l(item.delay, function(ite) {
+                                    return _c("tr", [
+                                      _vm._v(_vm._s(ite.user_name))
+                                    ])
+                                  })
+                                ),
+                                _vm._v(" "),
+                                _c("td", [
+                                  _c(
+                                    "button",
+                                    {
+                                      staticClass:
+                                        "btn btn-success btn-xs marg",
+                                      on: {
+                                        click: function($event) {
+                                          _vm.doMonitor(item.id)
+                                        }
+                                      }
+                                    },
+                                    [_vm._v("Start Monitoring")]
+                                  )
+                                ]),
+                                _vm._v(" "),
+                                _c("td", [
+                                  _c(
+                                    "button",
+                                    {
+                                      staticClass:
+                                        "btn btn-primary btn-xs marg",
+                                      on: {
+                                        click: function($event) {
+                                          _vm.showPopup(item.id)
+                                        }
+                                      }
+                                    },
+                                    [_vm._v("Delay")]
+                                  )
+                                ])
+                              ])
+                            : _vm._e()
+                        })
+                      )
+                    ]
+                  )
+                ])
+              : _vm._e()
+          ],
+          1
+        )
       ]),
       _vm._v(" "),
       _c(
@@ -75560,12 +75490,6 @@ var render = function() {
               current_page: _vm.current_page
             },
             on: {
-              nextPage: function($event) {
-                _vm.nextPage()
-              },
-              previousPage: function($event) {
-                _vm.prevPage()
-              },
               "update:lastPage": function($event) {
                 _vm.lastPage = $event
               },
@@ -76068,7 +75992,7 @@ exports = module.exports = __webpack_require__(12)(false);
 
 
 // module
-exports.push([module.i, "\n.wid[data-v-dfbb45e6] {\r\n  width: 100%;\n}\n.pagination[data-v-dfbb45e6] {\r\n  display: inline-block;\n}\n.pagination li[data-v-dfbb45e6] {\r\n  display: inline-block;\n}\n.pagination div[data-v-dfbb45e6] {\r\n  display: inline-block;\n}\n.pagination a[data-v-dfbb45e6] {\r\n  color: black;\r\n  float: left;\r\n  padding: 8px 16px;\r\n  text-decoration: none;\r\n  -webkit-transition: background-color 0.3s;\r\n  transition: background-color 0.3s;\r\n  border: 1px solid #ddd;\r\n  margin: 0 4px;\n}\n.pagination a.active[data-v-dfbb45e6] {\r\n  background-color: #4caf50;\r\n  color: white;\r\n  border: 1px solid #4caf50;\n}\n.pagination a[data-v-dfbb45e6]:hover:not(.active) {\r\n  background-color: #ddd;\n}\r\n", ""]);
+exports.push([module.i, "\n.wid[data-v-dfbb45e6] {\r\n  width: 100%;\n}\n.pdd[data-v-dfbb45e6] {\r\n  padding-right: 0px;\r\n  padding-left: 10px;\n}\n.pagination[data-v-dfbb45e6] {\r\n  display: inline-block;\n}\n.pagination li[data-v-dfbb45e6] {\r\n  display: inline-block;\n}\n.pagination div[data-v-dfbb45e6] {\r\n  display: inline-block;\n}\n.pagination a[data-v-dfbb45e6] {\r\n  color: black;\r\n  float: left;\r\n  padding: 8px 16px;\r\n  text-decoration: none;\r\n  -webkit-transition: background-color 0.3s;\r\n  transition: background-color 0.3s;\r\n  border: 1px solid #ddd;\r\n  margin: 0 4px;\n}\n.pagination a.active[data-v-dfbb45e6] {\r\n  background-color: #4caf50;\r\n  color: white;\r\n  border: 1px solid #4caf50;\n}\n.pagination a[data-v-dfbb45e6]:hover:not(.active) {\r\n  background-color: #ddd;\n}\r\n", ""]);
 
 // exports
 
@@ -76102,32 +76026,34 @@ var render = function() {
           : _vm._e()
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "col-md-1" }, [
-        _c("li", { staticClass: "page-item" }, [
-          _c(
-            "a",
-            {
-              staticClass: "page-link",
-              on: {
-                click: function($event) {
-                  _vm.newUrl(1)
-                }
-              }
-            },
-            [_vm._v("First")]
-          )
-        ])
+      _c("div", [
+        _vm.arrayLn()
+          ? _c("li", { staticClass: "page-item" }, [
+              _c(
+                "a",
+                {
+                  staticClass: "page-link",
+                  on: {
+                    click: function($event) {
+                      _vm.newUrl(1)
+                    }
+                  }
+                },
+                [_vm._v("First")]
+              )
+            ])
+          : _vm._e()
       ]),
       _vm._v(" "),
       _c(
         "div",
-        { staticClass: "col-md-3" },
         _vm._l(_vm.displaylist, function(pages) {
           return _c("li", { staticClass: "page-item" }, [
             _c(
               "a",
               {
                 staticClass: "page-link",
+                class: { active: pages == _vm.current_page },
                 on: {
                   click: function($event) {
                     _vm.newUrl(pages)
@@ -76140,24 +76066,26 @@ var render = function() {
         })
       ),
       _vm._v(" "),
-      _c("div", { staticClass: "col-md-1" }, [
-        _c("li", { staticClass: "page-item" }, [
-          _c(
-            "a",
-            {
-              staticClass: "page-link",
-              on: {
-                click: function($event) {
-                  _vm.newUrl(_vm.lastPage)
-                }
-              }
-            },
-            [_vm._v("Last")]
-          )
-        ])
+      _c("div", [
+        _vm.arrayLn()
+          ? _c("li", { staticClass: "page-item" }, [
+              _c(
+                "a",
+                {
+                  staticClass: "page-link",
+                  on: {
+                    click: function($event) {
+                      _vm.newUrl(_vm.lastPage)
+                    }
+                  }
+                },
+                [_vm._v("Last")]
+              )
+            ])
+          : _vm._e()
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "col-md-1 col-md-offset-1" }, [
+      _c("div", [
         _vm.current_page !== _vm.lastPage
           ? _c("li", { staticClass: "page-item" }, [
               _c(

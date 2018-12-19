@@ -6,22 +6,26 @@
           <a class="page-link" @click="newUrl(current_page -1)">Previous</a>
         </li>
       </div>
-      <div class="col-md-1">
-        <li class="page-item">
+      <div>
+        <li class="page-item" v-if="arrayLn()">
           <a class="page-link" @click="newUrl(1)">First</a>
         </li>
       </div>
-      <div class="col-md-3">
+      <div>
         <li class="page-item" v-for="pages in displaylist">
-          <a class="page-link" @click="newUrl(pages)">{{ pages }}</a>
+          <a
+            class="page-link"
+            @click="newUrl(pages)"
+            :class="{'active':(pages == current_page)}"
+          >{{ pages }}</a>
         </li>
       </div>
-      <div class="col-md-1">
-        <li class="page-item">
+      <div>
+        <li class="page-item" v-if="arrayLn()">
           <a class="page-link" @click="newUrl(lastPage)">Last</a>
         </li>
       </div>
-      <div class="col-md-1 col-md-offset-1">
+      <div>
         <li class="page-item" v-if="current_page !== lastPage">
           <a class="page-link" @click="newUrl(current_page +1)">Next</a>
         </li>
@@ -64,6 +68,13 @@ export default {
     newUrl(index) {
       // this.displayPage(index);
       this.$emit("newUrl", index);
+    },
+    arrayLn() {
+      if (this.displaylist.length == 1) {
+        return false;
+      } else {
+        return true;
+      }
     },
     // displayPage(index) {
     //   this.displaylist = [];
@@ -113,6 +124,10 @@ export default {
 <style scoped>
 .wid {
   width: 100%;
+}
+.pdd {
+  padding-right: 0px;
+  padding-left: 10px;
 }
 .pagination {
   display: inline-block;
