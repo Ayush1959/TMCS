@@ -1,17 +1,18 @@
 <template>
   <div class="container">
     <br>
-    <!-- {{ displayTable }} -->
-    <button class="btn btn-primary" @click="searchNonMonitored(1)">Get Monitored Data</button>
-    <button class="btn btn-primary" @click="searchNonMonitored(0)">Get Non Monitored Data Data</button>
-    <!-- cp:{{ current_page }}
+    <button
+      class="btn btn-primary"
+      @click="searchNonMonitored(1)"
+      :class="{'active':(monitoring == 1)}"
+    >Get Monitored Data</button>
+    <button
+      class="btn btn-primary"
+      @click="searchNonMonitored(0)"
+      :class="{'active':(monitoring == 0)}"
+    >Get Non Monitored Data Data</button>
     <br>
-    {{ nextUrl }}
-    <br>-->
-    <!-- {{ fromNumbers }} -->
-    <!-- cc:{{ currentUrl }} -->
-    <br>
-    <!-- {{ previousUrl }} -->
+    <!-- <button @click="show = !show">Show</button> -->
     <br>
     <!-- PopUp Start -->
     <modal name="delayPopup">
@@ -93,186 +94,227 @@
           class="alert alert-success"
           v-if="monitorAlert == 1"
         >Status Changed</div>
-
-        <div v-if="displayTable == 1">
-          <div
-            id="error_message"
-            class="alert alert-danger"
-            v-if="searchError == 1"
-          >Project Not Found</div>
-          <!-- SEARCH BUTTON -->
-          <div class="row">
-            <div class="col-md-6 col-md-offset-3">
-              <form action class="search-form">
-                <div class="form-group col-md-10">
-                  <label for="search" class="sr-only">Search</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    name="search"
-                    id="search"
-                    @blur="$v.searchQuery.$touch()"
-                    v-model="searchQuery"
-                    placeholder="search"
+        <div class="loader" v-if="!show"></div>
+        <!-- SEARCH BUTTON -->
+        <div class="row">
+          <div class="col-md-6 col-md-offset-3">
+            <form action class="search-form">
+              <div class="form-group col-md-10">
+                <label for="search" class="sr-only">Search</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="search"
+                  id="search"
+                  @blur="$v.searchQuery.$touch()"
+                  v-model="searchQuery"
+                  placeholder="search"
+                >
+              </div>
+            </form>
+            <button
+              class="btn btn-primary"
+              :disabled="$v.searchQuery.$invalid"
+              @click="searchNonMonitored(monitoring)"
+            >
+              <i class="glyphicon glyphicon-search"></i>
+            </button>
+          </div>
+        </div>
+        <transition name="fade">
+          <div v-if="show">
+            <div v-if="displayTable == 1">
+              <!-- <div
+                id="error_message"
+                class="alert alert-danger"
+                v-if="searchError == 1"
+              >Project Not Found</div>-->
+              <!-- SEARCH BUTTON -->
+              <!-- <div class="row">
+                <div class="col-md-6 col-md-offset-3">
+                  <form action class="search-form">
+                    <div class="form-group col-md-10">
+                      <label for="search" class="sr-only">Search</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        name="search"
+                        id="search"
+                        @blur="$v.searchQuery.$touch()"
+                        v-model="searchQuery"
+                        placeholder="search"
+                      >
+                    </div>
+                  </form>
+                  <button
+                    class="btn btn-primary"
+                    :disabled="$v.searchQuery.$invalid"
+                    @click="searchNonMonitored(monitoring)"
                   >
+                    <i class="glyphicon glyphicon-search"></i>
+                  </button>
                 </div>
-              </form>
-              <button
-                class="btn btn-primary"
-                :disabled="$v.searchQuery.$invalid"
-                @click="searchNonMonitored(1)"
-              >
-                <!-- <i class="fa fa-search"></i> -->
-                <i class="glyphicon glyphicon-search"></i>
-              </button>
+              </div>-->
+              <!-- Table for monitored Data -->
+              <table class="table table-bordered table-responsive">
+                <thead>
+                  <tr v-if="displayTable == 1">
+                    <th>Id</th>
+                    <th>Project</th>
+                    <th>Users</th>
+                    <th>Start Date</th>
+                    <th>Expected Date</th>
+                    <th>Actual Close</th>
+                    <th>Delayed by</th>
+                    <th>Actions</th>
+                    <th>Delay Responsive</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    v-for="item,key in projectData"
+                    :key="item.id"
+                    v-if="displayTable == 1"
+                    class="brdr"
+                  >
+                    <!-- <td>{{ inc(fromNumbers) }}</td> -->
+                    <!-- inc() -->
+                    <td>{{ fromNumbers+key }}</td>
+                    <td>{{ item.title }}</td>
+                    <table class="nobrdr">
+                      <tr v-for="ite in item.user_names">{{ ite.user_name }}</tr>
+                    </table>
+                    <td>{{ item.start_date }}</td>
+                    <td>{{ item.end_date }}</td>
+                    <td>{{ item.actual_close }}</td>
+                    <table class="nobrdr">
+                      <tr v-for="ite in item.delay">{{ ite.user_name }}</tr>
+                    </table>
+                    <td>
+                      <button
+                        class="btn btn-danger btn-xs marg"
+                        @click="doNotMonitor(item.id)"
+                      >Stop Monitoring</button>
+                    </td>
+                    <td>
+                      <button class="btn btn-primary btn-xs marg" @click="showPopup(item.id)">Delay</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
-          <!-- Table for monitored Data -->
-          <table class="table table-bordered table-responsive">
-            <thead>
-              <tr v-if="displayTable == 1">
-                <th>Id</th>
-                <th>Project</th>
-                <th>Users</th>
-                <th>Start Date</th>
-                <th>Expected Date</th>
-                <th>Actual Close</th>
-                <th>Delayed by</th>
-                <th>Actions</th>
-                <th>Delay Responsive</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr
-                v-for="item,key in projectData"
-                :key="item.id"
-                v-if="displayTable == 1"
-                class="brdr"
-              >
-                <!-- <td>{{ inc(fromNumbers) }}</td> -->
-                <!-- inc() -->
-                <td>{{ fromNumbers+key }}</td>
-                <td>{{ item.title }}</td>
-                <table class="nobrdr">
-                  <tr v-for="ite in item.user_names">{{ ite.user_name }}</tr>
-                </table>
-                <td>{{ item.start_date }}</td>
-                <td>{{ item.end_date }}</td>
-                <td>{{ item.actual_close }}</td>
-                <table class="nobrdr">
-                  <tr v-for="ite in item.delay">{{ ite.user_name }}</tr>
-                </table>
-                <td>
-                  <button
-                    class="btn btn-danger btn-xs marg"
-                    @click="doNotMonitor(item.id)"
-                  >Stop Monitoring</button>
-                </td>
-                <td>
-                  <button class="btn btn-primary btn-xs marg" @click="showPopup(item.id)">Delay</button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        <div v-if="displayTable == 2">
-          <div
-            id="error_message"
-            class="alert alert-danger"
-            v-if="searchError == 1"
-          >Project Not Found</div>
-          <!-- SEARCH BUTTON -->
-          <div class="row">
-            <div class="col-md-6 col-md-offset-3">
-              <form action class="search-form">
-                <div class="form-group col-md-10">
-                  <label for="search" class="sr-only">Search</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    name="search"
-                    id="search"
-                    @blur="$v.searchQuery.$touch()"
-                    v-model="searchQuery"
-                    placeholder="search"
-                  >
-                </div>
-              </form>
-              <button
-                class="btn btn-primary"
-                :disabled="$v.searchQuery.$invalid"
-                @click="searchNonMonitored(0)"
-              >
-                <!-- <i class="fa fa-search"></i> -->
-                <i class="glyphicon glyphicon-search"></i>
-              </button>
-            </div>
+        </transition>
+        <div id="error_message" class="alert alert-danger" v-if="searchError == 1">Project Not Found</div>
+        <transition name="fade">
+          <div v-if="displayTable == 2">
+            <!-- <div
+              id="error_message"
+              class="alert alert-danger"
+              v-if="searchError == 1"
+            >Project Not Found</div>-->
+            <!-- SEARCH BUTTON -->
+            <!-- <div class="row">
+              <div class="col-md-6 col-md-offset-3">
+                <form action class="search-form">
+                  <div class="form-group col-md-10">
+                    <label for="search" class="sr-only">Search</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      name="search"
+                      id="search"
+                      @blur="$v.searchQuery.$touch()"
+                      v-model="searchQuery"
+                      placeholder="search"
+                    >
+                  </div>
+                </form>
+                <button
+                  class="btn btn-primary"
+                  :disabled="$v.searchQuery.$invalid"
+                  @click="searchNonMonitored(monitoring)"
+                >
+                  <i class="glyphicon glyphicon-search"></i>
+                </button>
+              </div>
+            </div>-->
+            <!-- Table For Non Monitored Data -->
+            <table class="table table-bordered table-responsive">
+              <thead>
+                <tr v-if="displayTable == 2">
+                  <th>Id</th>
+                  <th>Project</th>
+                  <th>Users</th>
+                  <th>Start Date</th>
+                  <th>Expected Date</th>
+                  <th>Actual Close</th>
+                  <th>Delayed by</th>
+                  <th>Actions</th>
+                  <th>Delay Responsive</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  v-for="item,key in projectData"
+                  :key="item.id"
+                  v-if="displayTable == 2"
+                  class="brdr"
+                >
+                  <td>{{ fromNumbers+key }}</td>
+                  <td>{{ item.title }}</td>
+                  <table class="nobrdr">
+                    <tr v-for="ite in item.user_names">{{ ite.user_name }}</tr>
+                  </table>
+                  <td>{{ item.start_date }}</td>
+                  <td>{{ item.end_date }}</td>
+                  <td>{{ item.actual_close }}</td>
+                  <table class="nobrdr">
+                    <tr v-for="ite in item.delay">{{ ite.user_name }}</tr>
+                  </table>
+                  <td>
+                    <button
+                      class="btn btn-success btn-xs marg"
+                      @click="doMonitor(item.id)"
+                    >Start Monitoring</button>
+                  </td>
+                  <td>
+                    <button class="btn btn-primary btn-xs marg" @click="showPopup(item.id)">Delay</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
-          <!-- Table For Non Monitored Data -->
-          <table class="table table-bordered table-responsive">
-            <thead>
-              <tr v-if="displayTable == 2">
-                <th>Id</th>
-                <th>Project</th>
-                <th>Users</th>
-                <th>Start Date</th>
-                <th>Expected Date</th>
-                <th>Actual Close</th>
-                <th>Delayed by</th>
-                <th>Actions</th>
-                <th>Delay Responsive</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr
-                v-for="item,key in projectData"
-                :key="item.id"
-                v-if="displayTable == 2"
-                class="brdr"
-              >
-                <td>{{ fromNumbers+key }}</td>
-                <td>{{ item.title }}</td>
-                <table class="nobrdr">
-                  <tr v-for="ite in item.user_names">{{ ite.user_name }}</tr>
-                </table>
-                <td>{{ item.start_date }}</td>
-                <td>{{ item.end_date }}</td>
-                <td>{{ item.actual_close }}</td>
-                <table class="nobrdr">
-                  <tr v-for="ite in item.delay">{{ ite.user_name }}</tr>
-                </table>
-                <td>
-                  <button
-                    class="btn btn-success btn-xs marg"
-                    @click="doMonitor(item.id)"
-                  >Start Monitoring</button>
-                </td>
-                <td>
-                  <button class="btn btn-primary btn-xs marg" @click="showPopup(item.id)">Delay</button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+        </transition>
       </div>
       <!-- PAGINATION -->
-      <div>
-        <div class="col-md-3">
-          <button @click="prevPage" v-if="!!previousUrl">Previous</button>
-        </div>
-        <div class="col-md-8"></div>
-        <div class="col-md-1">
-          <button @click="nextPage" v-if="!!nextUrl">Next</button>
-        </div>
-      </div>
     </div>
-
+    <div class="col-md-offset-2">
+      <pagenation
+        v-if="displaylist.length > 0"
+        :lastPage.sync="lastPage"
+        :total.sync="total"
+        :displaylist.sync="displaylist"
+        :totalElements.sync="totalElements"
+        :current_page.sync="current_page"
+        @newUrl="newUrl($event)"
+        @PageNo="selectPageNo = $event , searchNonMonitored(monitoring)"
+      ></pagenation>
+      <!-- </div>
+    <div class="col-md-1">
+      <form>
+        <select v-model="selectPageNo" class="form-control" id="noPage">
+          <option v-for="option in totalElements" :value="option">{{ option }}</option>
+        </select>
+      </form>-->
+    </div>
+    <!-- {{ lastPage }} -->
     <!-- Template Ends -->
   </div>
 </template>
 
 <script>
+import pagenation from "./Pagenation";
 import {
   required,
   minLength,
@@ -282,11 +324,15 @@ import {
 } from "vuelidate/lib/validators";
 // import { EventBus } from "../main";
 export default {
+  components: {
+    pagenation
+  },
   data() {
     return {
       projectData: [],
       projectMembers: [],
       delayedUsers: [],
+      show: true,
       selectedProjectId: 0,
       isSubmitted: false,
       displayNumber: 0,
@@ -301,14 +347,28 @@ export default {
       monitoring: null,
       searchError: 0,
       nextUrl: null,
+      lastPage: 1,
+      url: null,
       currentUrl: null,
       current_page: null,
+      displaylist: [],
       previousUrl: null,
       addToDelayTable: 0,
       total: 2,
+      selectPageNo: 3,
+      totalElements: 11,
+      pageUrl: null,
       userInDelayTable: 0,
       removeFromDelayTable: 0
     };
+  },
+  watch: {
+    current_page: function() {
+      this.displayPage();
+    },
+    selectPageNo: function() {
+      this.displayPage();
+    }
   },
   // Get data on the page while loading
   created: function() {
@@ -323,102 +383,103 @@ export default {
     }
   },
   methods: {
-    searchNonMonitored(index) {
-      // this.id = 0;
-      this.previousSearchQuery = this.searchQuery;
-      this.monitoring = index;
-      if (this.monitoring == 1) {
-        this.displayTable = 1;
-      } else {
-        this.displayTable = 2;
-      }
-      var x = this;
-      axios
-        .post(`${x.$Url}projectSearchNonMonitor`, {
-          title: this.searchQuery,
-          monitor: this.monitoring
-        })
-        .then(function(response) {
-          if (response.status == 206) {
-            console.log(response.data);
-            x.searchQuery = null;
-            x.searchError = 1;
-            setTimeout(function() {
-              x.searchError = 0;
-            }, 3000);
-          } else if (response.status == 200) {
-            console.log(response);
-            x.searchQuery = null;
-            // console.log(response);
-            x.projectData = response.data["data"];
-            x.nextUrl = response.data["pageData"].next_page_url;
-            x.current_page = response.data["pageData"].current_page;
-            if (response.data["pageData"].total == 1) {
-              x.total = 1;
-            } else {
-              x.total = 0;
-              x.currentUrl =
-                response.data["pageData"].next_page_url.slice(0, -1) +
-                x.current_page;
-            }
-            // str = str.slice(0, -1);
-            x.previousUrl = response.data["pageData"].prev_page_url;
-            x.fromNumbers = response.data["pageData"].from;
-          } else {
-            alert("Error");
-          }
-          // console.log(response);
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
-    },
-    reloadPage() {
+    displayPage(index) {
+      this.displaylist = [];
+
       if (this.total == 1) {
-        var x = this;
-        axios
-          .post(`${x.$Url}projectSearchNonMonitor`, {
-            title: this.previousSearchQuery,
-            monitor: this.monitoring
-          })
-          .then(function(response) {
-            if (response.status == 206) {
-              console.log(response.data);
-              x.searchQuery = null;
-              x.searchError = 1;
-              setTimeout(function() {
-                x.searchError = 0;
-              }, 3000);
-            } else if (response.status == 200) {
-              console.log(response);
-              x.searchQuery = null;
-              x.projectData = response.data["data"];
-            } else {
-              alert("Error");
-            }
-          })
-          .catch(function(error) {
-            console.log(error);
-          });
+        this.displaylist.push(this.current_page);
       } else {
+        if (this.current_page == this.lastPage && this.lastPage == 1) {
+          this.displaylist.push(this.current_page);
+        } else if (this.current_page == this.lastPage && this.lastPage == 2) {
+          this.displaylist.push(this.current_page - 1);
+          this.displaylist.push(this.current_page);
+        } else if (this.current_page == this.lastPage && this.lastPage == 3) {
+          this.displaylist.push(this.current_page - 2);
+          this.displaylist.push(this.current_page - 1);
+          this.displaylist.push(this.current_page);
+        } else if (
+          this.lastPage - this.current_page == 1 &&
+          this.current_page == 1
+        ) {
+          this.displaylist.push(this.current_page);
+          this.displaylist.push(this.current_page + 1);
+        } else if (this.lastPage - this.current_page == 1) {
+          this.displaylist.push(this.current_page - 1);
+          this.displaylist.push(this.current_page);
+          this.displaylist.push(this.current_page + 1);
+        } else if (this.current_page < this.lastPage) {
+          if (this.current_page == 1) {
+            this.displaylist.push(this.current_page);
+            this.displaylist.push(this.current_page + 1);
+            this.displaylist.push(this.current_page + 2);
+          } else {
+            this.displaylist.push(this.current_page - 1);
+            this.displaylist.push(this.current_page);
+            this.displaylist.push(this.current_page + 1);
+          }
+        } else {
+          this.displaylist.push(this.current_page - 2);
+          this.displaylist.push(this.current_page - 1);
+          this.displaylist.push(this.current_page);
+        }
+      }
+
+      // if (this.total == 1) {
+      //   this.displaylist.push(this.current_page);
+      // } else {
+      //   if (this.current_page < this.lastPage) {
+      //     if (this.current_page == 1) {
+      //       this.displaylist.push(this.current_page);
+      //       this.displaylist.push(this.current_page + 1);
+      //       this.displaylist.push(this.current_page + 2);
+      //     } else {
+      //       this.displaylist.push(this.current_page - 1);
+      //       this.displaylist.push(this.current_page);
+      //       this.displaylist.push(this.current_page + 1);
+      //     }
+      //   } else {
+      //     this.displaylist.push(this.current_page - 2);
+      //     this.displaylist.push(this.current_page - 1);
+      //     this.displaylist.push(this.current_page);
+      //   }
+      // }
+    },
+    newUrl(index) {
+      this.show = false;
+      this.displayPage(index);
+      if (!!this.nextUrl) {
+        this.url = this.nextUrl;
+      } else {
+        this.url = this.previousUrl;
+      }
+      if (this.url) {
+        if (this.current_page >= 9) {
+          this.pageUrl = this.url.slice(0, -2) + index;
+        } else if (this.current_page >= 99) {
+          this.pageUrl = this.url.slice(0, -3) + index;
+        } else {
+          this.pageUrl = this.url.slice(0, -1) + index;
+        }
         var x = this;
         axios
-          .post(this.currentUrl, {
+          .post(this.pageUrl, {
             title: this.searchQuery,
-            monitor: this.monitoring
+            monitor: this.monitoring,
+            pagenate: this.selectPageNo
           })
           .then(function(response) {
+            x.show = true;
             if (response.status == 206) {
-              console.log(response.data);
+              //console.log(response.data);
               x.searchQuery = null;
               x.searchError = 1;
               setTimeout(function() {
                 x.searchError = 0;
               }, 3000);
             } else if (response.status == 200) {
-              console.log(response);
+              //console.log(response);
               x.searchQuery = null;
-              // console.log(response);
               x.projectData = response.data["data"];
               x.nextUrl = response.data["pageData"].next_page_url;
               x.current_page = response.data["pageData"].current_page;
@@ -436,96 +497,140 @@ export default {
             } else {
               alert("Error");
             }
-            // console.log(response);
           })
           .catch(function(error) {
-            console.log(error);
+            //console.log(error);
           });
       }
     },
-    nextPage() {
+    searchNonMonitored(index) {
+      this.show = false;
+      this.previousSearchQuery = this.searchQuery;
+      this.monitoring = index;
+      if (this.monitoring == 1) {
+        this.displayTable = 1;
+      } else {
+        this.displayTable = 2;
+      }
       var x = this;
       axios
-        .post(this.nextUrl, {
+        .post(`${x.$Url}projectSearchNonMonitor`, {
           title: this.searchQuery,
-          monitor: this.monitoring
+          monitor: this.monitoring,
+          pagenate: this.selectPageNo
         })
         .then(function(response) {
+          x.show = true;
           if (response.status == 206) {
-            console.log(response.data);
+            //console.log(response.data);
+            x.projectData = [];
+            x.displayTable = 0;
+            x.displaylist = [];
             x.searchQuery = null;
             x.searchError = 1;
-            setTimeout(function() {
-              x.searchError = 0;
-            }, 3000);
+            // x.displayPage(1);
+            // setTimeout(function() {
+            //   x.searchError = 0;
+            // }, 3000);
           } else if (response.status == 200) {
-            console.log(response);
+            //console.log(response);
+            x.searchError = 0;
             x.searchQuery = null;
-            // console.log(response);
             x.projectData = response.data["data"];
             x.nextUrl = response.data["pageData"].next_page_url;
+            x.lastPage = response.data["pageData"].last_page;
             x.current_page = response.data["pageData"].current_page;
-            if (!!x.nextUrl) {
+            if (response.data["pageData"].total < 4) {
+              x.totalElements = response.data["pageData"].total;
+              x.total = 1;
+            } else if (response.data["pageData"].last_page > 1) {
               x.currentUrl =
                 response.data["pageData"].next_page_url.slice(0, -1) +
                 x.current_page;
-            } else {
-              x.currentUrl =
-                response.data["pageData"].prev_page_url.slice(0, -1) +
-                x.current_page;
+              x.totalElements = response.data["pageData"].total;
+              x.total = 2;
             }
             x.previousUrl = response.data["pageData"].prev_page_url;
             x.fromNumbers = response.data["pageData"].from;
+            x.displayPage(1);
           } else {
             alert("Error");
           }
-          // console.log(response);
         })
         .catch(function(error) {
-          console.log(error);
+          //console.log(error);
         });
     },
-    prevPage() {
-      var x = this;
-      axios
-        .post(this.previousUrl, {
-          title: this.searchQuery,
-          monitor: this.monitoring
-        })
-        .then(function(response) {
-          if (response.status == 206) {
-            console.log(response.data);
-            x.searchQuery = null;
-            x.searchError = 1;
-            setTimeout(function() {
-              x.searchError = 0;
-            }, 3000);
-          } else if (response.status == 200) {
-            console.log(response);
-            x.searchQuery = null;
-            // console.log(response);
-            x.projectData = response.data["data"];
-            x.nextUrl = response.data["pageData"].next_page_url;
-            x.current_page = response.data["pageData"].current_page;
-            if (!!x.nextUrl) {
-              x.currentUrl =
-                response.data["pageData"].next_page_url.slice(0, -1) +
-                x.current_page;
+    reloadPage() {
+      if (this.total == 1) {
+        var x = this;
+        axios
+          .post(`${x.$Url}projectSearchNonMonitor`, {
+            title: this.previousSearchQuery,
+            monitor: this.monitoring,
+            pagenate: this.selectPageNo
+          })
+          .then(function(response) {
+            if (response.status == 206) {
+              //console.log(response.data);
+              x.searchQuery = null;
+              x.searchError = 1;
+              setTimeout(function() {
+                x.searchError = 0;
+              }, 3000);
+            } else if (response.status == 200) {
+              //console.log(response);
+              x.searchQuery = null;
+              x.projectData = response.data["data"];
             } else {
-              x.currentUrl =
-                response.data["pageData"].prev_page_url.slice(0, -1) +
-                x.current_page;
+              alert("Error");
             }
-            x.previousUrl = response.data["pageData"].prev_page_url;
-            x.fromNumbers = response.data["pageData"].from;
-          } else {
-            alert("Error");
-          }
-          // console.log(response);
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
+          })
+          .catch(function(error) {
+            //console.log(error);
+          });
+      } else {
+        var x = this;
+        axios
+          .post(this.currentUrl, {
+            title: this.searchQuery,
+            monitor: this.monitoring,
+            pagenate: this.selectPageNo
+          })
+          .then(function(response) {
+            if (response.status == 206) {
+              //console.log(response.data);
+              x.searchQuery = null;
+              x.searchError = 1;
+              setTimeout(function() {
+                x.searchError = 0;
+              }, 3000);
+            } else if (response.status == 200) {
+              //console.log(response);
+              x.searchQuery = null;
+              // //console.log(response);
+              x.projectData = response.data["data"];
+              x.nextUrl = response.data["pageData"].next_page_url;
+              x.current_page = response.data["pageData"].current_page;
+              if (!!x.nextUrl) {
+                x.currentUrl =
+                  response.data["pageData"].next_page_url.slice(0, -1) +
+                  x.current_page;
+              } else {
+                x.currentUrl =
+                  response.data["pageData"].prev_page_url.slice(0, -1) +
+                  x.current_page;
+              }
+              x.previousUrl = response.data["pageData"].prev_page_url;
+              x.fromNumbers = response.data["pageData"].from;
+            } else {
+              alert("Error");
+            }
+          })
+          .catch(function(error) {
+            //console.log(error);
+          });
+      }
     },
     status(validation) {
       return {
@@ -544,23 +649,20 @@ export default {
         .delete(`${x.$Url}projectde/${x.DeselectedClient}`, {})
         .then(function(response) {
           if (response.status == 204) {
-            console.log(response.data);
+            //console.log(response.data);
             x.showPopup(x.selectedProjectId);
             x.removeFromDelayTable = 1;
             setTimeout(function() {
               x.removeFromDelayTable = 0;
             }, 3000);
             x.reloadPage();
-            // x.nextPage();
-            // x.prevPage();
-            // x.searchNonMonitored(x.monitoring);
           } else {
             alert("Error");
           }
-          console.log(response);
+          //console.log(response);
         })
         .catch(function(error) {
-          console.log(error);
+          //console.log(error);
         });
     },
     //  Add Users into the delayresponsible table
@@ -578,7 +680,7 @@ export default {
               x.userInDelayTable = 0;
             }, 3000);
           } else if (response.status == 200) {
-            console.log(response.data);
+            //console.log(response.data);
             x.showPopup(x.selectedProjectId);
             x.addToDelayTable = 1;
             setTimeout(function() {
@@ -591,10 +693,10 @@ export default {
           } else {
             alert("Error");
           }
-          console.log(response);
+          //console.log(response);
         })
         .catch(function(error) {
-          console.log(error);
+          //console.log(error);
         });
     },
     //Shows Popup
@@ -605,16 +707,16 @@ export default {
         .get(`${x.$Url}projectid/${x.selectedProjectId}`, {})
         .then(function(response) {
           if (response.status == 200) {
-            console.log(response.data);
+            //console.log(response.data);
             x.projectMembers = response.data[1];
             x.delayedUsers = response.data[2];
           } else {
             alert("Error");
           }
-          console.log(response);
+          //console.log(response);
         })
         .catch(function(error) {
-          console.log(error);
+          //console.log(error);
         });
 
       this.$modal.show("delayPopup");
@@ -643,10 +745,10 @@ export default {
           } else {
             alert("Error");
           }
-          console.log(response);
+          //console.log(response);
         })
         .catch(function(error) {
-          console.log(error);
+          //console.log(error);
         });
     },
     //Start monitoring specific project
@@ -669,10 +771,10 @@ export default {
           } else {
             alert("Error");
           }
-          console.log(response);
+          //console.log(response);
         })
         .catch(function(error) {
-          console.log(error);
+          //console.log(error);
         });
     }
   }
@@ -680,6 +782,13 @@ export default {
 </script>
 
 <style scoped>
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.8s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}
 .sele {
   width: 80%;
 }
@@ -691,7 +800,9 @@ export default {
 .brdr {
   border-bottom: #dadada 1px solid;
 }
-
+.active {
+  background-color: forestgreen !important;
+}
 .nobrdr {
   border: transparent;
   margin: 5px;
@@ -703,5 +814,42 @@ export default {
 
 .cncl {
   margin-top: 210px;
+}
+.someclass {
+  color: #337ab7;
+}
+.someclass:hover {
+  color: #23527c;
+}
+.loader {
+  border: 10px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 10px solid #cef375;
+  width: 90px;
+  position: absolute;
+  margin-left: 35%;
+  margin-top: 20%;
+  height: 90px;
+  -webkit-animation: spin 3s linear infinite; /* Safari */
+  animation: spin 3s linear infinite;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 </style>

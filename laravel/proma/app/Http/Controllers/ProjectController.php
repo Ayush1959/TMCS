@@ -135,13 +135,18 @@ class ProjectController extends Controller
     public function userdata()
     {
         $dates = array();
+        $data = array();
         $data_array = user::select('id', 'user_name', 'status', 'score', 'user_type')->where('status', 1)->where('user_type', 4)->paginate(12);
         $date_array = project_monthly_log::select('date')->get();
         foreach ($date_array as $aa) {
             array_push($dates, $aa->date);
         }
+        foreach ($data_array as $aa) {
+            array_push($data, $aa);
+        }
         $fin_date = array_unique($dates);
         $data_array["dates"] = $fin_date;
+        $data_array["udatas"] = $data;
         return $data_array;
     }
 
@@ -261,14 +266,15 @@ class ProjectController extends Controller
         $input = $request->all();
         $monitoring = $request->input('monitor');
         $ptitle = $request->input('title');
+        $pagenate = $request->input('pagenate');
         if (isset($ptitle)) {
-            $query = project::select('id', 'title', 'start_date', 'end_date', 'actual_close')->where('monitoring', $monitoring)->where('status', 1)->where('title', $ptitle);
+            $query = project::select('id', 'title', 'start_date', 'end_date', 'actual_close')->where('monitoring', $monitoring)->where('status', 1)->where('title', 'LIKE', "%$ptitle%");
         } else {
             $query = project::select('id', 'title', 'start_date', 'end_date', 'actual_close')->where('monitoring', $monitoring)->where('status', 1);
         }
         $usernamear = array();
         $fulldata = array();
-        $datap_array = $query->paginate(3);
+        $datap_array = $query->paginate($pagenate);
         //return $datap_arr
         // $data_array = project::select('id', 'title', 'start_date', 'end_date', 'actual_close')->where('monitoring', 0)->where('status', 1)->get();
         foreach ($datap_array as $aa) {
@@ -339,7 +345,12 @@ class ProjectController extends Controller
 
     public function datechangeread($id)
     {
-        $data_array = project_monthly_log::select('id', 'user_name', 'user_id', 'score')->where('date', $id)->paginate(5);
+        $data = array();
+        $data_array = project_monthly_log::select('id', 'user_name', 'user_id', 'score')->where('date', $id)->paginate(12);
+        foreach ($data_array as $aa) {
+            array_push($data, $aa);
+        }
+        $data_array["udatas"] = $data;
         return $data_array;
 
     }

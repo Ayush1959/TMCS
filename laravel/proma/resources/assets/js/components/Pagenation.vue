@@ -1,17 +1,13 @@
 <template>
-  <nav>
-    <ul class="pagination justify-content-center wid">
-      <div class="col-md-2">
-        <li class="page-item" v-if="current_page !== 1">
-          <a class="page-link" @click="newUrl(current_page -1)">Previous</a>
-        </li>
-      </div>
-      <div>
+  <nav class="cnnt">
+    <div class="col-md-10">
+      <ul class="pagination justify-content-center wid">
         <li class="page-item" v-if="arrayLn()">
           <a class="page-link" @click="newUrl(1)">First</a>
         </li>
-      </div>
-      <div>
+        <li class="page-item" :class="{'disabled':(current_page == 1)}">
+          <a class="page-link" @click="newUrl(current_page -1)">Previous</a>
+        </li>
         <li class="page-item" v-for="pages in displaylist">
           <a
             class="page-link"
@@ -19,18 +15,22 @@
             :class="{'active':(pages == current_page)}"
           >{{ pages }}</a>
         </li>
-      </div>
-      <div>
+        <li class="page-item" :class="{'disabled':(current_page == lastPage)}">
+          <a class="page-link" @click="newUrl(current_page +1)">Next</a>
+        </li>
         <li class="page-item" v-if="arrayLn()">
           <a class="page-link" @click="newUrl(lastPage)">Last</a>
         </li>
-      </div>
-      <div>
-        <li class="page-item" v-if="current_page !== lastPage">
-          <a class="page-link" @click="newUrl(current_page +1)">Next</a>
-        </li>
-      </div>
-    </ul>
+      </ul>
+    </div>
+    <div class="col-md-2">
+      <form>
+        <select v-model="selectPageNo" class="form-control" id="noPage" v-on:change="onChange()">
+          <option>3</option>
+          <option v-for="option in totalEl()" :value="option">{{ option }}</option>
+        </select>
+      </form>
+    </div>
   </nav>
 </template>
 
@@ -41,8 +41,9 @@ export default {
       displayPageNo: null,
       displayCheckValue: null,
       lastpageValue: null,
-      current_pageValue: null
-      // displaylist: [],
+      selectPageNo: 3,
+      current_pageValue: null,
+      totalPage: null
     };
   },
   props: {
@@ -57,17 +58,32 @@ export default {
     },
     displaylist: {
       required: true
+    },
+    totalElements: {
+      type: Number
     }
   },
   mounted: function() {
-    console.log(this.lastPage);
-    // this.displayPage(1);
-    // this.displayPage(2);
+    // console.log(this.lastPage);
   },
   methods: {
+    totalEl() {
+      var a = [];
+      this.totalPage = Math.ceil(this.totalElements / 10);
+      var j = 0;
+      // b = this.totalElements;
+      for (var i = 1; i <= this.totalPage; i++) {
+        a.push(j + 10);
+        j += 10;
+      }
+      // while (b--) a[b] = b + 5;
+      return a;
+    },
     newUrl(index) {
-      // this.displayPage(index);
       this.$emit("newUrl", index);
+    },
+    onChange() {
+      this.$emit("PageNo", this.selectPageNo);
     },
     arrayLn() {
       if (this.displaylist.length == 1) {
@@ -76,46 +92,10 @@ export default {
         return true;
       }
     },
-    // displayPage(index) {
-    //   this.displaylist = [];
-    //   if (!this.current_page) {
-    //     this.displaylist = [1];
-    //   } else if (this.current_page === 1) {
-    //     this.displaylist.push(index);
-    //     this.displaylist.push(index + 1);
-    //     this.displaylist.push(index + 2);
-    //   } else if (this.current_page < this.lastPage - 1) {
-    //     this.displaylist.push(index - 1);
-    //     this.displaylist.push(index);
-    //     this.displaylist.push(index + 1);
-    //   } else if (this.current_page == this.lastPage) {
-    //     this.displaylist.push(index - 2);
-    //     this.displaylist.push(index - 1);
-    //     this.displaylist.push(index);
-    //   } else {
-    //     this.displaylist.push(index - 2);
-    //     this.displaylist.push(index - 1);
-    //     this.displaylist.push(index);
-    //   }
-    //   console.log(this.lastPage);
-    //   console.log(this.current_page);
-    // },
     displayPageNew(index) {
-      console.log(this.total);
-      console.log(this.lastPage);
-      console.log(this.current_page);
-      //   this.displaylist = [];
-      //   if (this.lastPage == 1) {
-      //     this.displaylist.push(1);
-      //   } else if (index < this.lastpage - 2) {
-      //     this.displaylist.push(index);
-      //     this.displaylist.push(index + 1);
-      //     this.displaylist.push(index + 2);
-      //   } else {
-      //     this.displaylist.push(this.lastPage);
-      //     this.displaylist.push(this.lastPage - 1);
-      //     // this.displaylist.push(index + 2);
-      //   }
+      // console.log(this.total);
+      // console.log(this.lastPage);
+      // console.log(this.current_page);
     }
   }
 };
@@ -125,6 +105,16 @@ export default {
 .wid {
   width: 100%;
 }
+.cnnt {
+  margin: inherit;
+}
+.disabled {
+  color: currentColor;
+  cursor: not-allowed;
+  opacity: 0.5;
+  text-decoration: none;
+  pointer-events: none;
+}
 .pdd {
   padding-right: 0px;
   padding-left: 10px;
@@ -133,9 +123,6 @@ export default {
   display: inline-block;
 }
 .pagination li {
-  display: inline-block;
-}
-.pagination div {
   display: inline-block;
 }
 .pagination a {
@@ -156,5 +143,6 @@ export default {
 
 .pagination a:hover:not(.active) {
   background-color: #ddd;
+  cursor: pointer;
 }
 </style>

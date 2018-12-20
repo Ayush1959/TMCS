@@ -295,18 +295,9 @@
         :lastPage.sync="lastPage"
         :total.sync="total"
         :displaylist.sync="displaylist"
-        :totalElements.sync="totalElements"
         :current_page.sync="current_page"
         @newUrl="newUrl($event)"
-        @PageNo="selectPageNo = $event , searchNonMonitored(monitoring)"
       ></pagenation>
-      <!-- </div>
-    <div class="col-md-1">
-      <form>
-        <select v-model="selectPageNo" class="form-control" id="noPage">
-          <option v-for="option in totalElements" :value="option">{{ option }}</option>
-        </select>
-      </form>-->
     </div>
     <!-- {{ lastPage }} -->
     <!-- Template Ends -->
@@ -355,8 +346,6 @@ export default {
       previousUrl: null,
       addToDelayTable: 0,
       total: 2,
-      selectPageNo: 3,
-      totalElements: 11,
       pageUrl: null,
       userInDelayTable: 0,
       removeFromDelayTable: 0
@@ -364,9 +353,6 @@ export default {
   },
   watch: {
     current_page: function() {
-      this.displayPage();
-    },
-    selectPageNo: function() {
       this.displayPage();
     }
   },
@@ -385,30 +371,10 @@ export default {
   methods: {
     displayPage(index) {
       this.displaylist = [];
-
       if (this.total == 1) {
         this.displaylist.push(this.current_page);
       } else {
-        if (this.current_page == this.lastPage && this.lastPage == 1) {
-          this.displaylist.push(this.current_page);
-        } else if (this.current_page == this.lastPage && this.lastPage == 2) {
-          this.displaylist.push(this.current_page - 1);
-          this.displaylist.push(this.current_page);
-        } else if (this.current_page == this.lastPage && this.lastPage == 3) {
-          this.displaylist.push(this.current_page - 2);
-          this.displaylist.push(this.current_page - 1);
-          this.displaylist.push(this.current_page);
-        } else if (
-          this.lastPage - this.current_page == 1 &&
-          this.current_page == 1
-        ) {
-          this.displaylist.push(this.current_page);
-          this.displaylist.push(this.current_page + 1);
-        } else if (this.lastPage - this.current_page == 1) {
-          this.displaylist.push(this.current_page - 1);
-          this.displaylist.push(this.current_page);
-          this.displaylist.push(this.current_page + 1);
-        } else if (this.current_page < this.lastPage) {
+        if (this.current_page < this.lastPage) {
           if (this.current_page == 1) {
             this.displaylist.push(this.current_page);
             this.displaylist.push(this.current_page + 1);
@@ -424,26 +390,6 @@ export default {
           this.displaylist.push(this.current_page);
         }
       }
-
-      // if (this.total == 1) {
-      //   this.displaylist.push(this.current_page);
-      // } else {
-      //   if (this.current_page < this.lastPage) {
-      //     if (this.current_page == 1) {
-      //       this.displaylist.push(this.current_page);
-      //       this.displaylist.push(this.current_page + 1);
-      //       this.displaylist.push(this.current_page + 2);
-      //     } else {
-      //       this.displaylist.push(this.current_page - 1);
-      //       this.displaylist.push(this.current_page);
-      //       this.displaylist.push(this.current_page + 1);
-      //     }
-      //   } else {
-      //     this.displaylist.push(this.current_page - 2);
-      //     this.displaylist.push(this.current_page - 1);
-      //     this.displaylist.push(this.current_page);
-      //   }
-      // }
     },
     newUrl(index) {
       this.show = false;
@@ -465,20 +411,19 @@ export default {
         axios
           .post(this.pageUrl, {
             title: this.searchQuery,
-            monitor: this.monitoring,
-            pagenate: this.selectPageNo
+            monitor: this.monitoring
           })
           .then(function(response) {
             x.show = true;
             if (response.status == 206) {
-              // //console.log(response.data);
+              console.log(response.data);
               x.searchQuery = null;
               x.searchError = 1;
               setTimeout(function() {
                 x.searchError = 0;
               }, 3000);
             } else if (response.status == 200) {
-              // //console.log(response);
+              console.log(response);
               x.searchQuery = null;
               x.projectData = response.data["data"];
               x.nextUrl = response.data["pageData"].next_page_url;
@@ -499,7 +444,7 @@ export default {
             }
           })
           .catch(function(error) {
-            //console.log(error);
+            console.log(error);
           });
       }
     },
@@ -516,13 +461,12 @@ export default {
       axios
         .post(`${x.$Url}projectSearchNonMonitor`, {
           title: this.searchQuery,
-          monitor: this.monitoring,
-          pagenate: this.selectPageNo
+          monitor: this.monitoring
         })
         .then(function(response) {
           x.show = true;
           if (response.status == 206) {
-            //console.log(response.data);
+            console.log(response.data);
             x.projectData = [];
             x.displayTable = 0;
             x.displaylist = [];
@@ -533,7 +477,7 @@ export default {
             //   x.searchError = 0;
             // }, 3000);
           } else if (response.status == 200) {
-            //console.log(response);
+            console.log(response);
             x.searchError = 0;
             x.searchQuery = null;
             x.projectData = response.data["data"];
@@ -541,13 +485,11 @@ export default {
             x.lastPage = response.data["pageData"].last_page;
             x.current_page = response.data["pageData"].current_page;
             if (response.data["pageData"].total < 4) {
-              x.totalElements = response.data["pageData"].total;
               x.total = 1;
-            } else if (response.data["pageData"].last_page > 1) {
+            } else {
               x.currentUrl =
                 response.data["pageData"].next_page_url.slice(0, -1) +
                 x.current_page;
-              x.totalElements = response.data["pageData"].total;
               x.total = 2;
             }
             x.previousUrl = response.data["pageData"].prev_page_url;
@@ -558,7 +500,7 @@ export default {
           }
         })
         .catch(function(error) {
-          //console.log(error);
+          console.log(error);
         });
     },
     reloadPage() {
@@ -567,19 +509,18 @@ export default {
         axios
           .post(`${x.$Url}projectSearchNonMonitor`, {
             title: this.previousSearchQuery,
-            monitor: this.monitoring,
-            pagenate: this.selectPageNo
+            monitor: this.monitoring
           })
           .then(function(response) {
             if (response.status == 206) {
-              //console.log(response.data);
+              console.log(response.data);
               x.searchQuery = null;
               x.searchError = 1;
               setTimeout(function() {
                 x.searchError = 0;
               }, 3000);
             } else if (response.status == 200) {
-              //console.log(response);
+              console.log(response);
               x.searchQuery = null;
               x.projectData = response.data["data"];
             } else {
@@ -587,28 +528,27 @@ export default {
             }
           })
           .catch(function(error) {
-            //console.log(error);
+            console.log(error);
           });
       } else {
         var x = this;
         axios
           .post(this.currentUrl, {
             title: this.searchQuery,
-            monitor: this.monitoring,
-            pagenate: this.selectPageNo
+            monitor: this.monitoring
           })
           .then(function(response) {
             if (response.status == 206) {
-              //console.log(response.data);
+              console.log(response.data);
               x.searchQuery = null;
               x.searchError = 1;
               setTimeout(function() {
                 x.searchError = 0;
               }, 3000);
             } else if (response.status == 200) {
-              //console.log(response);
+              console.log(response);
               x.searchQuery = null;
-              // //console.log(response);
+              // console.log(response);
               x.projectData = response.data["data"];
               x.nextUrl = response.data["pageData"].next_page_url;
               x.current_page = response.data["pageData"].current_page;
@@ -628,7 +568,7 @@ export default {
             }
           })
           .catch(function(error) {
-            //console.log(error);
+            console.log(error);
           });
       }
     },
@@ -649,7 +589,7 @@ export default {
         .delete(`${x.$Url}projectde/${x.DeselectedClient}`, {})
         .then(function(response) {
           if (response.status == 204) {
-            //console.log(response.data);
+            console.log(response.data);
             x.showPopup(x.selectedProjectId);
             x.removeFromDelayTable = 1;
             setTimeout(function() {
@@ -659,10 +599,10 @@ export default {
           } else {
             alert("Error");
           }
-          //console.log(response);
+          console.log(response);
         })
         .catch(function(error) {
-          //console.log(error);
+          console.log(error);
         });
     },
     //  Add Users into the delayresponsible table
@@ -680,7 +620,7 @@ export default {
               x.userInDelayTable = 0;
             }, 3000);
           } else if (response.status == 200) {
-            //console.log(response.data);
+            console.log(response.data);
             x.showPopup(x.selectedProjectId);
             x.addToDelayTable = 1;
             setTimeout(function() {
@@ -693,10 +633,10 @@ export default {
           } else {
             alert("Error");
           }
-          //console.log(response);
+          console.log(response);
         })
         .catch(function(error) {
-          //console.log(error);
+          console.log(error);
         });
     },
     //Shows Popup
@@ -707,16 +647,16 @@ export default {
         .get(`${x.$Url}projectid/${x.selectedProjectId}`, {})
         .then(function(response) {
           if (response.status == 200) {
-            //console.log(response.data);
+            console.log(response.data);
             x.projectMembers = response.data[1];
             x.delayedUsers = response.data[2];
           } else {
             alert("Error");
           }
-          //console.log(response);
+          console.log(response);
         })
         .catch(function(error) {
-          //console.log(error);
+          console.log(error);
         });
 
       this.$modal.show("delayPopup");
@@ -745,10 +685,10 @@ export default {
           } else {
             alert("Error");
           }
-          //console.log(response);
+          console.log(response);
         })
         .catch(function(error) {
-          //console.log(error);
+          console.log(error);
         });
     },
     //Start monitoring specific project
@@ -771,10 +711,10 @@ export default {
           } else {
             alert("Error");
           }
-          //console.log(response);
+          console.log(response);
         })
         .catch(function(error) {
-          //console.log(error);
+          console.log(error);
         });
     }
   }

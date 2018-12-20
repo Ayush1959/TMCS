@@ -35,7 +35,7 @@
         </modal>
 
         <!-- PopUp Ends -->
-        <!-- {{ selectedDate }} -->
+        {{ selectedDate }}
         <form name="myForm" class="form-group">
           <div class="col-md-5 col-md-offset-3">
             <select
@@ -143,18 +143,18 @@ export default {
       .get(`${x.$Url}projectuserdata`, {})
       .then(function(response) {
         if (response.status == 200) {
-          //console.log(response.data.data);
-          x.userData = response.data.data["udatas"];
+          console.log(response.data.data);
+          x.userData = response.data.data;
           x.nextUrl = response.data.next_page_url;
           x.previousUrl = response.data.prev_page_url;
           x.dateFromDb = response.data.data["dates"];
         } else {
           alert("Error");
         }
-        //console.log(response);
+        console.log(response);
       })
       .catch(function(error) {
-        //console.log(error);
+        console.log(error);
       });
   },
   validations: {
@@ -172,13 +172,13 @@ export default {
     getUserData(index) {
       this.selectedUser = index;
       var x = this;
-      // //console.log(index);
+      // console.log(index);
       // return index;
       axios
         .get(`${x.$Url}userPopupdata/${x.selectedUser}`, {})
         .then(function(response) {
           if (response.status == 200) {
-            //console.log(response.data);
+            console.log(response.data);
             response.data.forEach(function(element) {
               x.values.push(element.score);
               // x.labels.push(element.date);
@@ -188,15 +188,15 @@ export default {
                   new Date(element.date).getFullYear()
               );
               x.chartName = element.user_name + "'s Chart";
-              // //console.log(element.score);
+              // console.log(element.score);
             });
           } else {
             alert("Error");
           }
-          //console.log(response);
+          console.log(response);
         })
         .catch(function(error) {
-          //console.log(error);
+          console.log(error);
         });
     },
     hidePopup() {
@@ -223,17 +223,17 @@ export default {
         .get(this.nextUrl)
         .then(function(response) {
           if (response.status == 200) {
-            //console.log(response.data.data);
-            x.userData = response.data.data["udatas"];
+            console.log(response.data.data);
+            x.userData = response.data.data;
             x.nextUrl = response.data.next_page_url;
             x.previousUrl = response.data.prev_page_url;
           } else {
             alert("Error");
           }
-          //console.log(response);
+          console.log(response);
         })
         .catch(function(error) {
-          //console.log(error);
+          console.log(error);
         });
     },
     prevPage() {
@@ -242,17 +242,17 @@ export default {
         .get(this.previousUrl)
         .then(function(response) {
           if (response.status == 200) {
-            //console.log(response.data.data);
-            x.userData = response.data.data["udatas"];
+            console.log(response.data.data);
+            x.userData = response.data.data;
             x.nextUrl = response.data.next_page_url;
             x.previousUrl = response.data.prev_page_url;
           } else {
             alert("Error");
           }
-          //console.log(response);
+          console.log(response);
         })
         .catch(function(error) {
-          //console.log(error);
+          console.log(error);
         });
     },
     submitted() {
@@ -265,17 +265,17 @@ export default {
         .get(`${x.$Url}projectuserdatedata/${x.selectedDate}`, {})
         .then(function(response) {
           if (response.status == 200) {
-            //console.log(response.data.data);
+            console.log(response.data.data);
             x.nextUrl = response.data.next_page_url;
             x.previousUrl = response.data.prev_page_url;
-            x.userData = response.data.data["udatas"];
+            x.userData = response.data.data;
           } else {
             alert("Error");
           }
-          //console.log(response);
+          console.log(response);
         })
         .catch(function(error) {
-          //console.log(error);
+          console.log(error);
         });
     }
   }

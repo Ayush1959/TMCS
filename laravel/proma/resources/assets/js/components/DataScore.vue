@@ -74,15 +74,15 @@ export default {
       .get(`${x.$Url}projectuser`, {})
       .then(function(response) {
         if (response.status == 200) {
-          console.log(response.data);
+          //console.log(response.data);
           x.usersList = response.data;
         } else {
           alert("Error");
         }
-        console.log(response);
+        //console.log(response);
       })
       .catch(function(error) {
-        console.log(error);
+        //console.log(error);
       });
   },
   validations: {
@@ -109,7 +109,7 @@ export default {
         })
         .then(function(response) {
           if (response.status == 200) {
-            console.log(response);
+            //console.log(response);
             x.scoreChangeAlert = 1;
             x.selectedClient = null;
             x.Type = null;
@@ -121,10 +121,10 @@ export default {
           } else {
             alert("Error");
           }
-          console.log(response);
+          //console.log(response);
         })
         .catch(function(error) {
-          console.log(error);
+          //console.log(error);
         });
     }
   }
