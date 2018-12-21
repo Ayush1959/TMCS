@@ -4,7 +4,7 @@ import ElementUI from 'element-ui';
 
 Vue.use(ElementUI);
 
-import App from './App-upload.vue'
+import App from './AppUpload.vue'
 
 new Vue({
   el: '#app',
