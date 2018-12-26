@@ -4,10 +4,10 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-require('./bootstrap');
-import VueCroppie from 'vue-croppie';
+require("./bootstrap");
+import VueCroppie from "vue-croppie";
 
-window.Vue = require('vue');
+window.Vue = require("vue");
 window.Vue.use(VueCroppie);
 
 /**
@@ -21,10 +21,22 @@ window.Vue.use(VueCroppie);
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
-Vue.component('upload-form', require('./components/uploadFile.vue').default);
-Vue.component('save-image', require('./components/saveImage.vue').default);
-Vue.component('avatar-editor', require('./components/avatarEditor.vue').default);
+Vue.component(
+    "example-component",
+    require("./components/ExampleComponent.vue").default
+);
+Vue.component("upload-form", require("./components/uploadFile.vue").default);
+Vue.component("save-image", require("./components/saveImage.vue").default);
+Vue.component(
+    "avatar-editor",
+    require("./components/avatarEditor.vue").default
+);
+Vue.component(
+    "crop-compress",
+    require("./components/cropCompress.vue").default
+);
+
+Vue.component("crop-image", require("./components/cropiee.vue").default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -33,5 +45,5 @@ Vue.component('avatar-editor', require('./components/avatarEditor.vue').default)
  */
 
 const app = new Vue({
-    el: '#app'
+    el: "#app"
 });

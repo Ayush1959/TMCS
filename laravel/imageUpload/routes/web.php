@@ -29,3 +29,15 @@ Route::post('saveImage', 'ImageController@saveImage');
 
 // AVATAR Editor
 Route::get('avatar', 'AvatarController@vueAvatar'); 
+
+// Croppie Editor New
+Route::view('avatarNew', 'vueAvatarNew'); 
+
+// Crop Compress 
+Route::view('crop', 'cropCompress'); 
+
+// Cropie Compress 
+Route::view('cropie', 'cropie');
+
+
+Route::post('uploadProfilePic', 'ImageController@postUploadProfilePic');

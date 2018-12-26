@@ -18,9 +18,7 @@
                     <span class="text-danger">{{ $error }}</span>
                     @endforeach
                     @endif
-                    <avatar-editor></avatar-editor>
-                    {{--  <vue-croppie ref=croppieRef :enableOrientation="true" :mouseWheelZoom="false" :viewport="{ width: 200, height: 200, type: 'circle' }">
-                    </vue-croppie>  --}}
+                    <crop-image></crop-image>
                 </div>
             </div>
         </div>
