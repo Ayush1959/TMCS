@@ -71,24 +71,36 @@ export default {
         name: "Uploading...",
         class: "fa-refresh fa-spin"
       };
-      this.croppie
-        .result({
-          type: "canvas",
-          size: "viewport"
-        })
+      // this.croppie
+      //   .result({
+      //     type: "canvas",
+      //     size: "viewport"
+      //   })
+      // .then(response => {
+      //   this.image = response;
+      this.image = this.cropped;
+      axios
+        .post("http://127.0.0.1:8000/uploadProfilePic", { img: this.image })
         .then(response => {
-          this.image = response;
-          this.axios
-            .post(uploadProfilePic, { img: this.image })
-            .then(response => {
-              this.canUpload = true;
-              this.modalVisible = false;
-              this.button = {
-                name: "Upload",
-                class: "fa-upload"
-              };
-            });
+          this.canUpload = true;
+          this.modalVisible = false;
+          this.button = {
+            name: "Upload",
+            class: "fa-upload"
+          };
         });
+      // axios
+      //     .post(`${x.$Url}projectSearchNonMonitor`, {
+      //       img: this.image
+      //     })
+      //     .then(function(response) {
+      //       if (response.status == 206) {
+      //         //console.log(response.data);
+      //     })
+      //     .catch(function(error) {
+      //       //console.log(error);
+      //     });
+      // });
     },
     bind() {
       // Randomize cat photos, nothing special here.

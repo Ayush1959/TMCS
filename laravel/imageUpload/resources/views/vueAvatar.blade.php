@@ -18,7 +18,7 @@
                     <span class="text-danger">{{ $error }}</span>
                     @endforeach
                     @endif
-                    <avatar-editor></avatar-editor>
+                    <avatar-editor :user="{{ auth()->user() }}"></avatar-editor>
                     {{--  <vue-croppie ref=croppieRef :enableOrientation="true" :mouseWheelZoom="false" :viewport="{ width: 200, height: 200, type: 'circle' }">
                     </vue-croppie>  --}}
                 </div>
