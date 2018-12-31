@@ -66,8 +66,14 @@
                                 <div class="col-md-1">
                                     <span class="glyphicon glyphicon-plus"></span>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <router-link :to="{name: 'dataScore'}">Add Score</router-link>
+                                </div>
+                                <div class="col-md-1">
+                                    <span class="glyphicon glyphicon-comment"></span>
+                                </div>
+                                <div class="col-md-1">
+                                    <router-link :to="{name: 'table'}">Logs</router-link>
                                 </div>
                                 <!-- </li> -->
                                 <!-- <li class="bgb"> -->

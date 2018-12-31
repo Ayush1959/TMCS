@@ -2,14 +2,16 @@ require("./bootstrap");
 
 window.Vue = require("vue");
 import VueRouter from "vue-router";
-import VModal from 'vue-js-modal';
+import VModal from "vue-js-modal";
 import Vuelidate from "vuelidate";
-import VueGraph from 'vue-graph';
-import GraphLine3D from 'vue-graph/src/components/line3d.js';
-import NoteWidget from 'vue-graph/src/widgets/note.js';
-import LegendWidget from 'vue-graph/src/widgets/legends.js';
-// import bPagination from 'bootstrap-vue/es/components/pagination/pagination';
+import VueGraph from "vue-graph";
+import GraphLine3D from "vue-graph/src/components/line3d.js";
+import NoteWidget from "vue-graph/src/widgets/note.js";
+import LegendWidget from "vue-graph/src/widgets/legends.js";
+import Datepicker from "vuejs-datepicker";
+// import Dropdown from "vue-simple-search-dropdown";
 
+// import bPagination from 'bootstrap-vue/es/components/pagination/pagination';
 
 // window.Vue.component('b-pagination', bPagination);
 window.Vue.component(GraphLine3D.name, GraphLine3D);
@@ -18,10 +20,14 @@ window.Vue.component(LegendWidget.name, LegendWidget);
 window.Vue.use(Vuelidate);
 window.Vue.use(VueGraph);
 window.Vue.use(VModal);
+window.Vue.use(Datepicker);
+// window.Vue.use(Dropdown);
 window.Vue.use(VueRouter);
 Vue.prototype.$Url = window.location.origin + "/";
 // Vue.component('pagination', require('laravel-vue-pagination'));
 // validator.isEmail('foo@bar.com');
+Vue.component("Datepicker", require("vuejs-datepicker").default);
+// Vue.component("Dropdown", require("vue-simple-search-dropdown").default);
 // Vue.component('b-modal', bModal);
 
 import DataIndex from "./components/DataIndex.vue";
@@ -44,22 +50,21 @@ const routes = [{
     {
         path: "/",
         component: UserData,
-        name: 'dataRead'
+        name: "dataRead"
     },
     {
         path: "/admin/score/edit",
         component: DataScore,
-        name: 'dataScore'
+        name: "dataScore"
     },
     {
         path: "/table",
         component: Table,
-        name: 'table'
-    },
+        name: "table"
+    }
 ];
 
-
-Vue.component('task', require('./components/DataRead.vue'));
+Vue.component("task", require("./components/DataRead.vue"));
 const router = new VueRouter({
     // mode: 'history',
     routes: routes

@@ -44,7 +44,7 @@ class CronController extends Controller
 
                     $datas = new Project_user_log();
                     $datas->user_id = $zz->id;
-                    $datas->comments = '1 Score debited to ' . $data->user_name . ' automatically due to delay in end date ';
+                    $datas->comments = '1 Score debited to ' . $data->user_name . ' automatically due to delay in end date of project ' . $aa->title;
                     $datas->user_name = $data->user_name;
                     $datas->comment_by = "Automatically";
                     $saved = $datas->save();
@@ -66,7 +66,7 @@ class CronController extends Controller
 
                     $datas = new Project_user_log();
                     $datas->user_id = $del->id;
-                    $datas->comments = '2 Score debited to ' . $data->user_name . ' automatically due to delay Responsive ';
+                    $datas->comments = '2 Score debited to ' . $data->user_name . ' automatically due to delay Response in project ' . $aa->title;
                     $datas->user_name = $data->user_name;
                     $datas->comment_by = "Automatically";
                     $saved = $datas->save();

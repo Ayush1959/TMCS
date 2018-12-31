@@ -507,7 +507,7 @@ export default {
       this.show = false;
       this.previousSearchQuery = this.searchQuery;
       this.monitoring = index;
-      if (this.monitoring == 1) {
+      if (this.monitoring == 1) { 
         this.displayTable = 1;
       } else {
         this.displayTable = 2;

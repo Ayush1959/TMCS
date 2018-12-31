@@ -403,7 +403,7 @@ class ProjectController extends Controller
         }
 
         $datas->user_name = $data->user_name;
-        $datas->comment_by = Auth::user()->id;
+        $datas->comment_by = Auth::user()->user_name;
         $saved = $datas->save();
 
         if (isset($saved)) {
@@ -519,5 +519,76 @@ class ProjectController extends Controller
         }
 
         return response()->json(null, 204);
+    }
+
+
+    /**
+     * @Author Ayush
+     * @Date 11/12/18
+     * @param  int  $request
+     * @return array of log details
+     * * @Description gets Comment logs
+     */
+
+    public function getLogs(Request $request)
+    {
+        $input = $request->all();
+        $username = $request->input('username');
+        $start = $request->input('dateStart');
+        $end = $request->input('dateEnd');
+        $pagenate = $request->input('pagenate');
+        $query = project_user_log::select('id', 'user_name', 'created_at', 'comments', 'comment_by');
+
+        if (isset($username)) {
+            $query = $query->where('user_name', $username);
+        }
+        // if (isset($start) && isset($end)) {
+        //     if ($start == $end) {
+        //         $query = $query->where('created_at', 'LIKE', "%$end%");
+        //     }
+        // } else {
+        if (isset($start)) {
+            $query = $query->where('created_at', '>=', $start);
+        }
+        if (isset($end)) {
+            $query = $query->where('created_at', '<=', $end);
+        }
+        // }
+
+        $usernamear = array();
+        $fulldata = array();
+        $fullUserData = array();
+        $datap_array = $query->paginate($pagenate);
+        $data_array = user::select('id', 'user_name')->where('status', 1)->where('user_type', 4)->get();
+        foreach ($data_array as $aa) {
+            $userar['id'] = $aa->id;
+            $userar['name'] = $aa->user_name;
+            $fullUserData[] = $userar;
+            $userar = array();
+        }
+        foreach ($datap_array as $aa) {
+            $usernamear['id'] = $aa->id;
+            $usernamear['user_name'] = $aa->user_name;
+            $usernamear['comments'] = $aa->comments;
+            $usernamear['comment_by'] = $aa->comment_by;
+            $myDateTime = \DateTime::createFromFormat('Y-m-d h:i:s', $aa->created_at);
+            $newDateString = $myDateTime->format('d/m/Y');
+            $usernamear['start_date'] = $newDateString;
+            $fulldata[] = $usernamear;
+            $usernamear = array();
+        }
+        if (empty($fulldata)) {
+            return response()->json([
+                'status' => config::get('constant.DB_Search_Error')
+            ], config::get('constant.DB_Search_Error'));
+        } else {
+            $passData = array();
+            $passData["data"] = $fulldata;
+            $passData["pageData"] = $datap_array;
+            $passData["userData"] = $fullUserData;
+            return $passData;
+        }
+        // return $fulldata;
+
     }
 }
