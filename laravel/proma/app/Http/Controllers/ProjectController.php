@@ -9,7 +9,10 @@ use Illuminate\Support\Facades\Config;
 use App\Project_assigned;
 use App\Project_user_log;
 use App\Project_monthly_log;
+use App\Project_backlog_log;
+use App\Project_backlog;
 use App\Project_delay;
+use App\Time_tracker;
 use App\User;
 use DB;
 
@@ -589,6 +592,81 @@ class ProjectController extends Controller
             return $passData;
         }
         // return $fulldata;
+
+    }
+
+
+    /**
+     * @Author Ayush
+     * @Date 17/12/18
+     * @param  int  $id
+     * @return array of user tasks 
+     * * @Description takes username and finds tasks relay projects
+     */
+
+    public function userTaskSearch(Request $request)
+    {
+        $funBug = 0;
+        $othBug = 0;
+        $totBug = 0;
+        $compTask = 0;
+        $readyTask = 0;
+        $hours = 0;
+        $fullDataArray = [];
+        $input = $request->all();
+        $username = $request->input('user');
+        $year = $request->input('year');
+        $month = $request->input('month');
+        $nmonth = date('m', strtotime($month));
+        $date = $year . "-" . $nmonth;
+        // return $date;
+        $data_array = user::select('id')->where('user_name', $username)->get();
+        foreach ($data_array as $aa) {
+            // $task_array = DB::table('time_tracker')->select('hours_taken')->where('user_id', $aa->id)->whereMonth('start_datetime', '=', $month)->whereYear('start_datetime', '=', $year)->get();
+            $task_array = DB::table('time_tracker')->select('hours_taken')->where('user_id', $aa->id)->where('start_datetime', 'LIKE', "%$date%")->where('end_datetime', 'LIKE', "%$date%")->get();
+            foreach ($task_array as $task) {
+                $hours += $task->hours_taken;
+            }
+            // return $hours;
+            $datap_array = DB::table('project_backlog_log')->select('product_backlog_id', 'status', 'created_at')->where('task_owner', $aa->id)->where('created_at', 'LIKE', "%$date%")->get();
+            foreach ($datap_array as $zz) {
+                if ($zz->status == "done") {
+                    $compTask += 1;
+                } else if ($zz->status == "ready-for-review") {
+                    $readyTask += 1;
+                }
+                $databk_array = DB::table('product_backlog')->select('type', 'bug_severity')->where('id', $zz->product_backlog_id)->get();
+                // return $databk_array;
+                foreach ($databk_array as $dd) {
+                    if ($dd->type == "Bug") {
+                        $totBug += 1;
+                    }
+                    if ($dd->bug_severity == "functionality") {
+                        $funBug += 1;
+                    }
+                }
+            }
+            // return $datap_array;
+            // return $aa->id;
+        }
+        $othBug = $totBug - $funBug;
+        $fullDataArray["funBug"] = $funBug;
+        $fullDataArray["othBug"] = $othBug;
+        $fullDataArray["totBug"] = $totBug;
+        $fullDataArray["compTask"] = $compTask;
+        $fullDataArray["readyTask"] = $readyTask;
+        $fullDataArray["hours"] = ceil($hours);
+        
+        // array_push($fullDataArray, $funBug);
+        // array_push($fullDataArray, $othBug);
+        // array_push($fullDataArray, $totBug);
+        // array_push($fullDataArray, $compTask);
+        // array_push($fullDataArray, $readyTask);
+        // return $funBug;
+        // return $data_array->id;
+        // ready-for-review
+        // done
+        return $fullDataArray;
 
     }
 }

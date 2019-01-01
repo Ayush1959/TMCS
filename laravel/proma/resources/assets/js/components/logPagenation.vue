@@ -69,12 +69,12 @@ export default {
   methods: {
     totalEl() {
       var a = [];
-      this.totalPage = Math.ceil(this.totalElements / 50);
+      this.totalPage = Math.ceil(this.totalElements / 100);
       var j = 0;
       // b = this.totalElements;
       for (var i = 1; i <= this.totalPage; i++) {
-        a.push(j + 50);
-        j += 50;
+        a.push(j + 100);
+        j += 100;
       }
       // while (b--) a[b] = b + 5;
       return a;

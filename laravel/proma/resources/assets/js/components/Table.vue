@@ -1,87 +1,285 @@
 <template>
-  <div class="container">
-    <br>
-    <!-- <br> -->
-    <!-- Template Starts -->
-    <div>
-      <div>
-        <transition name="fade">
-          <div>
-            <div>
-              <div class="col-md-3">
-                <Dropdown
-                  :options="usernameData"
-                  :disabled="false"
-                  :value="selectedUsername"
-                  v-on:selected="validateSelection"
-                  v-on:filter="getDropdownValues"
-                  placeholder="UserName"
-                ></Dropdown>
-              </div>
-              <div class="col-md-3">
-                <datepicker v-model="startDate" name="startDate" placeholder="Start Date"></datepicker>
-              </div>
-              <div class="col-md-3">
-                <datepicker v-model="endDate" name="endDate" placeholder="End Date"></datepicker>
-              </div>
-              <div class="col-md-2">
-                <button class="btn btn-primary" @click="clearAll()">
-                  <i class="glyphicon glyphicon-remove"></i>
-                </button>
-                <button class="btn btn-primary" @click="getlogs()">
-                  <i class="glyphicon glyphicon-search"></i>
-                </button>
+  <div>
+    <!-- Displays Users name and Score from DB -->
+    <div class="container">
+      <span class="glyphicon glyphicon-plus"></span>
+      <router-link :to="{name: 'dataScore'}">Add Score</router-link>
+      <div class="row">
+        <!-- PopUp Start -->
+        <modal name="userPopup">
+          <div class="container-fluid">
+            <div class="col-md-10">
+              <div id="app">
+                <graph-bar
+                  :width="500"
+                  :height="300"
+                  :axis-min="0"
+                  :axis-max="150"
+                  :labels="labels"
+                  :values="values"
+                >
+                  <note :text="chartName"></note>
+                  <!-- <tooltip :names="names" :position="'left'"></tooltip>
+                  <legends :names="names" :filter="true"></legends>-->
+                </graph-bar>
               </div>
             </div>
-            <div>
-              <br>
-              <br>
-              <table class="table table-bordered table-responsive">
-                <thead>
-                  <tr>
-                    <th>Id</th>
-                    <th>UserName</th>
-                    <th>Date</th>
-                    <th>comments</th>
-                    <th>Commented By</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr v-for="item,key in logData" :key="item.id" class="brdr">
-                    <td>{{ fromNumbers+key }}</td>
-                    <!-- <td>{{ item.id }}</td> -->
-                    <td>{{ item.user_name }}</td>
-                    <td>{{ item.start_date }}</td>
-                    <td v-html="item.comments"></td>
-                    <td>{{ item.comment_by }}</td>
-                  </tr>
-                </tbody>
-              </table>
+            <div class="col-md-2">
+              <button
+                class="btn btn-primary cncl"
+                @click.prevent="submitted"
+                @click="hidePopup()"
+              >Cancel</button>
             </div>
           </div>
-        </transition>
+        </modal>
+
+        <!-- PopUp Ends -->
+        <!-- 2nd Popup Starts -->
+        <modal name="userdataPopup1" :height="600">
+          <div class="container-fluid">
+            <div class="col-md-10">
+              <div id="app">
+                <graph-bar
+                  :width="500"
+                  :height="300"
+                  :axis-min="0"
+                  :axis-max="150"
+                  :labels="labels"
+                  :values="values"
+                >
+                  <note :text="chartName"></note>
+                  <!-- <tooltip :names="names" :position="'left'"></tooltip>
+                  <legends :names="names" :filter="true"></legends>-->
+                </graph-bar>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <button
+                class="btn btn-primary btn-xs xcncl"
+                @click.prevent="submitted"
+                @click="hideTaskPopup()"
+              >x</button>
+            </div>
+          </div>
+          <!-- <br> -->
+          <div class="container">
+            <div class="container">
+              <select v-model="selectedTaskYear" class="form-control popsell" id="tsk">
+                <option v-for="option in years" :value="option">{{ option }}</option>
+              </select>
+              <select v-model="selectedTaskMonth" class="form-control popsell" id="tsk">
+                <option v-for="option in month" :value="option">{{ option }}</option>
+              </select>
+            </div>
+            <br>
+            <div class="container">
+              <div>
+                <p>Bugs</p>
+                <div class="col-md-2 nopad">
+                  <button type="button" class="btn btn-primary">
+                    Functionality Bug
+                    <span class="badge">{{ functionalityBug }}</span>
+                  </button>
+                </div>
+                <div class="col-md-2">
+                  <button type="button" class="btn btn-primary">
+                    Other Bug
+                    <span class="badge">{{ otherBug }}</span>
+                  </button>
+                </div>
+                <div class="col-md-2">
+                  <button type="button" class="btn btn-primary">
+                    Total Bug
+                    <span class="badge">{{ totalBug }}</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <br>
+            <div class="container">
+              <div>
+                <p>Tasks</p>
+                <div class="col-md-3 nopad">
+                  <button type="button" class="btn btn-primary">
+                    Completed Tasks
+                    <span class="badge">{{ completedTask }}</span>
+                  </button>
+                </div>
+                <div class="col-md-3">
+                  <button type="button" class="btn btn-primary">
+                    Ready To View
+                    <span class="badge">{{ readytoview }}</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <br>
+            <div class="container">
+              <p>Hours Tracked : {{ trackedHours }}</p>
+            </div>
+          </div>
+        </modal>
+
+        <!-- PopUp Ends -->
+        <!-- Trial POPUP -->
+        <modal name="userdataPopup" :height="600">
+          <div class="container-fluid">
+            <div class="col-md-10">
+              <div id="app">
+                <graph-bar
+                  :width="500"
+                  :height="300"
+                  :axis-min="0"
+                  :axis-max="150"
+                  :labels="labels"
+                  :values="values"
+                >
+                  <note :text="chartName"></note>
+                  <!-- <tooltip :names="names" :position="'left'"></tooltip>
+                  <legends :names="names" :filter="true"></legends>-->
+                </graph-bar>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <button
+                class="btn btn-primary btn-xs xcncl"
+                @click.prevent="submitted"
+                @click="hideTaskPopup()"
+              >x</button>
+            </div>
+          </div>
+          <!-- <br> -->
+          <div class="container">
+            <div>
+              <select v-model="selectedTaskYear" class="form-control popsell" id="tsk">
+                <option v-for="option in years" :value="option">{{ option }}</option>
+              </select>
+              <select v-model="selectedTaskMonth" class="form-control popsell" id="tsk">
+                <option v-for="option in month" :value="option">{{ option }}</option>
+              </select>
+            </div>
+            <!-- <br> -->
+            <div>
+              <div class="col-md-2 nopad">
+                <h4>Bugs</h4>
+              </div>
+            </div>
+            <br>
+            <br>
+            <div class="col-md-2 nopad">
+              <button type="button" class="btn btn-primary">
+                Functionality Bug
+                <span class="badge">{{ functionalityBug }}</span>
+              </button>
+              <!-- <h4>+</h4> -->
+            </div>
+            <div class="col-md-2">
+              <button type="button" class="btn btn-primary">
+                Other Bug
+                <span class="badge">{{ otherBug }}</span>
+              </button>
+            </div>
+            <div class="col-md-2">
+              <button type="button" class="btn btn-primary">
+                Total Bug
+                <span class="badge">{{ totalBug }}</span>
+              </button>
+            </div>
+            <br>
+            <div>
+              <div class="col-md-11 nopad">
+                <h4>Tasks</h4>
+              </div>
+            </div>
+            <br>
+            <!-- <br> -->
+            <div class="col-md-3 nopad">
+              <button type="button" class="btn btn-primary">
+                Completed Tasks
+                <span class="badge">{{ completedTask }}</span>
+              </button>
+            </div>
+            <div class="col-md-3">
+              <button type="button" class="btn btn-primary">
+                Ready To View
+                <span class="badge">{{ readytoview }}</span>
+              </button>
+            </div>
+            <br>
+            <br>
+            <div>
+              <div class="col-md-11 nopad">
+                <h4 class="fonts">Hours Tracked : {{ trackedHours }}</h4>
+              </div>
+            </div>
+          </div>
+        </modal>
+
+        <!-- {{ selectedDate }} -->
+        <form name="myForm" class="form-group">
+          <div class="col-md-5 col-md-offset-3">
+            <select
+              v-model="selectedDate"
+              @blur="$v.selectedDate.$touch()"
+              class="form-control sell"
+              id="empl"
+            >
+              <option v-for="option in dateFromDb" :value="option">{{ dates(option) }}</option>
+            </select>
+            <p
+              v-if="$v.selectedDate.$dirty &&  !$v.selectedDate.required"
+              class="error-message"
+            >Select a Date</p>
+          </div>
+          <div class="col-md-2 col-md-offset-1">
+            <button
+              @click.prevent="submitted"
+              @click="dataChange()"
+              :disabled="$v.$invalid"
+              class="btn btn-primary"
+            >Go</button>
+          </div>
+        </form>
       </div>
-      <!-- PAGINATION -->
-    </div>
-    <div class="col-md-offset-2">
-      <pagenation
-        v-if="displaylist.length > 0"
-        :lastPage.sync="lastPage"
-        :total.sync="total"
-        :displaylist.sync="displaylist"
-        :totalElements.sync="totalElements"
-        :current_page.sync="current_page"
-        @newUrl="newUrl($event)"
-        @PageNo="selectPageNo = $event , getlogs()"
-      ></pagenation>
-      <!-- Template Ends -->
+      <div class="row">
+        <div class="col-md-9 col-md-offset-3">
+          <table class="table table-bordered wid">
+            <thead>
+              <tr>
+                <th>Users</th>
+                <th>Score</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="item in userData" :key="item.id" class="brdr">
+                <td>
+                  <button class="btnBrdr" @click="showPopup2(item.user_name)">{{ item.user_name }}</button>
+                </td>
+                <td>
+                  <button class="btnBrdr" @click="showPopup(item.user_name)">{{ item.score }}</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <!-- PAGINATION -->
+          <div>
+            <div class="col-md-3">
+              <button @click="prevPage" v-if="!!previousUrl">Previous</button>
+            </div>
+            <div class="col-md-5"></div>
+            <div class="col-md-3">
+              <button @click="nextPage" v-if="!!nextUrl">Next</button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import pagenation from "./logPagenation";
-import Dropdown from "./Dropdwn";
+// import bmodal from "./modals";
 import {
   required,
   minLength,
@@ -89,302 +287,307 @@ import {
   integer,
   email
 } from "vuelidate/lib/validators";
-// import { EventBus } from "../main";
 export default {
-  components: {
-    pagenation,
-    Dropdown
-  },
   data() {
     return {
-      username: null,
-      dateStart: null,
-      dateEnd: null,
-      logData: [],
-      displaylist: [],
-      usernameData: [],
-      lastPage: null,
-      total: null,
-      totalElements: null,
-      current_page: null,
-      startDate: null,
-      endDate: null,
-      startDateF: null,
-      endDateF: null,
+      userData: [],
+      dateFromDb: [],
+      selectedDate: null,
+      selectedUser: null,
+      isSubmitted: false,
+      pageSize: 3,
+      selectedTaskYear: null,
+      selectedTaskMonth: null,
       nextUrl: null,
-      selectedUsername: null,
-      currentUrl: null,
       previousUrl: null,
-      fromNumbers: null,
-      selectPageNo: 10,
-      url: null
+      month: [],
+      years: [],
+      functionalityBug: null,
+      otherBug: null,
+      totalBug: null,
+      completedTask: null,
+      readytoview: null,
+      trackedHours: null,
+      currentmonth: null,
+      currentyear: null,
+      currentPage: 1,
+      date: null,
+      chartName: "noChart",
+      labels: [],
+      values: []
+      // names: ["MS", "Apple", "Google"],
     };
   },
+  // LOADS DATA WHILE LOADING PAGE
+  created: function() {
+    this.month[0] = "January";
+    this.month[1] = "February";
+    this.month[2] = "March";
+    this.month[3] = "April";
+    this.month[4] = "May";
+    this.month[5] = "June";
+    this.month[6] = "July";
+    this.month[7] = "August";
+    this.month[8] = "September";
+    this.month[9] = "October";
+    this.month[10] = "November";
+    this.month[11] = "December";
+    this.currentMonth();
+    this.currentYear();
+    // window.location.origin+/
+    var x = this;
+    axios
+      .get(`${x.$Url}projectuserdata`, {})
+      .then(function(response) {
+        if (response.status == 200) {
+          //console.log(response.data.data);
+          x.userData = response.data.data["udatas"];
+          x.nextUrl = response.data.next_page_url;
+          x.previousUrl = response.data.prev_page_url;
+          x.dateFromDb = response.data.data["dates"];
+        } else {
+          alert("Error");
+        }
+        //console.log(response);
+      })
+      .catch(function(error) {
+        //console.log(error);
+      });
+  },
   watch: {
-    current_page: function() {
-      this.displayPage();
+    selectedTaskYear: function() {
+      this.getTasks(this.selectedUser);
     },
-    selectPageNo: function() {
-      this.displayPage();
+    selectedTaskMonth: function() {
+      this.getTasks(this.selectedUser);
     }
   },
-  // Get data on the page while loading
-  created: function() {
-    this.getlogs();
-  },
   validations: {
-    selectedClient: {
-      required
-    },
-    searchQuery: {
+    selectedDate: {
       required
     }
   },
   methods: {
-    validateSelection(selection) {
-      this.selectedUsername = selection.name;
+    showPopup2(index) {
+      this.labels = [];
+      this.values = [];
+      this.getUserData(index);
+      this.getTasks(index);
+      this.$modal.show("userdataPopup");
     },
-    getDropdownValues(keyword) {
-      console.log(keyword);
-      this.selectedUsername = keyword;
+    showPopup(index) {
+      this.labels = [];
+      this.values = [];
+      this.getUserData(index);
+      this.$modal.show("userPopup");
     },
-    clearAll() {
-      this.startDateF = null;
-      this.startDate = null;
-      this.endDate = null;
-      this.endDateF = null;
-      this.selected = null;
-      this.selectedUsername = null;
-    },
-    getlogs() {
-      if (!!this.startDate) {
-        var date = new Date(this.startDate);
-        this.startDateF = date.toLocaleDateString("zh-Hans-CN");
-      }
-      if (!!this.endDate) {
-        var date = new Date(this.endDate);
-        date.setDate(date.getDate() + 1);
-        // console.log(date.setDate(date.getDate() + 1));
-        this.endDateF = date.toLocaleDateString("zh-Hans-CN");
-        console.log(this.endDateF);
-      }
+    getTasks(index) {
+      this.selectedUser = index;
       var x = this;
+      // //console.log(index);
+      // return index;
       axios
-        .post(`${x.$Url}getLogData`, {
-          username: this.selectedUsername,
-          dateStart: this.startDateF,
-          dateEnd: this.endDateF,
-          pagenate: this.selectPageNo
+        .post(`${x.$Url}userPopupTaskdata`, {
+          user: this.selectedUser,
+          year: this.selectedTaskYear,
+          month: this.selectedTaskMonth
         })
         .then(function(response) {
-          console.log(response);
-          if (response.status == 206) {
+          if (response.status == 200) {
             console.log(response.data);
-            x.logData = [];
-            // x.displayTable = 0;
-            x.displaylist = [];
-            // x.searchQuery = null;
-            // x.searchError = 1;
-          } else if (response.status == 200) {
-            x.logData = response.data["data"];
-            x.usernameData = response.data["userData"];
-            x.nextUrl = response.data["pageData"].next_page_url;
-            x.lastPage = response.data["pageData"].last_page;
-            x.current_page = response.data["pageData"].current_page;
-            if (response.data["pageData"].total < 4) {
-              x.totalElements = response.data["pageData"].total;
-              x.total = 1;
-            } else if (response.data["pageData"].last_page > 1) {
-              x.currentUrl =
-                response.data["pageData"].next_page_url.slice(0, -1) +
-                x.current_page;
-              x.totalElements = response.data["pageData"].total;
-              x.total = 2;
-            }
-            x.previousUrl = response.data["pageData"].prev_page_url;
-            x.fromNumbers = response.data["pageData"].from;
-            x.displayPage();
+            x.functionalityBug = response.data["funBug"];
+            x.otherBug = response.data["othBug"];
+            x.totalBug = response.data["totBug"];
+            x.completedTask = response.data["compTask"];
+            x.readytoview = response.data["readyTask"];
+            x.trackedHours = response.data["hours"];
+          } else {
+            alert("Error");
           }
+          //console.log(response);
         })
         .catch(function(error) {
-          console.log(error);
+          //console.log(error);
         });
     },
-    newUrl(index) {
-      // this.show = false;
-      this.displayPage();
-      if (!!this.nextUrl) {
-        this.url = this.nextUrl;
-      } else {
-        this.url = this.previousUrl;
-      }
-      if (this.url) {
-        if (this.current_page >= 9) {
-          this.pageUrl = this.url.slice(0, -2) + index;
-        } else if (this.current_page >= 99) {
-          this.pageUrl = this.url.slice(0, -3) + index;
-        } else {
-          this.pageUrl = this.url.slice(0, -1) + index;
-        }
-        var x = this;
-        axios
-          .post(this.pageUrl, {
-            username: this.selectedUsername,
-            dateStart: this.startDateF,
-            dateEnd: this.endDateF,
-            pagenate: this.selectPageNo
-          })
-          .then(function(response) {
-            x.show = true;
-            if (response.status == 206) {
-              console.log(response.data);
-              // x.searchQuery = null;
-              // x.searchError = 1;
-              // setTimeout(function() {
-              //   x.searchError = 0;
-              // }, 3000);
-            } else if (response.status == 200) {
-              //console.log(response);
-              // x.searchQuery = null;
-              x.logData = response.data["data"];
-              x.nextUrl = response.data["pageData"].next_page_url;
-              x.current_page = response.data["pageData"].current_page;
-              if (!!x.nextUrl) {
-                x.currentUrl =
-                  response.data["pageData"].next_page_url.slice(0, -1) +
-                  x.current_page;
-              } else {
-                x.currentUrl =
-                  response.data["pageData"].prev_page_url.slice(0, -1) +
-                  x.current_page;
-              }
-              x.previousUrl = response.data["pageData"].prev_page_url;
-              x.fromNumbers = response.data["pageData"].from;
-            } else {
-              alert("Error");
-            }
-          })
-          .catch(function(error) {
-            //console.log(error);
-          });
-      }
-    },
-    displayPage() {
-      this.displaylist = [];
-
-      if (this.total == 1) {
-        this.displaylist.push(this.current_page);
-      } else {
-        if (this.current_page == this.lastPage && this.lastPage == 1) {
-          this.displaylist.push(this.current_page);
-        } else if (this.current_page == this.lastPage && this.lastPage == 2) {
-          this.displaylist.push(this.current_page - 1);
-          this.displaylist.push(this.current_page);
-        } else if (this.current_page == this.lastPage && this.lastPage == 3) {
-          this.displaylist.push(this.current_page - 2);
-          // this.displaylist.push("e");
-          this.displaylist.push(this.current_page - 1);
-          this.displaylist.push(this.current_page);
-        } else if (
-          this.lastPage - this.current_page == 1 &&
-          this.current_page == 1
-        ) {
-          this.displaylist.push(this.current_page);
-          this.displaylist.push(this.current_page + 1);
-        } else if (this.lastPage - this.current_page == 1) {
-          this.displaylist.push(this.current_page - 1);
-          this.displaylist.push(this.current_page);
-          this.displaylist.push(this.current_page + 1);
-        } else if (this.current_page < this.lastPage) {
-          if (this.current_page == 1) {
-            this.displaylist.push(this.current_page);
-            this.displaylist.push(this.current_page + 1);
-            this.displaylist.push(this.current_page + 2);
+    getUserData(index) {
+      this.selectedUser = index;
+      var x = this;
+      // //console.log(index);
+      // return index;
+      axios
+        .get(`${x.$Url}userPopupdata/${x.selectedUser}`, {})
+        .then(function(response) {
+          if (response.status == 200) {
+            //console.log(response.data);
+            response.data.forEach(function(element) {
+              x.values.push(element.score);
+              // x.labels.push(element.date);
+              x.labels.push(
+                x.month[new Date(element.date).getMonth()] +
+                  "-" +
+                  new Date(element.date).getFullYear()
+              );
+              x.chartName = element.user_name + "'s Chart";
+              // //console.log(element.score);
+            });
           } else {
-            this.displaylist.push(this.current_page - 1);
-            this.displaylist.push(this.current_page);
-            this.displaylist.push(this.current_page + 1);
+            alert("Error");
           }
-        } else {
-          this.displaylist.push(this.current_page - 2);
-          this.displaylist.push(this.current_page - 1);
-          this.displaylist.push(this.current_page);
-        }
-      }
+          //console.log(response);
+        })
+        .catch(function(error) {
+          //console.log(error);
+        });
+    },
+    hidePopup() {
+      this.$modal.hide("userPopup");
+    },
+    hideTaskPopup() {
+      this.$modal.hide("userdataPopup");
+    },
+    dates(index) {
+      // this.date = new Date(index);
+
+      return (
+        this.month[new Date(index).getMonth()] +
+        "-" +
+        new Date(index).getFullYear()
+      );
+    },
+    currentYear() {
+      this.selectedTaskYear = new Date().getFullYear();
+      this.years.push(this.selectedTaskYear);
+      this.years.push(this.selectedTaskYear - 1);
+      // this.years.push(this.selectedTaskYear - 2);
+    },
+    currentMonth() {
+      this.selectedTaskMonth = this.month[new Date().getMonth()];
+    },
+    nextPage() {
+      var x = this;
+      axios
+        .get(this.nextUrl)
+        .then(function(response) {
+          if (response.status == 200) {
+            //console.log(response.data.data);
+            x.userData = response.data.data["udatas"];
+            x.nextUrl = response.data.next_page_url;
+            x.previousUrl = response.data.prev_page_url;
+          } else {
+            alert("Error");
+          }
+          //console.log(response);
+        })
+        .catch(function(error) {
+          //console.log(error);
+        });
+    },
+    prevPage() {
+      var x = this;
+      axios
+        .get(this.previousUrl)
+        .then(function(response) {
+          if (response.status == 200) {
+            //console.log(response.data.data);
+            x.userData = response.data.data["udatas"];
+            x.nextUrl = response.data.next_page_url;
+            x.previousUrl = response.data.prev_page_url;
+          } else {
+            alert("Error");
+          }
+          //console.log(response);
+        })
+        .catch(function(error) {
+          //console.log(error);
+        });
+    },
+    submitted() {
+      this.isSubmitted = true;
+    },
+    // New data according to date
+    dataChange() {
+      var x = this;
+      axios
+        .get(`${x.$Url}projectuserdatedata/${x.selectedDate}`, {})
+        .then(function(response) {
+          if (response.status == 200) {
+            //console.log(response.data.data);
+            x.nextUrl = response.data.next_page_url;
+            x.previousUrl = response.data.prev_page_url;
+            x.userData = response.data.data["udatas"];
+          } else {
+            alert("Error");
+          }
+          //console.log(response);
+        })
+        .catch(function(error) {
+          //console.log(error);
+        });
     }
   }
 };
 </script>
 
+
 <style scoped>
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.8s;
+.row {
+  margin-top: 15px;
 }
-.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
-  opacity: 0;
+.wid {
+  width: 75%;
 }
-.sele {
-  width: 80%;
+.btnBrdr {
+  padding: 0;
+  border: none;
+  background: none;
+  color: blue;
 }
-
-.mrgt {
-  margin-top: 10px;
-}
-
-.brdr {
-  border-bottom: #dadada 1px solid;
-}
-.active {
-  background-color: forestgreen !important;
-}
-.nobrdr {
-  border: transparent;
-  margin: 5px;
-}
-
-.ull {
-  margin-top: 20px;
-}
-
 .cncl {
   margin-top: 210px;
 }
-.someclass {
-  color: #337ab7;
+.xcncl {
+  margin-top: 10px;
+  float: right;
 }
-.someclass:hover {
-  color: #23527c;
+.popsell {
+  display: inline-block;
+  width: 20%;
 }
-.loader {
-  border: 10px solid #f3f3f3;
-  border-radius: 50%;
-  border-top: 10px solid #cef375;
-  width: 90px;
-  position: absolute;
-  margin-left: 35%;
-  margin-top: 20%;
-  height: 90px;
-  -webkit-animation: spin 3s linear infinite; /* Safari */
-  animation: spin 3s linear infinite;
+.nopad {
+  padding: 0;
+}
+.fonts {
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+}
+/* .modal-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+.modal-container {
+  display: inline-block;
+  width: auto;
+  height: auto;
+} */
+/* table {
+  border-collapse: collapse;
+  width: 75%;
 }
 
-/* Safari */
-@-webkit-keyframes spin {
-  0% {
-    -webkit-transform: rotate(0deg);
-  }
-  100% {
-    -webkit-transform: rotate(360deg);
-  }
+th,
+td {
+  text-align: left;
+  padding: 8px;
 }
 
-@keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
+tr:nth-child(even) {
+  background-color: #f2f2f2;
 }
+
+th {
+  background-color: #4caf50;
+  color: white;
+} */
 </style>

@@ -73,8 +73,14 @@
                                     <span class="glyphicon glyphicon-comment"></span>
                                 </div>
                                 <div class="col-md-1">
-                                    <router-link :to="{name: 'table'}">Logs</router-link>
+                                    <router-link :to="{name: 'logtable'}">Logs</router-link>
                                 </div>
+                                <!-- <div class="col-md-1">
+                                    <span class="glyphicon glyphicon-comment"></span>
+                                </div>
+                                <div class="col-md-1">
+                                    <router-link :to="{name: 'table'}">Logs</router-link>
+                                </div> -->
                                 <!-- </li> -->
                                 <!-- <li class="bgb"> -->
                                 <!-- <div class="col-md-1">

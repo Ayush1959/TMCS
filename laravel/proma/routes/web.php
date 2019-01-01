@@ -48,6 +48,7 @@ Route::post('projectSearchNonMonitor', 'ProjectController@searchNm'); //single p
 
 //User Popup 
 Route::get('userPopupdata/{id}', 'ProjectController@userSearch'); //single User Graph
+Route::post('userPopupTaskdata', 'ProjectController@userTaskSearch'); //single User Graph
 
 // CRON CONTROLLERS
 Route::get('projectcontroller', 'CronController@index');

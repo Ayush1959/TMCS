@@ -34,6 +34,7 @@ import DataIndex from "./components/DataIndex.vue";
 import DataCreate from "./components/DataCreate.vue";
 import UserData from "./components/DataRead.vue";
 import Table from "./components/Table.vue";
+import LogTable from "./components/logTable.vue";
 import DataScore from "./components/DataScore.vue";
 
 const routes = [{
@@ -61,6 +62,11 @@ const routes = [{
         path: "/table",
         component: Table,
         name: "table"
+    },
+    {
+        path: "/log",
+        component: LogTable,
+        name: "logtable"
     }
 ];
 
