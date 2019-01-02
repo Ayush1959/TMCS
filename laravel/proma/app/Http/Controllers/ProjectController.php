@@ -368,7 +368,8 @@ class ProjectController extends Controller
 
     public function userSearch($id)
     {
-        $data_array = project_monthly_log::select('id', 'user_name', 'date', 'user_id', 'score')->where('user_name', $id)->orderBy('date')->get();
+        // return date("Y");
+        $data_array = project_monthly_log::select('id', 'user_name', 'date', 'user_id', 'score')->where('user_name', $id)->whereYear('date', '=', date('Y'))->orderBy('date')->get();
         return $data_array;
 
     }
@@ -612,32 +613,38 @@ class ProjectController extends Controller
         $compTask = 0;
         $readyTask = 0;
         $hours = 0;
+        $done = 0;
+        $reopn = 0;
+        $rdy = 0;
+        $singlehours = 0;
         $fullDataArray = [];
+        $project_array = [];
+        $project_test = [];
+        $projectArray = [];
+        $totalBug = 0;
+        $project_id_array = [];
         $input = $request->all();
         $username = $request->input('user');
         $year = $request->input('year');
         $month = $request->input('month');
         $nmonth = date('m', strtotime($month));
         $date = $year . "-" . $nmonth;
-        // return $date;
-        $data_array = user::select('id')->where('user_name', $username)->get();
-        foreach ($data_array as $aa) {
-            // $task_array = DB::table('time_tracker')->select('hours_taken')->where('user_id', $aa->id)->whereMonth('start_datetime', '=', $month)->whereYear('start_datetime', '=', $year)->get();
+        $userid_array = user::select('id')->where('user_name', $username)->get();
+        foreach ($userid_array as $aa) {
             $task_array = DB::table('time_tracker')->select('hours_taken')->where('user_id', $aa->id)->where('start_datetime', 'LIKE', "%$date%")->where('end_datetime', 'LIKE', "%$date%")->get();
             foreach ($task_array as $task) {
                 $hours += $task->hours_taken;
             }
-            // return $hours;
-            $datap_array = DB::table('project_backlog_log')->select('product_backlog_id', 'status', 'created_at')->where('task_owner', $aa->id)->where('created_at', 'LIKE', "%$date%")->get();
-            foreach ($datap_array as $zz) {
+            $projectBacklog_array = DB::table('project_backlog_log')->select('product_backlog_id', 'status', 'created_at')->where('task_owner', $aa->id)->where('created_at', 'LIKE', "%$date%")->get();
+            foreach ($projectBacklog_array as $zz) {
                 if ($zz->status == "done") {
                     $compTask += 1;
                 } else if ($zz->status == "ready-for-review") {
                     $readyTask += 1;
                 }
-                $databk_array = DB::table('product_backlog')->select('type', 'bug_severity')->where('id', $zz->product_backlog_id)->get();
-                // return $databk_array;
-                foreach ($databk_array as $dd) {
+                $productBacklog_array = DB::table('product_backlog')->select('type', 'bug_severity', 'project_id')->where('id', $zz->product_backlog_id)->get();
+                foreach ($productBacklog_array as $dd) {
+                    array_push($project_id_array, $dd->project_id);
                     if ($dd->type == "Bug") {
                         $totBug += 1;
                     }
@@ -645,10 +652,55 @@ class ProjectController extends Controller
                         $funBug += 1;
                     }
                 }
+
             }
-            // return $datap_array;
-            // return $aa->id;
+            $unique_project_id = array_unique($project_id_array);
+            foreach ($unique_project_id as $upid) {
+                $project_name = DB::table('project')->select('title')->where('id', $upid)->get();
+                $project_backlog_log = DB::table('project_backlog_log')->select('product_backlog_id')->where('task_owner', $aa->id)->where('created_at', 'LIKE', "%$date%")->get();
+                $taskdata = DB::table('time_tracker')->select('hours_taken')->where('user_id', $aa->id)->where('project_id', $upid)->where('start_datetime', 'LIKE', "%$date%")->where('end_datetime', 'LIKE', "%$date%")->get();
+                foreach ($taskdata as $tasks) {
+                    $singlehours += $tasks->hours_taken;
+                }
+                foreach ($project_backlog_log as $fdata) {
+                    $project_backlog_data = DB::table('product_backlog')->select('type', 'id', 'project_id')->where('id', $fdata->product_backlog_id)->where('project_id', $upid)->get();
+                    foreach ($project_backlog_data as $backlog_data) {
+                        // $project_backlog_log_data = DB::table('project_backlog_log')->select('product_backlog_id', 'status')->where('product_backlog_id', $backlog_data->id)->where('task_owner', $aa->id)->where('created_at', 'LIKE', "%$date%")->get();
+                        // foreach ($project_backlog_log_data as $prodatas) {
+                        //     if ($prodatas->status == "done") {
+                        //         $done += 1;
+                        //     } else if ($prodatas->status == "ready-for-review") {
+                        //         $rdy += 1;
+                        //     } else if ($prodatas->status == "reopen") {
+                        //         $reopn += 1;
+                        //     }
+                        // }
+                        if ($backlog_data->type == "Bug") {
+                            $totalBug += 1;
+                        }
+                    }
+                }
+                // array_push($project_array, $project_name[0]->title);
+                $project_array["name"] = $project_name[0]->title;
+                // array_push($project_array, $totalBug);
+                $project_array["Bug"] = $totalBug;
+                $project_array["done"] = $done;
+                $project_array["ready"] = $rdy;
+                $project_array["reopen"] = $reopn;
+                $project_array["shours"] = $singlehours;
+                // array_push($project_test, $project_array);
+                $project_test[$project_name[0]->title] = $project_array;
+                $project_array = [];
+                $totalBug = 0;
+                $done = 0;
+                $rdy = 0;
+                $reopn = 0;
+                $singlehours = 0;
+            }
         }
+        $projectArrays = array_unique($projectArray);
+        // return $projectArrays;
+        // $object = (object)$projectArrays;
         $othBug = $totBug - $funBug;
         $fullDataArray["funBug"] = $funBug;
         $fullDataArray["othBug"] = $othBug;
@@ -656,8 +708,10 @@ class ProjectController extends Controller
         $fullDataArray["compTask"] = $compTask;
         $fullDataArray["readyTask"] = $readyTask;
         $fullDataArray["hours"] = ceil($hours);
-        
-        // array_push($fullDataArray, $funBug);
+        $fullDataArray["data"] = $projectArrays;
+        $fullDataArray["projects"] = $project_test;
+
+        // array_push($fullDataArray, $projectArrays);
         // array_push($fullDataArray, $othBug);
         // array_push($fullDataArray, $totBug);
         // array_push($fullDataArray, $compTask);

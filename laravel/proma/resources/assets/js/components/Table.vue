@@ -1,285 +1,129 @@
 <template>
   <div>
-    <!-- Displays Users name and Score from DB -->
-    <div class="container">
-      <span class="glyphicon glyphicon-plus"></span>
-      <router-link :to="{name: 'dataScore'}">Add Score</router-link>
-      <div class="row">
-        <!-- PopUp Start -->
-        <modal name="userPopup">
-          <div class="container-fluid">
-            <div class="col-md-10">
-              <div id="app">
-                <graph-bar
-                  :width="500"
-                  :height="300"
-                  :axis-min="0"
-                  :axis-max="150"
-                  :labels="labels"
-                  :values="values"
-                >
-                  <note :text="chartName"></note>
-                  <!-- <tooltip :names="names" :position="'left'"></tooltip>
-                  <legends :names="names" :filter="true"></legends>-->
-                </graph-bar>
+    <div v-if="userslist">
+      <!-- Displays Users name and Score from DB -->
+      <div class="container">
+        <span class="glyphicon glyphicon-plus"></span>
+        <router-link :to="{name: 'dataScore'}">Add Score</router-link>
+        <div class="row">
+          <!-- PopUp Start -->
+          <modal name="userPopup">
+            <div class="container-fluid">
+              <div class="col-md-10">
+                <div id="app">
+                  <graph-bar
+                    :width="500"
+                    :height="300"
+                    :axis-min="0"
+                    :axis-max="150"
+                    :labels="labels"
+                    :values="values"
+                  >
+                    <note :text="chartName"></note>
+                    <!-- <tooltip :names="names" :position="'left'"></tooltip>
+                    <legends :names="names" :filter="true"></legends>-->
+                  </graph-bar>
+                </div>
+              </div>
+              <div class="col-md-2">
+                <button
+                  class="btn btn-primary cncl"
+                  @click.prevent="submitted"
+                  @click="hidePopup()"
+                >Cancel</button>
               </div>
             </div>
-            <div class="col-md-2">
-              <button
-                class="btn btn-primary cncl"
-                @click.prevent="submitted"
-                @click="hidePopup()"
-              >Cancel</button>
-            </div>
-          </div>
-        </modal>
+          </modal>
 
-        <!-- PopUp Ends -->
-        <!-- 2nd Popup Starts -->
-        <modal name="userdataPopup1" :height="600">
-          <div class="container-fluid">
-            <div class="col-md-10">
-              <div id="app">
-                <graph-bar
-                  :width="500"
-                  :height="300"
-                  :axis-min="0"
-                  :axis-max="150"
-                  :labels="labels"
-                  :values="values"
-                >
-                  <note :text="chartName"></note>
-                  <!-- <tooltip :names="names" :position="'left'"></tooltip>
-                  <legends :names="names" :filter="true"></legends>-->
-                </graph-bar>
-              </div>
+          <!-- PopUp Ends -->
+          <!-- {{ selectedDate }} -->
+          <form name="myForm" class="form-group">
+            <div class="col-md-5 col-md-offset-3">
+              <select
+                v-model="selectedDate"
+                @blur="$v.selectedDate.$touch()"
+                class="form-control sell"
+                id="empl"
+              >
+                <option v-for="option in dateFromDb" :value="option">{{ dates(option) }}</option>
+              </select>
+              <p
+                v-if="$v.selectedDate.$dirty &&  !$v.selectedDate.required"
+                class="error-message"
+              >Select a Date</p>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-2 col-md-offset-1">
               <button
-                class="btn btn-primary btn-xs xcncl"
                 @click.prevent="submitted"
-                @click="hideTaskPopup()"
-              >x</button>
+                @click="dataChange()"
+                :disabled="$v.$invalid"
+                class="btn btn-primary"
+              >Go</button>
             </div>
-          </div>
-          <!-- <br> -->
-          <div class="container">
-            <div class="container">
-              <select v-model="selectedTaskYear" class="form-control popsell" id="tsk">
-                <option v-for="option in years" :value="option">{{ option }}</option>
-              </select>
-              <select v-model="selectedTaskMonth" class="form-control popsell" id="tsk">
-                <option v-for="option in month" :value="option">{{ option }}</option>
-              </select>
-            </div>
-            <br>
-            <div class="container">
-              <div>
-                <p>Bugs</p>
-                <div class="col-md-2 nopad">
-                  <button type="button" class="btn btn-primary">
-                    Functionality Bug
-                    <span class="badge">{{ functionalityBug }}</span>
-                  </button>
-                </div>
-                <div class="col-md-2">
-                  <button type="button" class="btn btn-primary">
-                    Other Bug
-                    <span class="badge">{{ otherBug }}</span>
-                  </button>
-                </div>
-                <div class="col-md-2">
-                  <button type="button" class="btn btn-primary">
-                    Total Bug
-                    <span class="badge">{{ totalBug }}</span>
-                  </button>
-                </div>
-              </div>
-            </div>
-            <br>
-            <div class="container">
-              <div>
-                <p>Tasks</p>
-                <div class="col-md-3 nopad">
-                  <button type="button" class="btn btn-primary">
-                    Completed Tasks
-                    <span class="badge">{{ completedTask }}</span>
-                  </button>
-                </div>
-                <div class="col-md-3">
-                  <button type="button" class="btn btn-primary">
-                    Ready To View
-                    <span class="badge">{{ readytoview }}</span>
-                  </button>
-                </div>
-              </div>
-            </div>
-            <br>
-            <div class="container">
-              <p>Hours Tracked : {{ trackedHours }}</p>
-            </div>
-          </div>
-        </modal>
-
-        <!-- PopUp Ends -->
-        <!-- Trial POPUP -->
-        <modal name="userdataPopup" :height="600">
-          <div class="container-fluid">
-            <div class="col-md-10">
-              <div id="app">
-                <graph-bar
-                  :width="500"
-                  :height="300"
-                  :axis-min="0"
-                  :axis-max="150"
-                  :labels="labels"
-                  :values="values"
-                >
-                  <note :text="chartName"></note>
-                  <!-- <tooltip :names="names" :position="'left'"></tooltip>
-                  <legends :names="names" :filter="true"></legends>-->
-                </graph-bar>
-              </div>
-            </div>
-            <div class="col-md-2">
-              <button
-                class="btn btn-primary btn-xs xcncl"
-                @click.prevent="submitted"
-                @click="hideTaskPopup()"
-              >x</button>
-            </div>
-          </div>
-          <!-- <br> -->
-          <div class="container">
+          </form>
+        </div>
+        <div class="row">
+          <div class="col-md-9 col-md-offset-3">
+            <table class="table table-bordered wid">
+              <thead>
+                <tr>
+                  <th>Users</th>
+                  <th>Score</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="item in userData" :key="item.id" class="brdr">
+                  <td>
+                    <button class="btnBrdr" @click="showPopup2(item.user_name)">{{ item.user_name }}</button>
+                  </td>
+                  <td>
+                    <button class="btnBrdr" @click="showPopup(item.user_name)">{{ item.score }}</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <!-- PAGINATION -->
             <div>
-              <select v-model="selectedTaskYear" class="form-control popsell" id="tsk">
-                <option v-for="option in years" :value="option">{{ option }}</option>
-              </select>
-              <select v-model="selectedTaskMonth" class="form-control popsell" id="tsk">
-                <option v-for="option in month" :value="option">{{ option }}</option>
-              </select>
-            </div>
-            <!-- <br> -->
-            <div>
-              <div class="col-md-2 nopad">
-                <h4>Bugs</h4>
+              <div class="col-md-3">
+                <button @click="prevPage" v-if="!!previousUrl">Previous</button>
               </div>
-            </div>
-            <br>
-            <br>
-            <div class="col-md-2 nopad">
-              <button type="button" class="btn btn-primary">
-                Functionality Bug
-                <span class="badge">{{ functionalityBug }}</span>
-              </button>
-              <!-- <h4>+</h4> -->
-            </div>
-            <div class="col-md-2">
-              <button type="button" class="btn btn-primary">
-                Other Bug
-                <span class="badge">{{ otherBug }}</span>
-              </button>
-            </div>
-            <div class="col-md-2">
-              <button type="button" class="btn btn-primary">
-                Total Bug
-                <span class="badge">{{ totalBug }}</span>
-              </button>
-            </div>
-            <br>
-            <div>
-              <div class="col-md-11 nopad">
-                <h4>Tasks</h4>
+              <div class="col-md-5"></div>
+              <div class="col-md-3">
+                <button @click="nextPage" v-if="!!nextUrl">Next</button>
               </div>
-            </div>
-            <br>
-            <!-- <br> -->
-            <div class="col-md-3 nopad">
-              <button type="button" class="btn btn-primary">
-                Completed Tasks
-                <span class="badge">{{ completedTask }}</span>
-              </button>
-            </div>
-            <div class="col-md-3">
-              <button type="button" class="btn btn-primary">
-                Ready To View
-                <span class="badge">{{ readytoview }}</span>
-              </button>
-            </div>
-            <br>
-            <br>
-            <div>
-              <div class="col-md-11 nopad">
-                <h4 class="fonts">Hours Tracked : {{ trackedHours }}</h4>
-              </div>
-            </div>
-          </div>
-        </modal>
-
-        <!-- {{ selectedDate }} -->
-        <form name="myForm" class="form-group">
-          <div class="col-md-5 col-md-offset-3">
-            <select
-              v-model="selectedDate"
-              @blur="$v.selectedDate.$touch()"
-              class="form-control sell"
-              id="empl"
-            >
-              <option v-for="option in dateFromDb" :value="option">{{ dates(option) }}</option>
-            </select>
-            <p
-              v-if="$v.selectedDate.$dirty &&  !$v.selectedDate.required"
-              class="error-message"
-            >Select a Date</p>
-          </div>
-          <div class="col-md-2 col-md-offset-1">
-            <button
-              @click.prevent="submitted"
-              @click="dataChange()"
-              :disabled="$v.$invalid"
-              class="btn btn-primary"
-            >Go</button>
-          </div>
-        </form>
-      </div>
-      <div class="row">
-        <div class="col-md-9 col-md-offset-3">
-          <table class="table table-bordered wid">
-            <thead>
-              <tr>
-                <th>Users</th>
-                <th>Score</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="item in userData" :key="item.id" class="brdr">
-                <td>
-                  <button class="btnBrdr" @click="showPopup2(item.user_name)">{{ item.user_name }}</button>
-                </td>
-                <td>
-                  <button class="btnBrdr" @click="showPopup(item.user_name)">{{ item.score }}</button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-          <!-- PAGINATION -->
-          <div>
-            <div class="col-md-3">
-              <button @click="prevPage" v-if="!!previousUrl">Previous</button>
-            </div>
-            <div class="col-md-5"></div>
-            <div class="col-md-3">
-              <button @click="nextPage" v-if="!!nextUrl">Next</button>
             </div>
           </div>
         </div>
       </div>
+    </div>
+    <div v-else>
+      <userdetails
+        :labels="labels"
+        :values="values"
+        :years="years"
+        :month="month"
+        :functionalityBug="functionalityBug"
+        :otherBug="otherBug"
+        :totalBug="totalBug"
+        :completedTask="completedTask"
+        :readytoview="readytoview"
+        :trackedHours="trackedHours"
+        :chartName="chartName"
+        :projectData="projectData"
+        :selectedTaskYear="selectedTaskYear"
+        :selectedTaskMonth="selectedTaskMonth"
+        :selectedUser="selectedUser"
+        @close="closeFn"
+        @yearChange="yearChangeFn($event)"
+        @monthChange="monthChangeFn($event)"
+      ></userdetails>
     </div>
   </div>
 </template>
 
 <script>
 // import bmodal from "./modals";
+import userdetails from "./UserDetails.vue";
 import {
   required,
   minLength,
@@ -288,6 +132,9 @@ import {
   email
 } from "vuelidate/lib/validators";
 export default {
+  components: {
+    userdetails
+  },
   data() {
     return {
       userData: [],
@@ -301,9 +148,11 @@ export default {
       nextUrl: null,
       previousUrl: null,
       month: [],
+      userslist: true,
       years: [],
       functionalityBug: null,
       otherBug: null,
+      projectData: null,
       totalBug: null,
       completedTask: null,
       readytoview: null,
@@ -368,12 +217,22 @@ export default {
     }
   },
   methods: {
+    yearChangeFn(index) {
+      this.selectedTaskYear = index;
+    },
+    monthChangeFn(index) {
+      this.selectedTaskMonth = index;
+    },
     showPopup2(index) {
       this.labels = [];
       this.values = [];
       this.getUserData(index);
       this.getTasks(index);
-      this.$modal.show("userdataPopup");
+      this.userslist = false;
+      //   this.$modal.show("userdataPopup");
+    },
+    closeFn() {
+      this.userslist = true;
     },
     showPopup(index) {
       this.labels = [];
@@ -401,6 +260,8 @@ export default {
             x.completedTask = response.data["compTask"];
             x.readytoview = response.data["readyTask"];
             x.trackedHours = response.data["hours"];
+            x.projectData = response.data["projects"];
+            // console.log(response.data["projects"]);
           } else {
             alert("Error");
           }

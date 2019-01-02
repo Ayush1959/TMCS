@@ -23,19 +23,25 @@ class MonthlyCronController extends Controller
         $dataarr = array();
         $newdate = date("Y-m-d", strtotime("-1 months"));
         $data_array = user::select('id', 'user_name', 'status', 'score')->where('status', 1)->where('user_type', 4)->get();
-        foreach ($data_array as $aa) {
-            $data = new Project_monthly_log();
-            $data->user_id = $aa->id;
-            $data->user_name = $aa->user_name;
-            $data->date = $newdate;
-            $data->score = $aa->score;
-            $saved = $data->save();
+        $count = project_monthly_log::whereMonth('created_at', '=', date('m'))->count();
+        if ($count == 0) {
+            foreach ($data_array as $aa) {
+                $data = new Project_monthly_log();
+                $data->user_id = $aa->id;
+                $data->user_name = $aa->user_name;
+                $data->date = $newdate;
+                $data->score = $aa->score;
+                $saved = $data->save();
 
-            $datas = user::findOrFail($aa->id);
-            $datas->score = 100;
-            $datas->save();
+                $datas = user::findOrFail($aa->id);
+                $datas->score = 100;
+                $datas->save();
+            }
+        } else {
+            echo "already added";
         }
         if (isset($saved)) {
+            echo 'done';
             return response()->json([
                 'status' => config::get('constant.Success')
             ]);
