@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Project_delay extends Model
+class Time_tracker extends Model
 {
     //TABLE NAme
     protected $table = 'time_tracker';

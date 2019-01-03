@@ -1,101 +1,136 @@
 <template>
   <div>
-    <!-- Displays Users name and Score from DB -->
-    <div class="container">
-      <span class="glyphicon glyphicon-plus"></span>
-      <router-link :to="{name: 'dataScore'}">Add Score</router-link>
-      <div class="row">
-        <!-- PopUp Start -->
-        <modal name="userPopup">
-          <div class="container-fluid">
-            <div class="col-md-10">
-              <div id="app">
-                <graph-bar
-                  :width="500"
-                  :height="300"
-                  :axis-min="0"
-                  :axis-max="150"
-                  :labels="labels"
-                  :values="values"
-                >
-                  <note :text="chartName"></note>
-                  <!-- <tooltip :names="names" :position="'left'"></tooltip>
-                  <legends :names="names" :filter="true"></legends>-->
-                </graph-bar>
+    <div v-if="userslist">
+      <!-- Displays Users name and Score from DB -->
+      <div class="container">
+        <span class="glyphicon glyphicon-plus"></span>
+        <router-link :to="{name: 'dataScore'}">Add Score</router-link>
+        <div class="row">
+          <!-- PopUp Start -->
+          <modal name="userPopup">
+            <div class="container-fluid">
+              <div class="col-md-10">
+                <div id="app">
+                  <graph-bar
+                    :width="500"
+                    :height="300"
+                    :axis-min="0"
+                    :axis-max="150"
+                    :labels="slabels"
+                    :values="values"
+                  >
+                    <note :text="chartName"></note>
+                    <!-- <tooltip :names="names" :position="'left'"></tooltip>
+                    <legends :names="names" :filter="true"></legends>-->
+                  </graph-bar>
+                </div>
+              </div>
+              <div class="col-md-2">
+                <button
+                  class="btn btn-primary cncl"
+                  @click.prevent="submitted"
+                  @click="hidePopup()"
+                >X</button>
               </div>
             </div>
-            <div class="col-md-2">
-              <button
-                class="btn btn-primary cncl"
-                @click.prevent="submitted"
-                @click="hidePopup()"
-              >Cancel</button>
-            </div>
-          </div>
-        </modal>
+          </modal>
 
-        <!-- PopUp Ends -->
-        <!-- {{ selectedDate }} -->
-        <form name="myForm" class="form-group">
-          <div class="col-md-5 col-md-offset-3">
-            <select
-              v-model="selectedDate"
-              @blur="$v.selectedDate.$touch()"
-              class="form-control sell"
-              id="empl"
-            >
-              <option v-for="option in dateFromDb" :value="option">{{ dates(option) }}</option>
-            </select>
-            <p
-              v-if="$v.selectedDate.$dirty &&  !$v.selectedDate.required"
-              class="error-message"
-            >Select a Date</p>
-          </div>
-          <div class="col-md-2 col-md-offset-1">
-            <button
-              @click.prevent="submitted"
-              @click="dataChange()"
-              :disabled="$v.$invalid"
-              class="btn btn-primary"
-            >Go</button>
-          </div>
-        </form>
-      </div>
-      <div class="row">
-        <div class="col-md-9 col-md-offset-3">
-          <table class="table table-bordered wid">
-            <thead>
-              <tr>
-                <th>Users</th>
-                <th>Score</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="item in userData" :key="item.id" class="brdr">
-                <td>
-                  <button class="btnBrdr" @click="showPopup(item.user_name)">{{ item.user_name }}</button>
-                </td>
-                <td>{{ item.score }}</td>
-              </tr>
-            </tbody>
-          </table>
-          <!-- PAGINATION -->
-          <div>
-            <div class="col-md-3">
-              <button @click="prevPage" v-if="!!previousUrl">Previous</button>
+          <!-- PopUp Ends -->
+          <!-- {{ selectedDate }} -->
+          <form name="myForm" class="form-group">
+            <div class="col-md-5 col-md-offset-3">
+              <select
+                v-model="selectedDate"
+                @blur="$v.selectedDate.$touch()"
+                class="form-control sell"
+                id="empl"
+              >
+                <option v-for="option in dateFromDb" :value="option">{{ dates(option) }}</option>
+              </select>
+              <p
+                v-if="$v.selectedDate.$dirty &&  !$v.selectedDate.required"
+                class="error-message"
+              >Select a Date</p>
             </div>
-            <div class="col-md-5"></div>
-            <div class="col-md-3">
-              <button @click="nextPage" v-if="!!nextUrl">Next</button>
+            <div class="col-md-2 col-md-offset-1">
+              <button
+                @click.prevent="submitted"
+                @click="dataChange()"
+                :disabled="$v.$invalid"
+                class="btn btn-primary"
+              >Go</button>
+            </div>
+          </form>
+        </div>
+        <div class="row">
+          <div class="col-md-9 col-md-offset-3">
+            <table class="table table-bordered wid">
+              <thead>
+                <tr>
+                  <th>Users</th>
+                  <th>Score</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="item in userData" :key="item.id" class="brdr">
+                  <td>
+                    <button
+                      class="btnBrdr"
+                      @click="showPopup2(item.id, item.user_name)"
+                    >{{ item.user_name }}</button>
+                  </td>
+                  <td>
+                    <button class="btnBrdr" @click="showPopup(item.user_name)">{{ item.score }}</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <!-- PAGINATION -->
+            <div>
+              <div class="col-md-3">
+                <button @click="prevPage" v-if="!!previousUrl">Previous</button>
+              </div>
+              <div class="col-md-5"></div>
+              <div class="col-md-3">
+                <button @click="nextPage" v-if="!!nextUrl">Next</button>
+              </div>
             </div>
           </div>
         </div>
       </div>
+      <!-- {{ labels }}
+      {{ slabels }}
+      {{ label }}-->
+    </div>
+    <div v-else>
+      <userdetails
+        :labels="labels"
+        :values="values"
+        :years="years"
+        :month="month"
+        :functionalityBug="functionalityBug"
+        :otherBug="otherBug"
+        :totalBug="totalBug"
+        :completedTask="completedTask"
+        :readytoview="readytoview"
+        :trackedHours="trackedHours"
+        :chartName="chartName"
+        :projectData="projectData"
+        :selectedTaskYear="selectedTaskYear"
+        :selectedTaskMonth="selectedTaskMonth"
+        :selectedUserId="selectedUserId"
+        :selectedUser="selectedUser"
+        @close="closeFn"
+        @yearChange="yearChangeFn($event)"
+        @monthChange="monthChangeFn($event)"
+      ></userdetails>
     </div>
   </div>
 </template>
 
 <script>
+// import bmodal from "./modals";
+import userdetails from "./UserDetails.vue";
 import {
   required,
   minLength,
@@ -104,6 +139,9 @@ import {
   email
 } from "vuelidate/lib/validators";
 export default {
+  components: {
+    userdetails
+  },
   data() {
     return {
       userData: [],
@@ -112,13 +150,30 @@ export default {
       selectedUser: null,
       isSubmitted: false,
       pageSize: 3,
+      selectedTaskYear: null,
+      selectedTaskMonth: null,
       nextUrl: null,
       previousUrl: null,
       month: [],
+      smonth: [],
+      userslist: true,
+      years: [],
+      functionalityBug: null,
+      otherBug: null,
+      projectData: null,
+      selectedUserId: null,
+      totalBug: null,
+      completedTask: null,
+      readytoview: null,
+      trackedHours: null,
+      currentmonth: null,
+      currentyear: null,
       currentPage: 1,
       date: null,
       chartName: "noChart",
       labels: [],
+      slabels: [],
+      label: [],
       values: []
       // names: ["MS", "Apple", "Google"],
     };
@@ -137,6 +192,20 @@ export default {
     this.month[9] = "October";
     this.month[10] = "November";
     this.month[11] = "December";
+    this.smonth[0] = "Jan";
+    this.smonth[1] = "Feb";
+    this.smonth[2] = "Mar";
+    this.smonth[3] = "Apr";
+    this.smonth[4] = "May";
+    this.smonth[5] = "Jun";
+    this.smonth[6] = "Jul";
+    this.smonth[7] = "Aug";
+    this.smonth[8] = "Sep";
+    this.smonth[9] = "Oct";
+    this.smonth[10] = "Nov";
+    this.smonth[11] = "Dec";
+    this.currentMonth();
+    this.currentYear();
     // window.location.origin+/
     var x = this;
     axios
@@ -157,17 +226,87 @@ export default {
         //console.log(error);
       });
   },
+  watch: {
+    selectedTaskYear: function() {
+      this.getTasks(this.selectedUserId);
+    },
+    selectedTaskMonth: function() {
+      this.getTasks(this.selectedUserId);
+    },
+    label: function() {
+      this.labels = [];
+      this.slabels = [];
+      for (let i = 0; i < 12; i++) {
+        // if (this.month in this.label) {
+        // console.log("cc");
+        // } else {
+        // console.log("log:" + this.month[i]);
+        this.labels.push(this.month[i]);
+        this.slabels.push(this.smonth[i]);
+        // console.log(x.labels);
+        // }
+      }
+    }
+  },
   validations: {
     selectedDate: {
       required
     }
   },
   methods: {
+    yearChangeFn(index) {
+      this.selectedTaskYear = index;
+    },
+    monthChangeFn(index) {
+      this.selectedTaskMonth = index;
+    },
+    showPopup2(index, userindex) {
+      this.labels = [];
+      this.values = [];
+      this.getUserData(userindex);
+      this.getTasks(index);
+      this.userslist = false;
+      //   this.$modal.show("userdataPopup");
+    },
+    closeFn() {
+      this.userslist = true;
+    },
     showPopup(index) {
       this.labels = [];
       this.values = [];
       this.getUserData(index);
       this.$modal.show("userPopup");
+    },
+    getTasks(index) {
+      this.selectedUserId = index;
+      var x = this;
+      // //console.log(index);
+      // return index;
+      axios
+        .post(`${x.$Url}userPopupTaskdata`, {
+          user: this.selectedUserId,
+          year: this.selectedTaskYear,
+          month: this.selectedTaskMonth
+        })
+        .then(function(response) {
+          if (response.status == 200) {
+            console.log(response.data);
+            x.functionalityBug = response.data["funBug"];
+            x.otherBug = response.data["othBug"];
+            x.totalBug = response.data["totBug"];
+            x.completedTask = response.data["compTask"];
+            x.readytoview = response.data["readyTask"];
+            x.trackedHours = response.data["hours"];
+            x.projectData = response.data["projects"];
+            // console.log(response.data["projects"]);
+          } else {
+            alert("Error");
+          }
+          //console.log(response);
+        })
+        .catch(function(error) {
+          //console.log(error);
+        });
     },
     getUserData(index) {
       this.selectedUser = index;
@@ -182,13 +321,12 @@ export default {
             response.data.forEach(function(element) {
               x.values.push(element.score);
               // x.labels.push(element.date);
-              x.labels.push(
-                x.month[new Date(element.date).getMonth()] +
-                  "-" +
-                  new Date(element.date).getFullYear()
-              );
+              x.label.push(x.month[new Date(element.date).getMonth()]);
+              console.log(new Date(element.date).getMonth());
+
               x.chartName = element.user_name + "'s Chart";
               // //console.log(element.score);
+              // console.log(x.labels);
             });
           } else {
             alert("Error");
@@ -202,6 +340,9 @@ export default {
     hidePopup() {
       this.$modal.hide("userPopup");
     },
+    hideTaskPopup() {
+      this.$modal.hide("userdataPopup");
+    },
     dates(index) {
       // this.date = new Date(index);
 
@@ -210,12 +351,15 @@ export default {
         "-" +
         new Date(index).getFullYear()
       );
-
-      // return (
-      //   this.month[this.date.getMonth() + 1] + "-" + this.date.getFullYear()
-      // );
-      // document.getElementById("demo").innerHTML = n;
-      // return index;
+    },
+    currentYear() {
+      this.selectedTaskYear = new Date().getFullYear();
+      this.years.push(this.selectedTaskYear);
+      this.years.push(this.selectedTaskYear - 1);
+      // this.years.push(this.selectedTaskYear - 2);
+    },
+    currentMonth() {
+      this.selectedTaskMonth = this.month[new Date().getMonth()];
     },
     nextPage() {
       var x = this;
@@ -297,8 +441,34 @@ export default {
   color: blue;
 }
 .cncl {
-  margin-top: 210px;
+  margin-top: 12px;
+  float: right;
 }
+.xcncl {
+  margin-top: 10px;
+  float: right;
+}
+.popsell {
+  display: inline-block;
+  width: 20%;
+}
+.nopad {
+  padding: 0;
+}
+.fonts {
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+}
+/* .modal-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+.modal-container {
+  display: inline-block;
+  width: auto;
+  height: auto;
+} */
 /* table {
   border-collapse: collapse;
   width: 75%;

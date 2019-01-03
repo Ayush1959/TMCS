@@ -1,10 +1,10 @@
 <template>
-  <div class="container">
+  <div class="container newFont">
     <div class="container-fluid">
-      <div class="col-md-10">
+      <div class="col-md-9 col-md-offset-1">
         <div id="app">
           <graph-bar
-            :width="500"
+            :width="1000"
             :height="300"
             :axis-min="0"
             :axis-max="150"
@@ -20,7 +20,7 @@
     </div>
     <!-- <br> -->
     <div class="container">
-      <div>
+      <div class="col-md-9 col-md-offset-3">
         <select v-model="selectedTaskYearC" class="form-control popsell" id="tsk">
           <option v-for="option in years" :value="option">{{ option }}</option>
         </select>
@@ -29,52 +29,58 @@
         </select>
       </div>
       <!-- <br> -->
-      <div>
-        <div class="col-md-2 nopad">
-          <h4>Bugs</h4>
+      <br>
+      <div class="col-md-5 nopad">
+        <div>
+          <div class="col-md-11 nopad">
+            <h4>Tasks</h4>
+          </div>
+        </div>
+        <br>
+        <!-- <br> -->
+        <div class="col-md-5 nopad">
+          <button type="button" class="btn btn-primary">
+            Completed Tasks
+            <span class="badge">{{ completedTask }}</span>
+          </button>
+        </div>
+        <div class="col-md-5">
+          <button type="button" class="btn btn-primary">
+            Ready To View
+            <span class="badge">{{ readytoview }}</span>
+          </button>
+        </div>
+      </div>
+      <div class="col-md-6 nopad">
+        <div>
+          <div class="col-md-2 nopad">
+            <h4>Bugs</h4>
+          </div>
+        </div>
+        <br>
+        <br>
+        <div class="col-md-4 nopad">
+          <button type="button" class="btn btn-primary">
+            Functionality Bug
+            <span class="badge">{{ functionalityBug }}</span>
+          </button>
+          <!-- <h4>+</h4> -->
+        </div>
+        <div class="col-md-4">
+          <button type="button" class="btn btn-primary">
+            Other Bug
+            <span class="badge">{{ otherBug }}</span>
+          </button>
+        </div>
+        <div class="col-md-4">
+          <button type="button" class="btn btn-primary">
+            Total Bug
+            <span class="badge">{{ totalBug }}</span>
+          </button>
         </div>
       </div>
       <br>
-      <br>
-      <div class="col-md-2 nopad">
-        <button type="button" class="btn btn-primary">
-          Functionality Bug
-          <span class="badge">{{ functionalityBug }}</span>
-        </button>
-        <!-- <h4>+</h4> -->
-      </div>
-      <div class="col-md-2">
-        <button type="button" class="btn btn-primary">
-          Other Bug
-          <span class="badge">{{ otherBug }}</span>
-        </button>
-      </div>
-      <div class="col-md-2">
-        <button type="button" class="btn btn-primary">
-          Total Bug
-          <span class="badge">{{ totalBug }}</span>
-        </button>
-      </div>
-      <br>
-      <div>
-        <div class="col-md-11 nopad">
-          <h4>Tasks</h4>
-        </div>
-      </div>
-      <br>
-      <!-- <br> -->
-      <div class="col-md-3 nopad">
-        <button type="button" class="btn btn-primary">
-          Completed Tasks
-          <span class="badge">{{ completedTask }}</span>
-        </button>
-      </div>
-      <div class="col-md-3">
-        <button type="button" class="btn btn-primary">
-          Ready To View
-          <span class="badge">{{ readytoview }}</span>
-        </button>
-      </div>
+
       <br>
       <br>
       <div>
@@ -84,53 +90,48 @@
       </div>
     </div>
     <div>
+      <br>
       <!-- {{ projectData }} -->
-      <table>
-        <thead>
-          <!-- <tr>
-            <th>Id</th>
-          </tr>-->
-        </thead>
-        <tbody>
-          <tr v-for="item,key in projectData" :key="item.id">
-            <!-- <td>{{ fromNumbers+key }}</td> -->
-            <td>{{ item.name }}</td>
-            <td>
-              <button type="button" class="btn btn-primary">
-                Total Bug
-                <span class="badge">{{ item.Bug }}</span>
-              </button>
-            </td>
-            <td>
-              <button type="button" class="btn btn-primary">
-                Completed Tasks
-                <span class="badge">{{ item.done }}</span>
-              </button>
-            </td>
-            <td>
-              <button type="button" class="btn btn-primary">
-                Ready To view
-                <span class="badge">{{ item.ready }}</span>
-              </button>
-            </td>
-            <td>
-              <button type="button" class="btn btn-primary">
-                Re-opened
-                <span class="badge">{{ item.reopen }}</span>
-              </button>
-            </td>
-            <td>
-              <button type="button" class="btn btn-primary">
-                Total Hours
-                <span class="badge">{{ item.shours }}</span>
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      <div>
+        <table v-for="item,key in projectData" :key="item.id" class="newFont">
+          <thead>
+            <tr>
+              <th>
+                <b>{{ item.name }}</b>
+              </th>
+            </tr>
+            <!-- <br> -->
+          </thead>
+          <tbody>
+            <tr>
+              <td class="col-md-1">
+                <h5>Total Bug</h5>
+                <span class="badge badge-pill badge-info">{{ item.Bug }}</span>
+              </td>
+              <td class="col-md-1">
+                <h5>Completed Tasks</h5>
+                <span class="badge badge-pill badge-info">{{ item.done }}</span>
+              </td>
+              <td class="col-md-1">
+                <h5>Ready To view</h5>
+                <span class="badge badge-pill badge-info">{{ item.ready }}</span>
+              </td>
+              <td class="col-md-1">
+                <h5>Re-opened</h5>
+                <span class="badge badge-pill badge-info">{{ item.reopen }}</span>
+              </td>
+              <td class="col-md-1">
+                <h5>Total Hours</h5>
+                <span class="badge badge-pill badge-info">{{ item.shours }}</span>
+              </td>
+            </tr>
+            <br>
+          </tbody>
+        </table>
+      </div>
     </div>
-    <div>
-      <button @click="close">Ok</button>
+    <div class="fltr">
+      <button class="btn btn-success" @click="close">Ok</button>
     </div>
   </div>
 </template>
@@ -214,21 +215,30 @@ export default {
 </script>
 
 <style scoped>
-.cncl {
-  margin-top: 210px;
-}
 .xcncl {
   margin-top: 10px;
   float: right;
 }
 .popsell {
   display: inline-block;
-  width: 20%;
+  width: 27%;
+}
+.newFont {
+  font-family: auto;
 }
 .nopad {
   padding: 0;
 }
 .fonts {
-  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  /* font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif; */
+  font-family: "Times New Roman", Times, serif;
+}
+.fltr {
+  float: right;
+}
+td {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
 }
 </style>

@@ -24,8 +24,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->call('App\Http\Controllers\CronController@index')->everyMinute();
-        $schedule->call('App\Http\Controllers\MonthlyCronController@index')->everyMinute();
+        $schedule->call('App\Http\Controllers\CronController@index')->timezone('Asia/Kolkata')->dailyAt('01:00');
+        $schedule->call('App\Http\Controllers\MonthlyCronController@index')->timezone('Asia/Kolkata')->monthlyOn(1, '00:30');
 
     }
 

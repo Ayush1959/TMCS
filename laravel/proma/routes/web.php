@@ -67,3 +67,7 @@ Route::get('sendattachmentemail', 'MailController@attachment_email');
 
 //Log Table
 Route::post('getLogData', 'ProjectController@getLogs'); //Logs
+
+
+
+Route::post('singleProjectdata', 'ProjectController@singleProjectdata'); //single project full details

@@ -10,7 +10,7 @@ use App\Project_assigned;
 use App\Project_user_log;
 use App\Project_monthly_log;
 use App\Project_backlog_log;
-use App\Project_backlog;
+use App\Product_backlog;
 use App\Project_delay;
 use App\Time_tracker;
 use App\User;
@@ -612,7 +612,6 @@ class ProjectController extends Controller
         $totBug = 0;
         $compTask = 0;
         $readyTask = 0;
-        $hours = 0;
         $done = 0;
         $reopn = 0;
         $rdy = 0;
@@ -624,103 +623,279 @@ class ProjectController extends Controller
         $totalBug = 0;
         $project_id_array = [];
         $input = $request->all();
-        $username = $request->input('user');
+        $userid = $request->input('user');
         $year = $request->input('year');
         $month = $request->input('month');
         $nmonth = date('m', strtotime($month));
         $date = $year . "-" . $nmonth;
-        $userid_array = user::select('id')->where('user_name', $username)->get();
-        foreach ($userid_array as $aa) {
-            $task_array = DB::table('time_tracker')->select('hours_taken')->where('user_id', $aa->id)->where('start_datetime', 'LIKE', "%$date%")->where('end_datetime', 'LIKE', "%$date%")->get();
-            foreach ($task_array as $task) {
-                $hours += $task->hours_taken;
-            }
-            $projectBacklog_array = DB::table('project_backlog_log')->select('product_backlog_id', 'status', 'created_at')->where('task_owner', $aa->id)->where('created_at', 'LIKE', "%$date%")->get();
-            foreach ($projectBacklog_array as $zz) {
-                if ($zz->status == "done") {
-                    $compTask += 1;
-                } else if ($zz->status == "ready-for-review") {
-                    $readyTask += 1;
-                }
-                $productBacklog_array = DB::table('product_backlog')->select('type', 'bug_severity', 'project_id')->where('id', $zz->product_backlog_id)->get();
-                foreach ($productBacklog_array as $dd) {
-                    array_push($project_id_array, $dd->project_id);
-                    if ($dd->type == "Bug") {
-                        $totBug += 1;
-                    }
-                    if ($dd->bug_severity == "functionality") {
-                        $funBug += 1;
-                    }
-                }
+        $hours = time_tracker::where('user_id', $userid)->whereMonth('start_datetime', '=', $nmonth)->whereYear('start_datetime', '=', $year)->whereMonth('end_datetime', '=', $nmonth)->whereYear('end_datetime', '=', $year)->sum('hours_taken');
+        $completedtasks = project_backlog_log::where('task_owner', $userid)->where('created_at', 'LIKE', "%$date%")->where('status', "done")->count();
+        $readytoview = project_backlog_log::where('task_owner', $userid)->where('created_at', 'LIKE', "%$date%")->where('status', "ready-for-review")->count();
+        $totalBug = project_backlog_log::join('product_backlog', 'project_backlog_log.product_backlog_id', '=', 'product_backlog.id')
+            ->where('project_backlog_log.task_owner', $userid)
+            ->where('project_backlog_log.created_at', 'LIKE', "%$date%")
+            ->where('product_backlog.type', "Bug")->count();
+        $functionalityBug = project_backlog_log::join('product_backlog', 'project_backlog_log.product_backlog_id', '=', 'product_backlog.id')
+            ->where('project_backlog_log.task_owner', $userid)
+            ->where('project_backlog_log.created_at', 'LIKE', "%$date%")
+            ->where('product_backlog.type', "Bug")
+            ->where('product_backlog.bug_severity', "functionality")->count();
+        $otherBug = $totalBug - $functionalityBug;
+        // return $otherBug;
 
-            }
-            $unique_project_id = array_unique($project_id_array);
-            foreach ($unique_project_id as $upid) {
-                $project_name = DB::table('project')->select('title')->where('id', $upid)->get();
-                $project_backlog_log = DB::table('project_backlog_log')->select('product_backlog_id')->where('task_owner', $aa->id)->where('created_at', 'LIKE', "%$date%")->get();
-                $taskdata = DB::table('time_tracker')->select('hours_taken')->where('user_id', $aa->id)->where('project_id', $upid)->where('start_datetime', 'LIKE', "%$date%")->where('end_datetime', 'LIKE', "%$date%")->get();
-                foreach ($taskdata as $tasks) {
-                    $singlehours += $tasks->hours_taken;
-                }
-                foreach ($project_backlog_log as $fdata) {
-                    $project_backlog_data = DB::table('product_backlog')->select('type', 'id', 'project_id')->where('id', $fdata->product_backlog_id)->where('project_id', $upid)->get();
-                    foreach ($project_backlog_data as $backlog_data) {
-                        // $project_backlog_log_data = DB::table('project_backlog_log')->select('product_backlog_id', 'status')->where('product_backlog_id', $backlog_data->id)->where('task_owner', $aa->id)->where('created_at', 'LIKE', "%$date%")->get();
-                        // foreach ($project_backlog_log_data as $prodatas) {
-                        //     if ($prodatas->status == "done") {
-                        //         $done += 1;
-                        //     } else if ($prodatas->status == "ready-for-review") {
-                        //         $rdy += 1;
-                        //     } else if ($prodatas->status == "reopen") {
-                        //         $reopn += 1;
-                        //     }
-                        // }
-                        if ($backlog_data->type == "Bug") {
-                            $totalBug += 1;
-                        }
-                    }
-                }
-                // array_push($project_array, $project_name[0]->title);
-                $project_array["name"] = $project_name[0]->title;
+        $projectIds = project::join('product_backlog', 'product_backlog.project_id', '=', 'project.id')
+            ->join('project_backlog_log', 'project_backlog_log.product_backlog_id', '=', 'product_backlog.id')
+            ->select('project.id')
+            ->where('project_backlog_log.task_owner', $userid)
+            ->where('project_backlog_log.created_at', 'LIKE', "%$date%")
+            ->distinct('project.id')
+            ->get();
+            // ->groupby('project.id')
+        // return $projectIds;
+        foreach ($projectIds as $projectid) {
+            $projectname = project::select('title')->where('id', $projectid->id)->get();
+            $singlebugsTotal = project_backlog_log::join('product_backlog', 'project_backlog_log.product_backlog_id', '=', 'product_backlog.id')
+                ->where('project_backlog_log.task_owner', $userid)
+                ->where('product_backlog.project_id', $projectid->id)
+                ->where('project_backlog_log.created_at', 'LIKE', "%$date%")
+                ->where('product_backlog.type', "Bug")->count();
+            $singlebugsFunctional = project_backlog_log::join('product_backlog', 'project_backlog_log.product_backlog_id', '=', 'product_backlog.id')
+                ->where('project_backlog_log.task_owner', $userid)
+                ->where('project_backlog_log.created_at', 'LIKE', "%$date%")
+                ->where('product_backlog.project_id', $projectid->id)
+                ->where('product_backlog.type', "Bug")
+                ->where('product_backlog.bug_severity', "functionality")->count();
+            $singlebugsOther = $singlebugsTotal - $singlebugsFunctional;
+            $singleHours = time_tracker::where('user_id', $userid)->where('project_id', $projectid->id)
+                ->whereMonth('start_datetime', '=', $nmonth)
+                ->whereYear('start_datetime', '=', $year)
+                ->whereMonth('end_datetime', '=', $nmonth)
+                ->whereYear('end_datetime', '=', $year)
+                ->sum('hours_taken');
+            $singleCompletedtasks = project_backlog_log::join('product_backlog', 'project_backlog_log.product_backlog_id', '=', 'product_backlog.id')
+                ->where('project_backlog_log.task_owner', $userid)
+                ->where('product_backlog.project_id', $projectid->id)
+                ->where('project_backlog_log.created_at', 'LIKE', "%$date%")
+                ->where('project_backlog_log.task_owner', $userid)
+                ->where('project_backlog_log.created_at', 'LIKE', "%$date%")
+                ->where('project_backlog_log.status', "done")
+                ->count();
+
+            $singlereadytoreview = project_backlog_log::join('product_backlog', 'project_backlog_log.product_backlog_id', '=', 'product_backlog.id')
+                ->where('project_backlog_log.task_owner', $userid)
+                ->where('product_backlog.project_id', $projectid->id)
+                ->where('project_backlog_log.created_at', 'LIKE', "%$date%")
+                ->where('project_backlog_log.task_owner', $userid)
+                ->where('project_backlog_log.created_at', 'LIKE', "%$date%")
+                ->where('project_backlog_log.status', "ready-for-review")
+                ->count();
+
+            $singlereopen = project_backlog_log::join('product_backlog', 'project_backlog_log.product_backlog_id', '=', 'product_backlog.id')
+                ->where('project_backlog_log.task_owner', $userid)
+                ->where('product_backlog.project_id', $projectid->id)
+                ->where('project_backlog_log.created_at', 'LIKE', "%$date%")
+                ->where('project_backlog_log.task_owner', $userid)
+                ->where('project_backlog_log.created_at', 'LIKE', "%$date%")
+                ->where('project_backlog_log.status', "reopen")
+                ->count();
+            // project_backlog_log::where('task_owner', $userid)->where('created_at', 'LIKE', "%$date%")->where('status', "done")->count();
+
+            // array_push($project_test, $singlereopen);
+            // array_push($project_test, $singlebugsOther);
+            // array_push($project_test, $singlebugsTotal);
+            $project_array["name"] = $projectname[0]->title;
                 // array_push($project_array, $totalBug);
-                $project_array["Bug"] = $totalBug;
-                $project_array["done"] = $done;
-                $project_array["ready"] = $rdy;
-                $project_array["reopen"] = $reopn;
-                $project_array["shours"] = $singlehours;
-                // array_push($project_test, $project_array);
-                $project_test[$project_name[0]->title] = $project_array;
-                $project_array = [];
-                $totalBug = 0;
-                $done = 0;
-                $rdy = 0;
-                $reopn = 0;
-                $singlehours = 0;
-            }
+            $project_array["Bug"] = $singlebugsTotal;
+            $project_array["done"] = $singleCompletedtasks;
+            $project_array["ready"] = $singlereadytoreview;
+            $project_array["reopen"] = $singlereopen;
+            $project_array["shours"] = ceil($singleHours);
+            $project_test[$projectname[0]->title] = $project_array;
+            $project_array = [];
+            // $totalBug = 0;
+            // $done = 0;
+            // $rdy = 0;
+            // $reopn = 0;
+            // $singlehours = 0;
         }
-        $projectArrays = array_unique($projectArray);
-        // return $projectArrays;
-        // $object = (object)$projectArrays;
-        $othBug = $totBug - $funBug;
-        $fullDataArray["funBug"] = $funBug;
-        $fullDataArray["othBug"] = $othBug;
-        $fullDataArray["totBug"] = $totBug;
-        $fullDataArray["compTask"] = $compTask;
-        $fullDataArray["readyTask"] = $readyTask;
+        // return $project_test;
+        $fullDataArray["funBug"] = $functionalityBug;
+        $fullDataArray["othBug"] = $otherBug;
+        $fullDataArray["totBug"] = $totalBug;
+        $fullDataArray["compTask"] = $completedtasks;
+        $fullDataArray["readyTask"] = $readytoview;
         $fullDataArray["hours"] = ceil($hours);
-        $fullDataArray["data"] = $projectArrays;
+        // $fullDataArray["data"] = $projectArrays;
         $fullDataArray["projects"] = $project_test;
 
-        // array_push($fullDataArray, $projectArrays);
-        // array_push($fullDataArray, $othBug);
-        // array_push($fullDataArray, $totBug);
-        // array_push($fullDataArray, $compTask);
-        // array_push($fullDataArray, $readyTask);
-        // return $funBug;
-        // return $data_array->id;
-        // ready-for-review
-        // done
         return $fullDataArray;
+    }
 
+
+    /**
+     * @Author Ayush
+     * @Date 17/12/18
+     * @param  int  $Request
+     * @return array of Project details 
+     * * @Description takes project id and finds data related to projects
+     */
+
+    public function singleProjectdata(Request $request)
+    {
+        $ary = [];
+        $Fary = [];
+        $projectArray = [];
+        $fullDataArray = [];
+        $fullData = [];
+        $hourarray = [];
+        $fullFData = [];
+        $input = $request->all();
+        $projectid = $request->input('projectid'); //project id
+        $projectname_array = project::select('title')->where('id', $projectid)->get(); //project Name array
+        $projectName = $projectname_array[0]->title;
+        $projectusers = project::join('project_assigned', 'project_assigned.project_id', '=', 'project.id')
+            ->join('users', 'project_assigned.user_id', '=', 'users.id')
+            ->where('project.id', $projectid)
+            ->select('users.id')
+            ->distinct('users.id')->get(); //users in project
+        $projectStartDate_array = project::select('start_date')->where('id', $projectid)->get(); //project Start Date array
+        // $projectStartDate = $projectStartDate_array[0]->start_date;
+        $myStartDateTime = \DateTime::createFromFormat('Y-m-d h:i:s', $projectStartDate_array[0]->start_date); //formattting Date
+        $projectStartDate = $myStartDateTime->format('d/m/Y'); //Formatted date
+
+        $projectEndDate_array = project::select('end_date')->where('id', $projectid)->get(); //project End Date array
+        // $projectEndDate = $projectEndDate_array[0]->End_date;
+        $myEndDateTime = \DateTime::createFromFormat('Y-m-d h:i:s', $projectEndDate_array[0]->end_date); //formattting Date
+        $projectEndDate = $myEndDateTime->format('d/m/Y'); //Formatted End date
+
+        $totalDays = date_diff($myEndDateTime, $myStartDateTime)->format("%a"); //Total days worked
+        // array_push($ary, $totalDays);
+        // return \Response::json($totalDays);
+
+        foreach ($projectusers as $user) {
+            $username = user::select('user_name')->where('id', $user->id)->get()[0]->user_name; //username
+            // $username = $username_array[0]->user_name;
+            $designation = user::select('designation')->where('id', $user->id)->get()[0]->designation; //designation
+            $salary = user::select('salary')->where('id', $user->id)->get()[0]->salary; //salary
+            $salaryPerHour = $salary / 30 / 8; //salary per hour
+            $hoursWorked = time_tracker::where('user_id', $user->id)
+                ->where('project_id', $projectid)
+                ->sum('hours_taken');
+            $hoursWorkedRounded = ceil($hoursWorked);
+            $projectCost = ceil($salaryPerHour * $hoursWorked);
+
+            $readytoreview = project_backlog_log::join('product_backlog', 'project_backlog_log.product_backlog_id', '=', 'product_backlog.id')
+                ->where('project_backlog_log.task_owner', $user->id)
+                ->where('product_backlog.project_id', $projectid)
+                ->where('project_backlog_log.status', "ready-for-review")
+                ->count();
+            $done = project_backlog_log::join('product_backlog', 'project_backlog_log.product_backlog_id', '=', 'product_backlog.id')
+                ->where('project_backlog_log.task_owner', $user->id)
+                ->where('product_backlog.project_id', $projectid)
+                ->where('project_backlog_log.status', "done")
+                ->count();
+            $scheduled = project_backlog_log::join('product_backlog', 'project_backlog_log.product_backlog_id', '=', 'product_backlog.id')
+                ->where('project_backlog_log.task_owner', $user->id)
+                ->where('product_backlog.project_id', $projectid)
+                ->where('project_backlog_log.status', "scheduled")
+                ->count();
+            $bugsAssigned = project_backlog_log::join('product_backlog', 'project_backlog_log.product_backlog_id', '=', 'product_backlog.id')
+                ->where('project_backlog_log.task_owner', $user->id)
+                ->where('product_backlog.project_id', $projectid)
+                ->where('product_backlog.type', "Bug")
+                ->count();
+            $bugsReported = project_backlog_log::join('product_backlog', 'project_backlog_log.product_backlog_id', '=', 'product_backlog.id')
+                ->where('project_backlog_log.users_id', $user->id)
+                ->where('product_backlog.user_id', $user->id)
+                ->where('product_backlog.project_id', $projectid)
+                ->where('product_backlog.type', "Bug")
+                ->count();
+            $storyPoints = product_backlog::where('project_id', $projectid)
+                ->where('user_id', $user->id)
+                ->sum('story_points');
+
+
+
+
+            $ary["name"] = $username;
+            $ary["designation"] = $designation;
+            $ary["totalhours"] = $hoursWorkedRounded;
+            $ary["salaryPerHour"] = $salaryPerHour;
+            $ary["projectCost"] = $projectCost;
+            $ary["readytoreview"] = $readytoreview;
+            $ary["scheduled"] = $scheduled;
+            $ary["bugsAssigned"] = $bugsAssigned;
+            $ary["bugsReported"] = $bugsReported;
+            $ary["storyPoints"] = $storyPoints;
+            $ary["done"] = $done;
+            array_push($hourarray, $projectCost);
+            // $ary["Pr"] = $storyPoints_array;
+
+            array_push($fullData, $ary);
+            $ary = [];
+        }
+
+
+        $FhoursWorked = time_tracker::where('project_id', $projectid)
+            ->sum('hours_taken');
+        $FhoursWorkedRounded = ceil($FhoursWorked);
+        // $FprojectCost = ceil($salaryPerHour * $hoursWorked);
+
+        $Freadytoreview = project_backlog_log::join('product_backlog', 'project_backlog_log.product_backlog_id', '=', 'product_backlog.id')
+            ->where('product_backlog.project_id', $projectid)
+            ->where('project_backlog_log.status', "ready-for-review")
+            ->count();
+        $Fdone = project_backlog_log::join('product_backlog', 'project_backlog_log.product_backlog_id', '=', 'product_backlog.id')
+            ->where('product_backlog.project_id', $projectid)
+            ->where('project_backlog_log.status', "done")
+            ->count();
+        $Fscheduled = project_backlog_log::join('product_backlog', 'project_backlog_log.product_backlog_id', '=', 'product_backlog.id')
+            ->where('product_backlog.project_id', $projectid)
+            ->where('project_backlog_log.status', "scheduled")
+            ->count();
+        $FbugsAssigned = project_backlog_log::join('product_backlog', 'project_backlog_log.product_backlog_id', '=', 'product_backlog.id')
+            ->where('product_backlog.project_id', $projectid)
+            ->where('product_backlog.type', "Bug")
+            ->count();
+        $FbugsReported = project_backlog_log::join('product_backlog', 'project_backlog_log.product_backlog_id', '=', 'product_backlog.id')
+            ->where('product_backlog.project_id', $projectid)
+            ->where('product_backlog.type', "Bug")
+            ->count();
+        $FstoryPoints = product_backlog::where('project_id', $projectid)
+            ->sum('story_points');
+
+
+
+        // $Fary["name"] = $username;
+        // $Fary["designation"] = $designation;
+        $Fary["totalhours"] = $FhoursWorkedRounded;
+        // $Fary["salaryPerHour"] = $FsalaryPerHour;
+        // $Fary["projectCost"] = $FprojectCost;
+        $Fary["readytoreview"] = $Freadytoreview;
+        $Fary["scheduled"] = $Fscheduled;
+        $Fary["bugsAssigned"] = $FbugsAssigned;
+        $Fary["bugsReported"] = $FbugsReported;
+        $Fary["storyPoints"] = $FstoryPoints;
+        $Fary["done"] = $Fdone;
+            // $ary["Pr"] = $storyPoints_array;
+
+        array_push($fullFData, $Fary);
+        // $Fary = [];
+
+
+
+
+
+
+        $fullDataArray["data"] = $fullData;
+        $fullDataArray["datatotal"] = $fullFData;
+        $fullDataArray["name"] = $projectName;
+        $fullDataArray["totaldays"] = $totalDays;
+        $fullDataArray["start"] = $projectStartDate;
+        $fullDataArray["totalcost"] = array_sum($hourarray);
+        // array_push($fullDataArray[], $projectArray);
+        // array_push($fullDataArray[], $projectArray);
+
+        return $fullDataArray;
     }
 }
