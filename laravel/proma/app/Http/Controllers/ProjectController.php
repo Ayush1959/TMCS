@@ -746,6 +746,8 @@ class ProjectController extends Controller
         $Fary = [];
         $projectArray = [];
         $fullDataArray = [];
+        $bugsAssignedArray = [];
+        $bugsReportedArray = [];
         $fullData = [];
         $hourarray = [];
         $fullFData = [];
@@ -805,7 +807,6 @@ class ProjectController extends Controller
                 ->where('product_backlog.type', "Bug")
                 ->count();
             $bugsReported = project_backlog_log::join('product_backlog', 'project_backlog_log.product_backlog_id', '=', 'product_backlog.id')
-                ->where('project_backlog_log.users_id', $user->id)
                 ->where('product_backlog.user_id', $user->id)
                 ->where('product_backlog.project_id', $projectid)
                 ->where('product_backlog.type', "Bug")
@@ -829,6 +830,8 @@ class ProjectController extends Controller
             $ary["storyPoints"] = $storyPoints;
             $ary["done"] = $done;
             array_push($hourarray, $projectCost);
+            array_push($bugsAssignedArray, $bugsAssigned);
+            array_push($bugsReportedArray, $bugsReported);
             // $ary["Pr"] = $storyPoints_array;
 
             array_push($fullData, $ary);
@@ -853,14 +856,14 @@ class ProjectController extends Controller
             ->where('product_backlog.project_id', $projectid)
             ->where('project_backlog_log.status', "scheduled")
             ->count();
-        $FbugsAssigned = project_backlog_log::join('product_backlog', 'project_backlog_log.product_backlog_id', '=', 'product_backlog.id')
-            ->where('product_backlog.project_id', $projectid)
-            ->where('product_backlog.type', "Bug")
-            ->count();
-        $FbugsReported = project_backlog_log::join('product_backlog', 'project_backlog_log.product_backlog_id', '=', 'product_backlog.id')
-            ->where('product_backlog.project_id', $projectid)
-            ->where('product_backlog.type', "Bug")
-            ->count();
+        // $FbugsAssigned = project_backlog_log::join('product_backlog', 'project_backlog_log.product_backlog_id', '=', 'product_backlog.id')
+        //     ->where('product_backlog.project_id', $projectid)
+        //     ->where('product_backlog.type', "Bug")
+        //     ->count();
+        // $FbugsReported = project_backlog_log::join('product_backlog', 'project_backlog_log.product_backlog_id', '=', 'product_backlog.id')
+        //     ->where('product_backlog.project_id', $projectid)
+        //     ->where('product_backlog.type', "Bug")
+        //     ->count();
         $FstoryPoints = product_backlog::where('project_id', $projectid)
             ->sum('story_points');
 
@@ -873,8 +876,8 @@ class ProjectController extends Controller
         // $Fary["projectCost"] = $FprojectCost;
         $Fary["readytoreview"] = $Freadytoreview;
         $Fary["scheduled"] = $Fscheduled;
-        $Fary["bugsAssigned"] = $FbugsAssigned;
-        $Fary["bugsReported"] = $FbugsReported;
+        // $Fary["bugsAssigned"] = $FbugsAssigned;
+        // $Fary["bugsReported"] = $FbugsReported;
         $Fary["storyPoints"] = $FstoryPoints;
         $Fary["done"] = $Fdone;
             // $ary["Pr"] = $storyPoints_array;
@@ -893,9 +896,63 @@ class ProjectController extends Controller
         $fullDataArray["totaldays"] = $totalDays;
         $fullDataArray["start"] = $projectStartDate;
         $fullDataArray["totalcost"] = array_sum($hourarray);
+        $fullDataArray["totalBugsAssigned"] = array_sum($bugsAssignedArray);
+        $fullDataArray["totalBugsReported"] = array_sum($bugsReportedArray);
         // array_push($fullDataArray[], $projectArray);
         // array_push($fullDataArray[], $projectArray);
 
         return $fullDataArray;
+    }
+
+    /**
+     * @Author Ayush
+     * @Date 03/01/18
+     * @param  int  $id, Request
+     * @return array Changes Date
+     * * @Description stops or starts monitoring data
+     */
+    public function StartDateupdate(Request $request, $id)
+    {
+        $data = project::findOrFail($id);
+        $input = $request->all();
+        $startDate = $request->input('startdate');
+        $data->start_date = $startDate;
+        $saved = $data->save();
+
+        if (isset($saved)) {
+            return response()->json([
+                'status' => config::get('constant.Success')
+            ]);
+        } else {
+            return response()->json([
+                'status' => config::get('constant.DB_Save_Error')
+            ]);
+        }
+    }
+
+    /**
+     * @Author Ayush
+     * @Date 03/01/18
+     * @param  int  $id, Request
+     * @return array Changes End Date
+     * * @Description stops or starts monitoring data
+     */
+    public function EndDateupdate(Request $request, $id)
+    {
+        $data = project::findOrFail($id);
+        $input = $request->all();
+        $EndDate = $request->input('Enddate');
+        $data->end_date = $EndDate;
+        $saved = $data->save();
+
+        if (isset($saved)) {
+            return response()->json([
+                'status' => config::get('constant.Success')
+            ]);
+        } else {
+            return response()->json([
+                'status' => config::get('constant.DB_Save_Error')
+            ]);
+        }
     }
 }

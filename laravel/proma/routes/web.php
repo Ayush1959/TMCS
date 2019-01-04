@@ -71,3 +71,7 @@ Route::post('getLogData', 'ProjectController@getLogs'); //Logs
 
 
 Route::post('singleProjectdata', 'ProjectController@singleProjectdata'); //single project full details
+
+
+Route::put('projectStartDate/{id}', 'ProjectController@StartDateupdate'); //start date change
+Route::put('projectEndDate/{id}', 'ProjectController@EndDateupdate'); //start date change

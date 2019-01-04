@@ -87,6 +87,36 @@
       </modal>
 
       <!-- PopUp Ends -->
+      <!-- Popup 2 Start -->
+      <modal name="DatePopup" :width="380" :height="360">
+        <div class="container">
+          <datepicker v-model="startDate" name="startDate" placeholder="StartDate" class="dateBrdr"></datepicker>
+          <div class="col-md-12">
+            <button
+              class="btn btn-primary Dcncl"
+              @click.prevent="submitted"
+              @click="hideDatePopup()"
+            >Cancel</button>
+            <button class="btn btn-primary Dok" @click.prevent="submitted" @click="Dateok()">Ok</button>
+          </div>
+        </div>
+      </modal>
+      <!-- Popup2 End -->
+      <!-- Popup 3 Start -->
+      <modal name="DateEndPopup" :width="380" :height="360">
+        <div class="container">
+          <datepicker v-model="EndDate" name="EndDate" placeholder="EndDate" class="dateBrdr"></datepicker>
+          <div class="col-md-12">
+            <button
+              class="btn btn-primary Dcncl"
+              @click.prevent="submitted"
+              @click="hideDateEndPopup()"
+            >Cancel</button>
+            <button class="btn btn-primary Dok" @click.prevent="submitted" @click="DateEndok()">Ok</button>
+          </div>
+        </div>
+      </modal>
+      <!-- Popup3 End -->
       <!-- Template Starts -->
       <div>
         <div>
@@ -154,8 +184,18 @@
                       <table class="nobrdr">
                         <tr v-for="ite in item.user_names">{{ ite.user_name }}</tr>
                       </table>
-                      <td>{{ item.start_date }}</td>
-                      <td>{{ item.end_date }}</td>
+                      <td>
+                        <button
+                          class="btnBrdr"
+                          @click="showDatePopup(item.id,item.start_date)"
+                        >{{ item.start_date }}</button>
+                      </td>
+                      <td>
+                        <button
+                          class="btnBrdr"
+                          @click="showDateEndPopup(item.id,item.end_date)"
+                        >{{ item.end_date }}</button>
+                      </td>
                       <td>{{ item.actual_close }}</td>
                       <table class="nobrdr">
                         <tr v-for="ite in item.delay">{{ ite.user_name }}</tr>
@@ -251,10 +291,7 @@
       <!-- Template Ends -->
     </div>
     <div v-else>
-      <projectdetails
-        @closeCmp="hideCmp"
-        :projectId="projectId"
-      ></projectdetails>
+      <projectdetails @closeCmp="hideCmp" :projectId="projectId"></projectdetails>
     </div>
   </div>
 </template>
@@ -296,9 +333,15 @@ export default {
       monitoring: null,
       searchError: 0,
       nextUrl: null,
+      NewtimeStamp: null,
+      project_id: null,
       lastPage: 1,
+      EndDate: null,
+      EndDateF: null,
+      NewtimeStampE: null,
       singleProjectData: [],
       url: null,
+      startDate: null,
       currentUrl: null,
       current_page: null,
       displaylist: [],
@@ -333,6 +376,76 @@ export default {
     }
   },
   methods: {
+    DateEndok() {
+      var date = new Date(this.EndDate);
+      this.EndDateF = date.toLocaleDateString("zh-Hans-CN");
+      this.NewtimeStampE = this.EndDateF + " 00:00:00";
+      // console.log(this.NewtimeStamp);
+      var x = this;
+      axios
+        .put(`${x.$Url}projectEndDate/${x.project_id}`, {
+          Enddate: this.NewtimeStampE
+        })
+        .then(function(response) {
+          if (response.status == 200) {
+            x.reloadPage();
+            x.$modal.hide("DateEndPopup");
+            // x.searchNonMonitored(1);
+          } else {
+            alert("Error");
+          }
+          //console.log(response);
+        })
+        .catch(function(error) {
+          //console.log(error);
+        });
+    },
+    showDateEndPopup(index, end) {
+      this.project_id = index;
+      var date = end;
+      var datearray = date.split("/");
+      this.EndDate = datearray[1] + "/" + datearray[0] + "/" + datearray[2];
+      // this.startDate = start;
+      this.$modal.show("DateEndPopup");
+    },
+    hideDateEndPopup() {
+      this.$modal.hide("DateEndPopup");
+    },
+    Dateok() {
+      var date = new Date(this.startDate);
+      this.startDateF = date.toLocaleDateString("zh-Hans-CN");
+      this.NewtimeStamp = this.startDateF + " 00:00:00";
+      // console.log(this.NewtimeStamp);
+      var x = this;
+      axios
+        .put(`${x.$Url}projectStartDate/${x.project_id}`, {
+          startdate: this.NewtimeStamp
+        })
+        .then(function(response) {
+          if (response.status == 200) {
+            x.reloadPage();
+            x.$modal.hide("DatePopup");
+            // x.searchNonMonitored(1);
+          } else {
+            alert("Error");
+          }
+          //console.log(response);
+        })
+        .catch(function(error) {
+          //console.log(error);
+        });
+    },
+    showDatePopup(index, start) {
+      this.project_id = index;
+      var date = start;
+      var datearray = date.split("/");
+      this.startDate = datearray[1] + "/" + datearray[0] + "/" + datearray[2];
+      // this.startDate = start;
+      this.$modal.show("DatePopup");
+    },
+    hideDatePopup() {
+      this.$modal.hide("DatePopup");
+    },
     getProjectDetail(index) {
       var x = this;
       this.projectId = index;
@@ -746,6 +859,16 @@ export default {
 }
 .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
   opacity: 0;
+}
+.Dcncl {
+  margin-top: 280px;
+}
+.Dok {
+  margin-top: 280px;
+  margin-left: 220px;
+}
+.dateBrdr {
+  margin-top: 10px;
 }
 .sele {
   width: 80%;

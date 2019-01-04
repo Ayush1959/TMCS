@@ -73018,7 +73018,7 @@ exports = module.exports = __webpack_require__(10)(false);
 
 
 // module
-exports.push([module.i, "\n.fade-enter-active[data-v-250acfbd],\r\n.fade-leave-active[data-v-250acfbd] {\r\n  -webkit-transition: opacity 0.8s;\r\n  transition: opacity 0.8s;\n}\n.fade-enter[data-v-250acfbd], .fade-leave-to[data-v-250acfbd] /* .fade-leave-active below version 2.1.8 */ {\r\n  opacity: 0;\n}\n.sele[data-v-250acfbd] {\r\n  width: 80%;\n}\n.mrgt[data-v-250acfbd] {\r\n  margin-top: 10px;\n}\n.brdr[data-v-250acfbd] {\r\n  border-bottom: #dadada 1px solid;\n}\n.active[data-v-250acfbd] {\r\n  background-color: forestgreen !important;\n}\n.nobrdr[data-v-250acfbd] {\r\n  border: transparent;\r\n  margin: 5px;\n}\n.ull[data-v-250acfbd] {\r\n  margin-top: 20px;\n}\n.cncl[data-v-250acfbd] {\r\n  margin-top: 210px;\n}\n.someclass[data-v-250acfbd] {\r\n  color: #337ab7;\n}\n.someclass[data-v-250acfbd]:hover {\r\n  color: #23527c;\n}\n.loader[data-v-250acfbd] {\r\n  border: 10px solid #f3f3f3;\r\n  border-radius: 50%;\r\n  border-top: 10px solid #cef375;\r\n  width: 90px;\r\n  position: absolute;\r\n  margin-left: 35%;\r\n  margin-top: 20%;\r\n  height: 90px;\r\n  -webkit-animation: spin-data-v-250acfbd 3s linear infinite; /* Safari */\r\n  animation: spin-data-v-250acfbd 3s linear infinite;\n}\r\n\r\n/* Safari */\n@-webkit-keyframes spin-data-v-250acfbd {\n0% {\r\n    -webkit-transform: rotate(0deg);\n}\n100% {\r\n    -webkit-transform: rotate(360deg);\n}\n}\n@keyframes spin-data-v-250acfbd {\n0% {\r\n    -webkit-transform: rotate(0deg);\r\n            transform: rotate(0deg);\n}\n100% {\r\n    -webkit-transform: rotate(360deg);\r\n            transform: rotate(360deg);\n}\n}\r\n", ""]);
+exports.push([module.i, "\n.fade-enter-active[data-v-250acfbd],\r\n.fade-leave-active[data-v-250acfbd] {\r\n  -webkit-transition: opacity 0.8s;\r\n  transition: opacity 0.8s;\n}\n.fade-enter[data-v-250acfbd], .fade-leave-to[data-v-250acfbd] /* .fade-leave-active below version 2.1.8 */ {\r\n  opacity: 0;\n}\n.Dcncl[data-v-250acfbd] {\r\n  margin-top: 280px;\n}\n.Dok[data-v-250acfbd] {\r\n  margin-top: 280px;\r\n  margin-left: 220px;\n}\n.dateBrdr[data-v-250acfbd] {\r\n  margin-top: 10px;\n}\n.sele[data-v-250acfbd] {\r\n  width: 80%;\n}\n.mrgt[data-v-250acfbd] {\r\n  margin-top: 10px;\n}\n.brdr[data-v-250acfbd] {\r\n  border-bottom: #dadada 1px solid;\n}\n.active[data-v-250acfbd] {\r\n  background-color: forestgreen !important;\n}\n.nobrdr[data-v-250acfbd] {\r\n  border: transparent;\r\n  margin: 5px;\n}\n.btnBrdr[data-v-250acfbd] {\r\n  padding: 0;\r\n  border: none;\r\n  background: none;\r\n  color: blue;\n}\n.ull[data-v-250acfbd] {\r\n  margin-top: 20px;\n}\n.cncl[data-v-250acfbd] {\r\n  margin-top: 210px;\n}\n.someclass[data-v-250acfbd] {\r\n  color: #337ab7;\n}\n.someclass[data-v-250acfbd]:hover {\r\n  color: #23527c;\n}\n.loader[data-v-250acfbd] {\r\n  border: 10px solid #f3f3f3;\r\n  border-radius: 50%;\r\n  border-top: 10px solid #cef375;\r\n  width: 90px;\r\n  position: absolute;\r\n  margin-left: 35%;\r\n  margin-top: 20%;\r\n  height: 90px;\r\n  -webkit-animation: spin-data-v-250acfbd 3s linear infinite; /* Safari */\r\n  animation: spin-data-v-250acfbd 3s linear infinite;\n}\r\n\r\n/* Safari */\n@-webkit-keyframes spin-data-v-250acfbd {\n0% {\r\n    -webkit-transform: rotate(0deg);\n}\n100% {\r\n    -webkit-transform: rotate(360deg);\n}\n}\n@keyframes spin-data-v-250acfbd {\n0% {\r\n    -webkit-transform: rotate(0deg);\r\n            transform: rotate(0deg);\n}\n100% {\r\n    -webkit-transform: rotate(360deg);\r\n            transform: rotate(360deg);\n}\n}\r\n", ""]);
 
 // exports
 
@@ -73031,8 +73031,10 @@ exports.push([module.i, "\n.fade-enter-active[data-v-250acfbd],\r\n.fade-leave-a
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Pagenation__ = __webpack_require__(147);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Pagenation___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Pagenation__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuelidate_lib_validators__ = __webpack_require__(18);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuelidate_lib_validators___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_vuelidate_lib_validators__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ProjectDetails_vue__ = __webpack_require__(220);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ProjectDetails_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__ProjectDetails_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vuelidate_lib_validators__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vuelidate_lib_validators___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_vuelidate_lib_validators__);
 //
 //
 //
@@ -73331,30 +73333,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+
 
 
 
 // import { EventBus } from "../main";
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
-    pagenation: __WEBPACK_IMPORTED_MODULE_0__Pagenation___default.a
+    pagenation: __WEBPACK_IMPORTED_MODULE_0__Pagenation___default.a,
+    projectdetails: __WEBPACK_IMPORTED_MODULE_1__ProjectDetails_vue___default.a
   },
   data: function data() {
     return {
@@ -73370,14 +73357,22 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       DeselectedClient: null,
       displayTable: 0,
       searchQuery: null,
+      notComponent: true,
       previousSearchQuery: null,
       monitorAlert: 0,
       fromNumbers: null,
       monitoring: null,
       searchError: 0,
       nextUrl: null,
+      NewtimeStamp: null,
+      project_id: null,
       lastPage: 1,
+      EndDate: null,
+      EndDateF: null,
+      NewtimeStampE: null,
+      singleProjectData: [],
       url: null,
+      startDate: null,
       currentUrl: null,
       current_page: null,
       displaylist: [],
@@ -73406,13 +73401,102 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   },
   validations: {
     selectedClient: {
-      required: __WEBPACK_IMPORTED_MODULE_1_vuelidate_lib_validators__["required"]
+      required: __WEBPACK_IMPORTED_MODULE_2_vuelidate_lib_validators__["required"]
     },
     searchQuery: {
-      required: __WEBPACK_IMPORTED_MODULE_1_vuelidate_lib_validators__["required"]
+      required: __WEBPACK_IMPORTED_MODULE_2_vuelidate_lib_validators__["required"]
     }
   },
   methods: {
+    DateEndok: function DateEndok() {
+      var date = new Date(this.EndDate);
+      this.EndDateF = date.toLocaleDateString("zh-Hans-CN");
+      this.NewtimeStampE = this.EndDateF + " 00:00:00";
+      // console.log(this.NewtimeStamp);
+      var x = this;
+      axios.put(x.$Url + "projectEndDate/" + x.project_id, {
+        Enddate: this.NewtimeStampE
+      }).then(function (response) {
+        if (response.status == 200) {
+          x.reloadPage();
+          x.$modal.hide("DateEndPopup");
+          // x.searchNonMonitored(1);
+        } else {
+          alert("Error");
+        }
+        //console.log(response);
+      }).catch(function (error) {
+        //console.log(error);
+      });
+    },
+    showDateEndPopup: function showDateEndPopup(index, end) {
+      this.project_id = index;
+      var date = end;
+      var datearray = date.split("/");
+      this.EndDate = datearray[1] + "/" + datearray[0] + "/" + datearray[2];
+      // this.startDate = start;
+      this.$modal.show("DateEndPopup");
+    },
+    hideDateEndPopup: function hideDateEndPopup() {
+      this.$modal.hide("DateEndPopup");
+    },
+    Dateok: function Dateok() {
+      var date = new Date(this.startDate);
+      this.startDateF = date.toLocaleDateString("zh-Hans-CN");
+      this.NewtimeStamp = this.startDateF + " 00:00:00";
+      // console.log(this.NewtimeStamp);
+      var x = this;
+      axios.put(x.$Url + "projectStartDate/" + x.project_id, {
+        startdate: this.NewtimeStamp
+      }).then(function (response) {
+        if (response.status == 200) {
+          x.reloadPage();
+          x.$modal.hide("DatePopup");
+          // x.searchNonMonitored(1);
+        } else {
+          alert("Error");
+        }
+        //console.log(response);
+      }).catch(function (error) {
+        //console.log(error);
+      });
+    },
+    showDatePopup: function showDatePopup(index, start) {
+      this.project_id = index;
+      var date = start;
+      var datearray = date.split("/");
+      this.startDate = datearray[1] + "/" + datearray[0] + "/" + datearray[2];
+      // this.startDate = start;
+      this.$modal.show("DatePopup");
+    },
+    hideDatePopup: function hideDatePopup() {
+      this.$modal.hide("DatePopup");
+    },
+    getProjectDetail: function getProjectDetail(index) {
+      var x = this;
+      this.projectId = index;
+      axios.post(x.$Url + "singleProjectdata", {
+        projectid: this.projectId
+      }).then(function (response) {
+        if (response.status == 200) {
+          // console.log(response.data);
+          x.singleProjectData = response.data;
+        } else {
+          alert("Error");
+        }
+      }).catch(function (error) {
+        //console.log(error);
+      });
+    },
+    showCmp: function showCmp(index) {
+      this.notComponent = false;
+      this.projectId = index;
+      // this.getProjectDetail(index);
+      // console.log(index);
+    },
+    hideCmp: function hideCmp() {
+      this.notComponent = true;
+    },
     displayPage: function displayPage(index) {
       this.displaylist = [];
 
@@ -73451,26 +73535,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           this.displaylist.push(this.current_page);
         }
       }
-
-      // if (this.total == 1) {
-      //   this.displaylist.push(this.current_page);
-      // } else {
-      //   if (this.current_page < this.lastPage) {
-      //     if (this.current_page == 1) {
-      //       this.displaylist.push(this.current_page);
-      //       this.displaylist.push(this.current_page + 1);
-      //       this.displaylist.push(this.current_page + 2);
-      //     } else {
-      //       this.displaylist.push(this.current_page - 1);
-      //       this.displaylist.push(this.current_page);
-      //       this.displaylist.push(this.current_page + 1);
-      //     }
-      //   } else {
-      //     this.displaylist.push(this.current_page - 2);
-      //     this.displaylist.push(this.current_page - 1);
-      //     this.displaylist.push(this.current_page);
-      //   }
-      // }
     },
     newUrl: function newUrl(index) {
       this.show = false;
@@ -74735,305 +74799,664 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { staticClass: "container" },
-    [
-      _c("br"),
-      _vm._v(" "),
-      _c(
-        "button",
-        {
-          staticClass: "btn btn-primary",
-          class: { active: _vm.monitoring == 1 },
-          on: {
-            click: function($event) {
-              _vm.searchNonMonitored(1)
-            }
-          }
-        },
-        [_vm._v("Get Monitored Data")]
-      ),
-      _vm._v(" "),
-      _c(
-        "button",
-        {
-          staticClass: "btn btn-primary",
-          class: { active: _vm.monitoring == 0 },
-          on: {
-            click: function($event) {
-              _vm.searchNonMonitored(0)
-            }
-          }
-        },
-        [_vm._v("Get Non Monitored Data Data")]
-      ),
-      _vm._v(" "),
-      _c("br"),
-      _vm._v(" "),
-      _c("br"),
-      _vm._v(" "),
-      _c("modal", { attrs: { name: "delayPopup" } }, [
-        _c("div", { staticClass: "container-fluid" }, [
-          _c("div", { staticClass: "col-md-10" }, [
-            _c("form", [
-              _c(
-                "select",
-                {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.selectedClient,
-                      expression: "selectedClient"
-                    }
-                  ],
-                  staticClass: "form-control sele mrgt",
-                  on: {
-                    blur: function($event) {
-                      _vm.$v.selectedClient.$touch()
-                    },
-                    change: function($event) {
-                      var $$selectedVal = Array.prototype.filter
-                        .call($event.target.options, function(o) {
-                          return o.selected
-                        })
-                        .map(function(o) {
-                          var val = "_value" in o ? o._value : o.value
-                          return val
-                        })
-                      _vm.selectedClient = $event.target.multiple
-                        ? $$selectedVal
-                        : $$selectedVal[0]
-                    }
-                  }
-                },
-                _vm._l(_vm.projectMembers, function(option) {
-                  return _c("option", { domProps: { value: option.id } }, [
-                    _vm._v(_vm._s(option.user_name))
-                  ])
-                })
-              ),
-              _vm._v(" "),
-              _vm.$v.selectedClient.$dirty && !_vm.$v.selectedClient.required
-                ? _c("p", { staticClass: "error-message" }, [
-                    _vm._v("Select a user")
-                  ])
-                : _vm._e(),
-              _vm._v(" "),
-              _c("br"),
-              _vm._v(" "),
-              _vm.userInDelayTable == 1
-                ? _c(
-                    "div",
-                    {
-                      staticClass: "alert alert-danger",
-                      attrs: { id: "success_message" }
-                    },
-                    [_vm._v("Already in Delay Table")]
-                  )
-                : _vm._e(),
-              _vm._v(" "),
-              _vm.addToDelayTable == 1
-                ? _c(
-                    "div",
-                    {
-                      staticClass: "alert alert-success",
-                      attrs: { id: "success_message" }
-                    },
-                    [_vm._v("Added to delay table")]
-                  )
-                : _vm._e(),
-              _vm._v(" "),
-              _vm.removeFromDelayTable == 1
-                ? _c(
-                    "div",
-                    {
-                      staticClass: "alert alert-danger",
-                      attrs: { id: "success_message" }
-                    },
-                    [
-                      _vm._v(
-                        "\n            Removed from Delay\n            table\n          "
-                      )
-                    ]
-                  )
-                : _vm._e(),
-              _vm._v(" "),
-              _c("div", [
-                _c("div", { staticClass: "col-md-7 col-md-offset-1" }, [
-                  _c(
-                    "table",
-                    { staticClass: "table table-bordered" },
-                    [
-                      _c("thead", [
-                        _c("tr", [
-                          _c("th", [_vm._v("User Name")]),
-                          _vm._v(" "),
-                          _c("th", [_vm._v("Action")])
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _vm._l(_vm.delayedUsers, function(option) {
-                        return _c("tr", [
-                          _c("td", [_vm._v(_vm._s(option.user_name))]),
-                          _vm._v(" "),
-                          _c("td", [
-                            _c(
-                              "button",
-                              {
-                                staticClass: "btn btn-primary btn-xs",
-                                on: {
-                                  click: [
-                                    function($event) {
-                                      $event.preventDefault()
-                                      return _vm.submitted($event)
-                                    },
-                                    function($event) {
-                                      _vm.removeUserFromDelayTable(option.id)
-                                    }
-                                  ]
-                                }
-                              },
-                              [_vm._v("Remove")]
-                            )
-                          ])
-                        ])
-                      })
-                    ],
-                    2
-                  )
-                ])
-              ])
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-md-2" }, [
+  return _c("div", [
+    _vm.notComponent
+      ? _c(
+          "div",
+          { staticClass: "container" },
+          [
+            _c("br"),
+            _vm._v(" "),
             _c(
               "button",
               {
-                staticClass: "btn btn-primary okk mrgt",
-                attrs: { disabled: _vm.$v.selectedClient.$invalid },
+                staticClass: "btn btn-primary",
+                class: { active: _vm.monitoring == 1 },
                 on: {
-                  click: [
-                    function($event) {
-                      $event.preventDefault()
-                      return _vm.submitted($event)
-                    },
-                    function($event) {
-                      _vm.addUserToDelayTable()
-                    }
-                  ]
+                  click: function($event) {
+                    _vm.searchNonMonitored(1)
+                  }
                 }
               },
-              [_vm._v("Add")]
+              [_vm._v("Get Monitored Data")]
             ),
             _vm._v(" "),
             _c(
               "button",
               {
-                staticClass: "btn btn-primary cncl",
+                staticClass: "btn btn-primary",
+                class: { active: _vm.monitoring == 0 },
                 on: {
-                  click: [
-                    function($event) {
-                      $event.preventDefault()
-                      return _vm.submitted($event)
-                    },
-                    function($event) {
-                      _vm.hidePopup()
-                    }
-                  ]
+                  click: function($event) {
+                    _vm.searchNonMonitored(0)
+                  }
                 }
               },
-              [_vm._v("Cancel")]
-            )
-          ])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", [
-        _c(
-          "div",
-          [
-            _vm.monitorAlert == 1
-              ? _c(
-                  "div",
-                  {
-                    staticClass: "alert alert-success",
-                    attrs: { id: "success_message" }
-                  },
-                  [_vm._v("Status Changed")]
-                )
-              : _vm._e(),
+              [_vm._v("Get Non Monitored Data Data")]
+            ),
             _vm._v(" "),
-            !_vm.show ? _c("div", { staticClass: "loader" }) : _vm._e(),
+            _c("br"),
             _vm._v(" "),
-            _c("div", { staticClass: "row" }, [
-              _c("div", { staticClass: "col-md-6 col-md-offset-3" }, [
-                _c(
-                  "form",
-                  { staticClass: "search-form", attrs: { action: "" } },
-                  [
-                    _c("div", { staticClass: "form-group col-md-10" }, [
-                      _c(
-                        "label",
-                        { staticClass: "sr-only", attrs: { for: "search" } },
-                        [_vm._v("Search")]
-                      ),
-                      _vm._v(" "),
-                      _c("input", {
+            _c("br"),
+            _vm._v(" "),
+            _c("modal", { attrs: { name: "delayPopup" } }, [
+              _c("div", { staticClass: "container-fluid" }, [
+                _c("div", { staticClass: "col-md-10" }, [
+                  _c("form", [
+                    _c(
+                      "select",
+                      {
                         directives: [
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: _vm.searchQuery,
-                            expression: "searchQuery"
+                            value: _vm.selectedClient,
+                            expression: "selectedClient"
                           }
                         ],
-                        staticClass: "form-control",
-                        attrs: {
-                          type: "text",
-                          name: "search",
-                          id: "search",
-                          placeholder: "search"
-                        },
-                        domProps: { value: _vm.searchQuery },
+                        staticClass: "form-control sele mrgt",
                         on: {
                           blur: function($event) {
-                            _vm.$v.searchQuery.$touch()
+                            _vm.$v.selectedClient.$touch()
                           },
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.searchQuery = $event.target.value
+                          change: function($event) {
+                            var $$selectedVal = Array.prototype.filter
+                              .call($event.target.options, function(o) {
+                                return o.selected
+                              })
+                              .map(function(o) {
+                                var val = "_value" in o ? o._value : o.value
+                                return val
+                              })
+                            _vm.selectedClient = $event.target.multiple
+                              ? $$selectedVal
+                              : $$selectedVal[0]
                           }
                         }
+                      },
+                      _vm._l(_vm.projectMembers, function(option) {
+                        return _c(
+                          "option",
+                          { domProps: { value: option.id } },
+                          [_vm._v(_vm._s(option.user_name))]
+                        )
                       })
+                    ),
+                    _vm._v(" "),
+                    _vm.$v.selectedClient.$dirty &&
+                    !_vm.$v.selectedClient.required
+                      ? _c("p", { staticClass: "error-message" }, [
+                          _vm._v("Select a user")
+                        ])
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _c("br"),
+                    _vm._v(" "),
+                    _vm.userInDelayTable == 1
+                      ? _c(
+                          "div",
+                          {
+                            staticClass: "alert alert-danger",
+                            attrs: { id: "success_message" }
+                          },
+                          [_vm._v("Already in Delay Table")]
+                        )
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _vm.addToDelayTable == 1
+                      ? _c(
+                          "div",
+                          {
+                            staticClass: "alert alert-success",
+                            attrs: { id: "success_message" }
+                          },
+                          [_vm._v("Added to delay table")]
+                        )
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _vm.removeFromDelayTable == 1
+                      ? _c(
+                          "div",
+                          {
+                            staticClass: "alert alert-danger",
+                            attrs: { id: "success_message" }
+                          },
+                          [
+                            _vm._v(
+                              "\n              Removed from Delay\n              table\n            "
+                            )
+                          ]
+                        )
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _c("div", [
+                      _c("div", { staticClass: "col-md-7 col-md-offset-1" }, [
+                        _c(
+                          "table",
+                          { staticClass: "table table-bordered" },
+                          [
+                            _c("thead", [
+                              _c("tr", [
+                                _c("th", [_vm._v("User Name")]),
+                                _vm._v(" "),
+                                _c("th", [_vm._v("Action")])
+                              ])
+                            ]),
+                            _vm._v(" "),
+                            _vm._l(_vm.delayedUsers, function(option) {
+                              return _c("tr", [
+                                _c("td", [_vm._v(_vm._s(option.user_name))]),
+                                _vm._v(" "),
+                                _c("td", [
+                                  _c(
+                                    "button",
+                                    {
+                                      staticClass: "btn btn-primary btn-xs",
+                                      on: {
+                                        click: [
+                                          function($event) {
+                                            $event.preventDefault()
+                                            return _vm.submitted($event)
+                                          },
+                                          function($event) {
+                                            _vm.removeUserFromDelayTable(
+                                              option.id
+                                            )
+                                          }
+                                        ]
+                                      }
+                                    },
+                                    [_vm._v("Remove")]
+                                  )
+                                ])
+                              ])
+                            })
+                          ],
+                          2
+                        )
+                      ])
                     ])
-                  ]
-                ),
+                  ])
+                ]),
                 _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-primary",
-                    attrs: { disabled: _vm.$v.searchQuery.$invalid },
-                    on: {
-                      click: function($event) {
-                        _vm.searchNonMonitored(_vm.monitoring)
+                _c("div", { staticClass: "col-md-2" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-primary okk mrgt",
+                      attrs: { disabled: _vm.$v.selectedClient.$invalid },
+                      on: {
+                        click: [
+                          function($event) {
+                            $event.preventDefault()
+                            return _vm.submitted($event)
+                          },
+                          function($event) {
+                            _vm.addUserToDelayTable()
+                          }
+                        ]
                       }
-                    }
-                  },
-                  [_c("i", { staticClass: "glyphicon glyphicon-search" })]
-                )
+                    },
+                    [_vm._v("Add")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-primary cncl",
+                      on: {
+                        click: [
+                          function($event) {
+                            $event.preventDefault()
+                            return _vm.submitted($event)
+                          },
+                          function($event) {
+                            _vm.hidePopup()
+                          }
+                        ]
+                      }
+                    },
+                    [_vm._v("Cancel")]
+                  )
+                ])
               ])
             ]),
             _vm._v(" "),
-            _c("transition", { attrs: { name: "fade" } }, [
-              _vm.show
-                ? _c("div", [
-                    _vm.displayTable == 1
+            _c(
+              "modal",
+              { attrs: { name: "DatePopup", width: 380, height: 360 } },
+              [
+                _c(
+                  "div",
+                  { staticClass: "container" },
+                  [
+                    _c("datepicker", {
+                      staticClass: "dateBrdr",
+                      attrs: { name: "startDate", placeholder: "StartDate" },
+                      model: {
+                        value: _vm.startDate,
+                        callback: function($$v) {
+                          _vm.startDate = $$v
+                        },
+                        expression: "startDate"
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-md-12" }, [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-primary Dcncl",
+                          on: {
+                            click: [
+                              function($event) {
+                                $event.preventDefault()
+                                return _vm.submitted($event)
+                              },
+                              function($event) {
+                                _vm.hideDatePopup()
+                              }
+                            ]
+                          }
+                        },
+                        [_vm._v("Cancel")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-primary Dok",
+                          on: {
+                            click: [
+                              function($event) {
+                                $event.preventDefault()
+                                return _vm.submitted($event)
+                              },
+                              function($event) {
+                                _vm.Dateok()
+                              }
+                            ]
+                          }
+                        },
+                        [_vm._v("Ok")]
+                      )
+                    ])
+                  ],
+                  1
+                )
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "modal",
+              { attrs: { name: "DateEndPopup", width: 380, height: 360 } },
+              [
+                _c(
+                  "div",
+                  { staticClass: "container" },
+                  [
+                    _c("datepicker", {
+                      staticClass: "dateBrdr",
+                      attrs: { name: "EndDate", placeholder: "EndDate" },
+                      model: {
+                        value: _vm.EndDate,
+                        callback: function($$v) {
+                          _vm.EndDate = $$v
+                        },
+                        expression: "EndDate"
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-md-12" }, [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-primary Dcncl",
+                          on: {
+                            click: [
+                              function($event) {
+                                $event.preventDefault()
+                                return _vm.submitted($event)
+                              },
+                              function($event) {
+                                _vm.hideDateEndPopup()
+                              }
+                            ]
+                          }
+                        },
+                        [_vm._v("Cancel")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-primary Dok",
+                          on: {
+                            click: [
+                              function($event) {
+                                $event.preventDefault()
+                                return _vm.submitted($event)
+                              },
+                              function($event) {
+                                _vm.DateEndok()
+                              }
+                            ]
+                          }
+                        },
+                        [_vm._v("Ok")]
+                      )
+                    ])
+                  ],
+                  1
+                )
+              ]
+            ),
+            _vm._v(" "),
+            _c("div", [
+              _c(
+                "div",
+                [
+                  _vm.monitorAlert == 1
+                    ? _c(
+                        "div",
+                        {
+                          staticClass: "alert alert-success",
+                          attrs: { id: "success_message" }
+                        },
+                        [_vm._v("Status Changed")]
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  !_vm.show ? _c("div", { staticClass: "loader" }) : _vm._e(),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "row" }, [
+                    _c("div", { staticClass: "col-md-6 col-md-offset-3" }, [
+                      _c(
+                        "form",
+                        { staticClass: "search-form", attrs: { action: "" } },
+                        [
+                          _c("div", { staticClass: "form-group col-md-10" }, [
+                            _c(
+                              "label",
+                              {
+                                staticClass: "sr-only",
+                                attrs: { for: "search" }
+                              },
+                              [_vm._v("Search")]
+                            ),
+                            _vm._v(" "),
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.searchQuery,
+                                  expression: "searchQuery"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              attrs: {
+                                type: "text",
+                                name: "search",
+                                id: "search",
+                                placeholder: "search"
+                              },
+                              domProps: { value: _vm.searchQuery },
+                              on: {
+                                blur: function($event) {
+                                  _vm.$v.searchQuery.$touch()
+                                },
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.searchQuery = $event.target.value
+                                }
+                              }
+                            })
+                          ])
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-primary",
+                          attrs: { disabled: _vm.$v.searchQuery.$invalid },
+                          on: {
+                            click: function($event) {
+                              _vm.searchNonMonitored(_vm.monitoring)
+                            }
+                          }
+                        },
+                        [_c("i", { staticClass: "glyphicon glyphicon-search" })]
+                      )
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("transition", { attrs: { name: "fade" } }, [
+                    _vm.show
+                      ? _c("div", [
+                          _vm.displayTable == 1
+                            ? _c("div", [
+                                _c(
+                                  "table",
+                                  {
+                                    staticClass:
+                                      "table table-bordered table-responsive"
+                                  },
+                                  [
+                                    _c("thead", [
+                                      _vm.displayTable == 1
+                                        ? _c("tr", [
+                                            _c("th", [_vm._v("Id")]),
+                                            _vm._v(" "),
+                                            _c("th", [_vm._v("Project")]),
+                                            _vm._v(" "),
+                                            _c("th", [_vm._v("Users")]),
+                                            _vm._v(" "),
+                                            _c("th", [_vm._v("Start Date")]),
+                                            _vm._v(" "),
+                                            _c("th", [_vm._v("Expected Date")]),
+                                            _vm._v(" "),
+                                            _c("th", [_vm._v("Actual Close")]),
+                                            _vm._v(" "),
+                                            _c("th", [_vm._v("Delayed by")]),
+                                            _vm._v(" "),
+                                            _c("th", [_vm._v("Actions")]),
+                                            _vm._v(" "),
+                                            _c("th", [
+                                              _vm._v("Delay Responsive")
+                                            ])
+                                          ])
+                                        : _vm._e()
+                                    ]),
+                                    _vm._v(" "),
+                                    _c(
+                                      "tbody",
+                                      _vm._l(_vm.projectData, function(
+                                        item,
+                                        key
+                                      ) {
+                                        return _vm.displayTable == 1
+                                          ? _c(
+                                              "tr",
+                                              {
+                                                key: item.id,
+                                                staticClass: "brdr"
+                                              },
+                                              [
+                                                _c("td", [
+                                                  _vm._v(
+                                                    _vm._s(
+                                                      _vm.fromNumbers + key
+                                                    )
+                                                  )
+                                                ]),
+                                                _vm._v(" "),
+                                                _c("td", [
+                                                  _c(
+                                                    "button",
+                                                    {
+                                                      staticClass: "btnBrdr",
+                                                      on: {
+                                                        click: function(
+                                                          $event
+                                                        ) {
+                                                          _vm.showCmp(item.id)
+                                                        }
+                                                      }
+                                                    },
+                                                    [_vm._v(_vm._s(item.title))]
+                                                  )
+                                                ]),
+                                                _vm._v(" "),
+                                                _c(
+                                                  "table",
+                                                  { staticClass: "nobrdr" },
+                                                  _vm._l(
+                                                    item.user_names,
+                                                    function(ite) {
+                                                      return _c("tr", [
+                                                        _vm._v(
+                                                          _vm._s(ite.user_name)
+                                                        )
+                                                      ])
+                                                    }
+                                                  )
+                                                ),
+                                                _vm._v(" "),
+                                                _c("td", [
+                                                  _c(
+                                                    "button",
+                                                    {
+                                                      staticClass: "btnBrdr",
+                                                      on: {
+                                                        click: function(
+                                                          $event
+                                                        ) {
+                                                          _vm.showDatePopup(
+                                                            item.id,
+                                                            item.start_date
+                                                          )
+                                                        }
+                                                      }
+                                                    },
+                                                    [
+                                                      _vm._v(
+                                                        _vm._s(item.start_date)
+                                                      )
+                                                    ]
+                                                  )
+                                                ]),
+                                                _vm._v(" "),
+                                                _c("td", [
+                                                  _c(
+                                                    "button",
+                                                    {
+                                                      staticClass: "btnBrdr",
+                                                      on: {
+                                                        click: function(
+                                                          $event
+                                                        ) {
+                                                          _vm.showDateEndPopup(
+                                                            item.id,
+                                                            item.end_date
+                                                          )
+                                                        }
+                                                      }
+                                                    },
+                                                    [
+                                                      _vm._v(
+                                                        _vm._s(item.end_date)
+                                                      )
+                                                    ]
+                                                  )
+                                                ]),
+                                                _vm._v(" "),
+                                                _c("td", [
+                                                  _vm._v(
+                                                    _vm._s(item.actual_close)
+                                                  )
+                                                ]),
+                                                _vm._v(" "),
+                                                _c(
+                                                  "table",
+                                                  { staticClass: "nobrdr" },
+                                                  _vm._l(item.delay, function(
+                                                    ite
+                                                  ) {
+                                                    return _c("tr", [
+                                                      _vm._v(
+                                                        _vm._s(ite.user_name)
+                                                      )
+                                                    ])
+                                                  })
+                                                ),
+                                                _vm._v(" "),
+                                                _c("td", [
+                                                  _c(
+                                                    "button",
+                                                    {
+                                                      staticClass:
+                                                        "btn btn-danger btn-xs marg",
+                                                      on: {
+                                                        click: function(
+                                                          $event
+                                                        ) {
+                                                          _vm.doNotMonitor(
+                                                            item.id
+                                                          )
+                                                        }
+                                                      }
+                                                    },
+                                                    [_vm._v("Stop Monitoring")]
+                                                  )
+                                                ]),
+                                                _vm._v(" "),
+                                                _c("td", [
+                                                  _c(
+                                                    "button",
+                                                    {
+                                                      staticClass:
+                                                        "btn btn-primary btn-xs marg",
+                                                      on: {
+                                                        click: function(
+                                                          $event
+                                                        ) {
+                                                          _vm.showPopup(item.id)
+                                                        }
+                                                      }
+                                                    },
+                                                    [_vm._v("Delay")]
+                                                  )
+                                                ])
+                                              ]
+                                            )
+                                          : _vm._e()
+                                      })
+                                    )
+                                  ]
+                                )
+                              ])
+                            : _vm._e()
+                        ])
+                      : _vm._e()
+                  ]),
+                  _vm._v(" "),
+                  _vm.searchError == 1
+                    ? _c(
+                        "div",
+                        {
+                          staticClass: "alert alert-danger",
+                          attrs: { id: "error_message" }
+                        },
+                        [_vm._v("Project Not Found")]
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _c("transition", { attrs: { name: "fade" } }, [
+                    _vm.displayTable == 2
                       ? _c("div", [
                           _c(
                             "table",
@@ -75043,7 +75466,7 @@ var render = function() {
                             },
                             [
                               _c("thead", [
-                                _vm.displayTable == 1
+                                _vm.displayTable == 2
                                   ? _c("tr", [
                                       _c("th", [_vm._v("Id")]),
                                       _vm._v(" "),
@@ -75069,7 +75492,7 @@ var render = function() {
                               _c(
                                 "tbody",
                                 _vm._l(_vm.projectData, function(item, key) {
-                                  return _vm.displayTable == 1
+                                  return _vm.displayTable == 2
                                     ? _c(
                                         "tr",
                                         { key: item.id, staticClass: "brdr" },
@@ -75123,14 +75546,14 @@ var render = function() {
                                               "button",
                                               {
                                                 staticClass:
-                                                  "btn btn-danger btn-xs marg",
+                                                  "btn btn-success btn-xs marg",
                                                 on: {
                                                   click: function($event) {
-                                                    _vm.doNotMonitor(item.id)
+                                                    _vm.doMonitor(item.id)
                                                   }
                                                 }
                                               },
-                                              [_vm._v("Stop Monitoring")]
+                                              [_vm._v("Start Monitoring")]
                                             )
                                           ]),
                                           _vm._v(" "),
@@ -75159,184 +75582,67 @@ var render = function() {
                         ])
                       : _vm._e()
                   ])
-                : _vm._e()
+                ],
+                1
+              )
             ]),
             _vm._v(" "),
-            _vm.searchError == 1
-              ? _c(
-                  "div",
-                  {
-                    staticClass: "alert alert-danger",
-                    attrs: { id: "error_message" }
-                  },
-                  [_vm._v("Project Not Found")]
-                )
-              : _vm._e(),
-            _vm._v(" "),
-            _c("transition", { attrs: { name: "fade" } }, [
-              _vm.displayTable == 2
-                ? _c("div", [
-                    _c(
-                      "table",
-                      { staticClass: "table table-bordered table-responsive" },
-                      [
-                        _c("thead", [
-                          _vm.displayTable == 2
-                            ? _c("tr", [
-                                _c("th", [_vm._v("Id")]),
-                                _vm._v(" "),
-                                _c("th", [_vm._v("Project")]),
-                                _vm._v(" "),
-                                _c("th", [_vm._v("Users")]),
-                                _vm._v(" "),
-                                _c("th", [_vm._v("Start Date")]),
-                                _vm._v(" "),
-                                _c("th", [_vm._v("Expected Date")]),
-                                _vm._v(" "),
-                                _c("th", [_vm._v("Actual Close")]),
-                                _vm._v(" "),
-                                _c("th", [_vm._v("Delayed by")]),
-                                _vm._v(" "),
-                                _c("th", [_vm._v("Actions")]),
-                                _vm._v(" "),
-                                _c("th", [_vm._v("Delay Responsive")])
-                              ])
-                            : _vm._e()
-                        ]),
-                        _vm._v(" "),
-                        _c(
-                          "tbody",
-                          _vm._l(_vm.projectData, function(item, key) {
-                            return _vm.displayTable == 2
-                              ? _c(
-                                  "tr",
-                                  { key: item.id, staticClass: "brdr" },
-                                  [
-                                    _c("td", [
-                                      _vm._v(_vm._s(_vm.fromNumbers + key))
-                                    ]),
-                                    _vm._v(" "),
-                                    _c("td", [_vm._v(_vm._s(item.title))]),
-                                    _vm._v(" "),
-                                    _c(
-                                      "table",
-                                      { staticClass: "nobrdr" },
-                                      _vm._l(item.user_names, function(ite) {
-                                        return _c("tr", [
-                                          _vm._v(_vm._s(ite.user_name))
-                                        ])
-                                      })
-                                    ),
-                                    _vm._v(" "),
-                                    _c("td", [_vm._v(_vm._s(item.start_date))]),
-                                    _vm._v(" "),
-                                    _c("td", [_vm._v(_vm._s(item.end_date))]),
-                                    _vm._v(" "),
-                                    _c("td", [
-                                      _vm._v(_vm._s(item.actual_close))
-                                    ]),
-                                    _vm._v(" "),
-                                    _c(
-                                      "table",
-                                      { staticClass: "nobrdr" },
-                                      _vm._l(item.delay, function(ite) {
-                                        return _c("tr", [
-                                          _vm._v(_vm._s(ite.user_name))
-                                        ])
-                                      })
-                                    ),
-                                    _vm._v(" "),
-                                    _c("td", [
-                                      _c(
-                                        "button",
-                                        {
-                                          staticClass:
-                                            "btn btn-success btn-xs marg",
-                                          on: {
-                                            click: function($event) {
-                                              _vm.doMonitor(item.id)
-                                            }
-                                          }
-                                        },
-                                        [_vm._v("Start Monitoring")]
-                                      )
-                                    ]),
-                                    _vm._v(" "),
-                                    _c("td", [
-                                      _c(
-                                        "button",
-                                        {
-                                          staticClass:
-                                            "btn btn-primary btn-xs marg",
-                                          on: {
-                                            click: function($event) {
-                                              _vm.showPopup(item.id)
-                                            }
-                                          }
-                                        },
-                                        [_vm._v("Delay")]
-                                      )
-                                    ])
-                                  ]
-                                )
-                              : _vm._e()
-                          })
-                        )
-                      ]
-                    )
-                  ])
-                : _vm._e()
-            ])
+            _c(
+              "div",
+              { staticClass: "col-md-offset-2" },
+              [
+                _vm.displaylist.length > 0
+                  ? _c("pagenation", {
+                      attrs: {
+                        lastPage: _vm.lastPage,
+                        total: _vm.total,
+                        displaylist: _vm.displaylist,
+                        totalElements: _vm.totalElements,
+                        current_page: _vm.current_page
+                      },
+                      on: {
+                        "update:lastPage": function($event) {
+                          _vm.lastPage = $event
+                        },
+                        "update:total": function($event) {
+                          _vm.total = $event
+                        },
+                        "update:displaylist": function($event) {
+                          _vm.displaylist = $event
+                        },
+                        "update:totalElements": function($event) {
+                          _vm.totalElements = $event
+                        },
+                        "update:current_page": function($event) {
+                          _vm.current_page = $event
+                        },
+                        newUrl: function($event) {
+                          _vm.newUrl($event)
+                        },
+                        PageNo: function($event) {
+                          ;(_vm.selectPageNo = $event),
+                            _vm.searchNonMonitored(_vm.monitoring)
+                        }
+                      }
+                    })
+                  : _vm._e()
+              ],
+              1
+            )
           ],
           1
         )
-      ]),
-      _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "col-md-offset-2" },
-        [
-          _vm.displaylist.length > 0
-            ? _c("pagenation", {
-                attrs: {
-                  lastPage: _vm.lastPage,
-                  total: _vm.total,
-                  displaylist: _vm.displaylist,
-                  totalElements: _vm.totalElements,
-                  current_page: _vm.current_page
-                },
-                on: {
-                  "update:lastPage": function($event) {
-                    _vm.lastPage = $event
-                  },
-                  "update:total": function($event) {
-                    _vm.total = $event
-                  },
-                  "update:displaylist": function($event) {
-                    _vm.displaylist = $event
-                  },
-                  "update:totalElements": function($event) {
-                    _vm.totalElements = $event
-                  },
-                  "update:current_page": function($event) {
-                    _vm.current_page = $event
-                  },
-                  newUrl: function($event) {
-                    _vm.newUrl($event)
-                  },
-                  PageNo: function($event) {
-                    ;(_vm.selectPageNo = $event),
-                      _vm.searchNonMonitored(_vm.monitoring)
-                  }
-                }
-              })
-            : _vm._e()
-        ],
-        1
-      )
-    ],
-    1
-  )
+      : _c(
+          "div",
+          [
+            _c("projectdetails", {
+              attrs: { projectId: _vm.projectId },
+              on: { closeCmp: _vm.hideCmp }
+            })
+          ],
+          1
+        )
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -76169,7 +76475,7 @@ exports = module.exports = __webpack_require__(10)(false);
 
 
 // module
-exports.push([module.i, "\n.fade-enter-active[data-v-5e43a5b2],\r\n.fade-leave-active[data-v-5e43a5b2] {\r\n  -webkit-transition: opacity 0.8s;\r\n  transition: opacity 0.8s;\n}\n.fade-enter[data-v-5e43a5b2], .fade-leave-to[data-v-5e43a5b2] /* .fade-leave-active below version 2.1.8 */ {\r\n  opacity: 0;\n}\n.sele[data-v-5e43a5b2] {\r\n  width: 80%;\n}\n.mrgt[data-v-5e43a5b2] {\r\n  margin-top: 10px;\n}\n.brdr[data-v-5e43a5b2] {\r\n  border-bottom: #dadada 1px solid;\n}\n.active[data-v-5e43a5b2] {\r\n  background-color: forestgreen !important;\n}\n.nobrdr[data-v-5e43a5b2] {\r\n  border: transparent;\r\n  margin: 5px;\n}\n.btnBrdr[data-v-5e43a5b2] {\r\n  padding: 0;\r\n  border: none;\r\n  background: none;\r\n  color: blue;\n}\n.ull[data-v-5e43a5b2] {\r\n  margin-top: 20px;\n}\n.cncl[data-v-5e43a5b2] {\r\n  margin-top: 210px;\n}\n.someclass[data-v-5e43a5b2] {\r\n  color: #337ab7;\n}\n.someclass[data-v-5e43a5b2]:hover {\r\n  color: #23527c;\n}\n.loader[data-v-5e43a5b2] {\r\n  border: 10px solid #f3f3f3;\r\n  border-radius: 50%;\r\n  border-top: 10px solid #cef375;\r\n  width: 90px;\r\n  position: absolute;\r\n  margin-left: 35%;\r\n  margin-top: 20%;\r\n  height: 90px;\r\n  -webkit-animation: spin-data-v-5e43a5b2 3s linear infinite; /* Safari */\r\n  animation: spin-data-v-5e43a5b2 3s linear infinite;\n}\r\n\r\n/* Safari */\n@-webkit-keyframes spin-data-v-5e43a5b2 {\n0% {\r\n    -webkit-transform: rotate(0deg);\n}\n100% {\r\n    -webkit-transform: rotate(360deg);\n}\n}\n@keyframes spin-data-v-5e43a5b2 {\n0% {\r\n    -webkit-transform: rotate(0deg);\r\n            transform: rotate(0deg);\n}\n100% {\r\n    -webkit-transform: rotate(360deg);\r\n            transform: rotate(360deg);\n}\n}\r\n", ""]);
+exports.push([module.i, "\n.fade-enter-active[data-v-5e43a5b2],\r\n.fade-leave-active[data-v-5e43a5b2] {\r\n  -webkit-transition: opacity 0.8s;\r\n  transition: opacity 0.8s;\n}\n.fade-enter[data-v-5e43a5b2], .fade-leave-to[data-v-5e43a5b2] /* .fade-leave-active below version 2.1.8 */ {\r\n  opacity: 0;\n}\n.Dcncl[data-v-5e43a5b2] {\r\n  margin-top: 280px;\n}\n.Dok[data-v-5e43a5b2] {\r\n  margin-top: 280px;\r\n  margin-left: 220px;\n}\n.dateBrdr[data-v-5e43a5b2] {\r\n  margin-top: 10px;\n}\n.sele[data-v-5e43a5b2] {\r\n  width: 80%;\n}\n.mrgt[data-v-5e43a5b2] {\r\n  margin-top: 10px;\n}\n.brdr[data-v-5e43a5b2] {\r\n  border-bottom: #dadada 1px solid;\n}\n.active[data-v-5e43a5b2] {\r\n  background-color: forestgreen !important;\n}\n.nobrdr[data-v-5e43a5b2] {\r\n  border: transparent;\r\n  margin: 5px;\n}\n.btnBrdr[data-v-5e43a5b2] {\r\n  padding: 0;\r\n  border: none;\r\n  background: none;\r\n  color: blue;\n}\n.ull[data-v-5e43a5b2] {\r\n  margin-top: 20px;\n}\n.cncl[data-v-5e43a5b2] {\r\n  margin-top: 210px;\n}\n.someclass[data-v-5e43a5b2] {\r\n  color: #337ab7;\n}\n.someclass[data-v-5e43a5b2]:hover {\r\n  color: #23527c;\n}\n.loader[data-v-5e43a5b2] {\r\n  border: 10px solid #f3f3f3;\r\n  border-radius: 50%;\r\n  border-top: 10px solid #cef375;\r\n  width: 90px;\r\n  position: absolute;\r\n  margin-left: 35%;\r\n  margin-top: 20%;\r\n  height: 90px;\r\n  -webkit-animation: spin-data-v-5e43a5b2 3s linear infinite; /* Safari */\r\n  animation: spin-data-v-5e43a5b2 3s linear infinite;\n}\r\n\r\n/* Safari */\n@-webkit-keyframes spin-data-v-5e43a5b2 {\n0% {\r\n    -webkit-transform: rotate(0deg);\n}\n100% {\r\n    -webkit-transform: rotate(360deg);\n}\n}\n@keyframes spin-data-v-5e43a5b2 {\n0% {\r\n    -webkit-transform: rotate(0deg);\r\n            transform: rotate(0deg);\n}\n100% {\r\n    -webkit-transform: rotate(360deg);\r\n            transform: rotate(360deg);\n}\n}\r\n", ""]);
 
 // exports
 
@@ -76186,6 +76492,43 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ProjectDetails_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__ProjectDetails_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vuelidate_lib_validators__ = __webpack_require__(18);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vuelidate_lib_validators___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_vuelidate_lib_validators__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -76478,9 +76821,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       monitoring: null,
       searchError: 0,
       nextUrl: null,
+      NewtimeStamp: null,
+      project_id: null,
       lastPage: 1,
+      EndDate: null,
+      EndDateF: null,
+      NewtimeStampE: null,
       singleProjectData: [],
       url: null,
+      startDate: null,
       currentUrl: null,
       current_page: null,
       displaylist: [],
@@ -76516,6 +76865,70 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     }
   },
   methods: {
+    DateEndok: function DateEndok() {
+      var date = new Date(this.EndDate);
+      this.EndDateF = date.toLocaleDateString("zh-Hans-CN");
+      this.NewtimeStampE = this.EndDateF + " 00:00:00";
+      // console.log(this.NewtimeStamp);
+      var x = this;
+      axios.put(x.$Url + "projectEndDate/" + x.project_id, {
+        Enddate: this.NewtimeStampE
+      }).then(function (response) {
+        if (response.status == 200) {
+          x.reloadPage();
+          x.$modal.hide("DateEndPopup");
+          // x.searchNonMonitored(1);
+        } else {
+          alert("Error");
+        }
+        //console.log(response);
+      }).catch(function (error) {
+        //console.log(error);
+      });
+    },
+    showDateEndPopup: function showDateEndPopup(index, end) {
+      this.project_id = index;
+      var date = end;
+      var datearray = date.split("/");
+      this.EndDate = datearray[1] + "/" + datearray[0] + "/" + datearray[2];
+      // this.startDate = start;
+      this.$modal.show("DateEndPopup");
+    },
+    hideDateEndPopup: function hideDateEndPopup() {
+      this.$modal.hide("DateEndPopup");
+    },
+    Dateok: function Dateok() {
+      var date = new Date(this.startDate);
+      this.startDateF = date.toLocaleDateString("zh-Hans-CN");
+      this.NewtimeStamp = this.startDateF + " 00:00:00";
+      // console.log(this.NewtimeStamp);
+      var x = this;
+      axios.put(x.$Url + "projectStartDate/" + x.project_id, {
+        startdate: this.NewtimeStamp
+      }).then(function (response) {
+        if (response.status == 200) {
+          x.reloadPage();
+          x.$modal.hide("DatePopup");
+          // x.searchNonMonitored(1);
+        } else {
+          alert("Error");
+        }
+        //console.log(response);
+      }).catch(function (error) {
+        //console.log(error);
+      });
+    },
+    showDatePopup: function showDatePopup(index, start) {
+      this.project_id = index;
+      var date = start;
+      var datearray = date.split("/");
+      this.startDate = datearray[1] + "/" + datearray[0] + "/" + datearray[2];
+      // this.startDate = start;
+      this.$modal.show("DatePopup");
+    },
+    hideDatePopup: function hideDatePopup() {
+      this.$modal.hide("DatePopup");
+    },
     getProjectDetail: function getProjectDetail(index) {
       var x = this;
       this.projectId = index;
@@ -77734,6 +78147,136 @@ var render = function() {
               ])
             ]),
             _vm._v(" "),
+            _c(
+              "modal",
+              { attrs: { name: "DatePopup", width: 380, height: 360 } },
+              [
+                _c(
+                  "div",
+                  { staticClass: "container" },
+                  [
+                    _c("datepicker", {
+                      staticClass: "dateBrdr",
+                      attrs: { name: "startDate", placeholder: "StartDate" },
+                      model: {
+                        value: _vm.startDate,
+                        callback: function($$v) {
+                          _vm.startDate = $$v
+                        },
+                        expression: "startDate"
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-md-12" }, [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-primary Dcncl",
+                          on: {
+                            click: [
+                              function($event) {
+                                $event.preventDefault()
+                                return _vm.submitted($event)
+                              },
+                              function($event) {
+                                _vm.hideDatePopup()
+                              }
+                            ]
+                          }
+                        },
+                        [_vm._v("Cancel")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-primary Dok",
+                          on: {
+                            click: [
+                              function($event) {
+                                $event.preventDefault()
+                                return _vm.submitted($event)
+                              },
+                              function($event) {
+                                _vm.Dateok()
+                              }
+                            ]
+                          }
+                        },
+                        [_vm._v("Ok")]
+                      )
+                    ])
+                  ],
+                  1
+                )
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "modal",
+              { attrs: { name: "DateEndPopup", width: 380, height: 360 } },
+              [
+                _c(
+                  "div",
+                  { staticClass: "container" },
+                  [
+                    _c("datepicker", {
+                      staticClass: "dateBrdr",
+                      attrs: { name: "EndDate", placeholder: "EndDate" },
+                      model: {
+                        value: _vm.EndDate,
+                        callback: function($$v) {
+                          _vm.EndDate = $$v
+                        },
+                        expression: "EndDate"
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-md-12" }, [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-primary Dcncl",
+                          on: {
+                            click: [
+                              function($event) {
+                                $event.preventDefault()
+                                return _vm.submitted($event)
+                              },
+                              function($event) {
+                                _vm.hideDateEndPopup()
+                              }
+                            ]
+                          }
+                        },
+                        [_vm._v("Cancel")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-primary Dok",
+                          on: {
+                            click: [
+                              function($event) {
+                                $event.preventDefault()
+                                return _vm.submitted($event)
+                              },
+                              function($event) {
+                                _vm.DateEndok()
+                              }
+                            ]
+                          }
+                        },
+                        [_vm._v("Ok")]
+                      )
+                    ])
+                  ],
+                  1
+                )
+              ]
+            ),
+            _vm._v(" "),
             _c("div", [
               _c(
                 "div",
@@ -77909,13 +78452,51 @@ var render = function() {
                                                 ),
                                                 _vm._v(" "),
                                                 _c("td", [
-                                                  _vm._v(
-                                                    _vm._s(item.start_date)
+                                                  _c(
+                                                    "button",
+                                                    {
+                                                      staticClass: "btnBrdr",
+                                                      on: {
+                                                        click: function(
+                                                          $event
+                                                        ) {
+                                                          _vm.showDatePopup(
+                                                            item.id,
+                                                            item.start_date
+                                                          )
+                                                        }
+                                                      }
+                                                    },
+                                                    [
+                                                      _vm._v(
+                                                        _vm._s(item.start_date)
+                                                      )
+                                                    ]
                                                   )
                                                 ]),
                                                 _vm._v(" "),
                                                 _c("td", [
-                                                  _vm._v(_vm._s(item.end_date))
+                                                  _c(
+                                                    "button",
+                                                    {
+                                                      staticClass: "btnBrdr",
+                                                      on: {
+                                                        click: function(
+                                                          $event
+                                                        ) {
+                                                          _vm.showDateEndPopup(
+                                                            item.id,
+                                                            item.end_date
+                                                          )
+                                                        }
+                                                      }
+                                                    },
+                                                    [
+                                                      _vm._v(
+                                                        _vm._s(item.end_date)
+                                                      )
+                                                    ]
+                                                  )
                                                 ]),
                                                 _vm._v(" "),
                                                 _c("td", [
@@ -80020,7 +80601,7 @@ exports = module.exports = __webpack_require__(10)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n.fade-enter-active,\r\n.fade-leave-active {\r\n  -webkit-transition: opacity 0.8s;\r\n  transition: opacity 0.8s;\n}\n.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {\r\n  opacity: 0;\n}\n.loader {\r\n  border: 10px solid #f3f3f3;\r\n  border-radius: 50%;\r\n  border-top: 10px solid #cef375;\r\n  width: 90px;\r\n  position: absolute;\r\n  margin-left: 50%;\r\n  margin-top: 20%;\r\n  height: 90px;\r\n  -webkit-animation: spin 3s linear infinite; /* Safari */\r\n  animation: spin 3s linear infinite;\n}\r\n\r\n/* Safari */\n@-webkit-keyframes spin {\n0% {\r\n    -webkit-transform: rotate(0deg);\n}\n100% {\r\n    -webkit-transform: rotate(360deg);\n}\n}\n@keyframes spin {\n0% {\r\n    -webkit-transform: rotate(0deg);\r\n            transform: rotate(0deg);\n}\n100% {\r\n    -webkit-transform: rotate(360deg);\r\n            transform: rotate(360deg);\n}\n}\r\n", ""]);
 
 // exports
 
@@ -80086,6 +80667,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -80094,7 +80682,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       projectIds: null,
       totaldata: null,
       counter: null,
+      show: true,
       projectName: null,
+      totalBugsAssign: null,
+      totalBugsReport: null,
       projectStart: null,
       projectDays: null
     };
@@ -80108,7 +80699,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   },
   watch: {
     projectId: function projectId() {
-      console.log(this.projectid);
+      //   console.log(this.projectid);
 
       this.getProjectDetail(this.projectid);
     }
@@ -80132,19 +80723,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     getProjectDetail: function getProjectDetail(index) {
       var x = this;
+      this.show = false;
       //   this.counter = 0;
       this.projectIds = index;
       axios.post(x.$Url + "singleProjectdata", {
         projectid: this.projectId
       }).then(function (response) {
         if (response.status == 200) {
-          console.log(response.data);
+          // console.log(response.data);
           x.projectdata = response.data["data"];
           x.totaldata = response.data["datatotal"];
           x.projectName = response.data["name"];
           x.projectDays = response.data["totaldays"];
           x.projectStart = response.data["start"];
           x.counter = response.data["totalcost"];
+          x.totalBugsAssign = response.data["totalBugsAssigned"];
+          x.totalBugsReport = response.data["totalBugsReported"];
+          x.show = true;
         } else {
           alert("Error");
         }
@@ -80163,104 +80758,117 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container" }, [
-    _c("h1", [_vm._v(_vm._s(_vm.projectName))]),
-    _vm._v(" "),
-    _c("h4", [_vm._v("Start Date : " + _vm._s(_vm.projectStart))]),
-    _vm._v(" "),
-    _c("h4", [_vm._v("Total Days worked : " + _vm._s(_vm.projectDays))]),
-    _vm._v(" "),
-    _c("table", { staticClass: "table table-bordered" }, [
-      _vm._m(0),
-      _vm._v(" "),
-      _c(
-        "tbody",
-        [
-          _vm._l(_vm.projectdata, function(data) {
-            return _c("tr", [
-              _c("td", [_vm._v(_vm._s(data.name))]),
-              _vm._v(" "),
-              _c("td", [_vm._v(_vm._s(data.designation))]),
-              _vm._v(" "),
-              _c("td", [_vm._v(_vm._s(data.totalhours))]),
-              _vm._v(" "),
-              _c("td", [_vm._v(_vm._s(data.scheduled))]),
-              _vm._v(" "),
-              _c("td", [_vm._v(_vm._s(data.readytoreview))]),
-              _vm._v(" "),
-              _c("td", [_vm._v(_vm._s(data.done))]),
-              _vm._v(" "),
-              _c("td", [_vm._v(_vm._s(data.storyPoints))]),
-              _vm._v(" "),
-              _c("td", [_vm._v(_vm._s(data.bugsAssigned))]),
-              _vm._v(" "),
-              _c("td", [_vm._v(_vm._s(data.bugsReported))]),
-              _vm._v(" "),
-              _c("td", [_vm._v(_vm._s(data.projectCost))])
+  return _c(
+    "div",
+    [
+      _c("transition", { attrs: { name: "fade" } }, [
+        _vm.show
+          ? _c("div", [
+              _c("div", { staticClass: "container" }, [
+                _c("h1", [_vm._v(_vm._s(_vm.projectName))]),
+                _vm._v(" "),
+                _c("h4", [_vm._v("Start Date : " + _vm._s(_vm.projectStart))]),
+                _vm._v(" "),
+                _c("h4", [
+                  _vm._v("Total Days worked : " + _vm._s(_vm.projectDays))
+                ]),
+                _vm._v(" "),
+                _c("table", { staticClass: "table table-bordered" }, [
+                  _c("thead", [
+                    _c("tr", [
+                      _c("th", [_vm._v("Name")]),
+                      _vm._v(" "),
+                      _c("th", [_vm._v("Designation")]),
+                      _vm._v(" "),
+                      _c("th", [_vm._v("Hours Worked")]),
+                      _vm._v(" "),
+                      _c("th", [_vm._v("Tasks in progress")]),
+                      _vm._v(" "),
+                      _c("th", [_vm._v("Ready to Review")]),
+                      _vm._v(" "),
+                      _c("th", [_vm._v("Tasks Completed")]),
+                      _vm._v(" "),
+                      _c("th", [_vm._v("Total story points")]),
+                      _vm._v(" "),
+                      _c("th", [_vm._v("Bugs Assigned")]),
+                      _vm._v(" "),
+                      _c("th", [_vm._v("Bugs Reported")]),
+                      _vm._v(" "),
+                      _c("th", [_vm._v("Total Cost")])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "tbody",
+                    [
+                      _vm._l(_vm.projectdata, function(data) {
+                        return _c("tr", [
+                          _c("td", [_vm._v(_vm._s(data.name))]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(data.designation))]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(data.totalhours))]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(data.scheduled))]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(data.readytoreview))]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(data.done))]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(data.storyPoints))]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(data.bugsAssigned))]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(data.bugsReported))]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(data.projectCost))])
+                        ])
+                      }),
+                      _vm._v(" "),
+                      _vm._l(_vm.totaldata, function(data) {
+                        return _c("tr", [
+                          _c("td", [_vm._v("Total")]),
+                          _vm._v(" "),
+                          _c("td"),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(data.totalhours))]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(data.scheduled))]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(data.readytoreview))]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(data.done))]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(data.storyPoints))]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(_vm.totalBugsAssign))]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(_vm.totalBugsReport))]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(_vm.counter))])
+                        ])
+                      })
+                    ],
+                    2
+                  )
+                ]),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  { staticStyle: { float: "right" }, on: { click: _vm.close } },
+                  [_vm._v("Close")]
+                )
+              ])
             ])
-          }),
-          _vm._v(" "),
-          _vm._l(_vm.totaldata, function(data) {
-            return _c("tr", [
-              _c("td", [_vm._v("Total")]),
-              _vm._v(" "),
-              _c("td"),
-              _vm._v(" "),
-              _c("td", [_vm._v(_vm._s(data.totalhours))]),
-              _vm._v(" "),
-              _c("td", [_vm._v(_vm._s(data.scheduled))]),
-              _vm._v(" "),
-              _c("td", [_vm._v(_vm._s(data.readytoreview))]),
-              _vm._v(" "),
-              _c("td", [_vm._v(_vm._s(data.done))]),
-              _vm._v(" "),
-              _c("td", [_vm._v(_vm._s(data.storyPoints))]),
-              _vm._v(" "),
-              _c("td", [_vm._v(_vm._s(data.bugsAssigned))]),
-              _vm._v(" "),
-              _c("td", [_vm._v(_vm._s(data.bugsReported))]),
-              _vm._v(" "),
-              _c("td", [_vm._v(_vm._s(_vm.counter))])
-            ])
-          })
-        ],
-        2
-      )
-    ]),
-    _vm._v(" "),
-    _c("button", { on: { click: _vm.close } }, [_vm._v("Close")])
-  ])
+          : _vm._e()
+      ]),
+      _vm._v(">\n  "),
+      !_vm.show ? _c("div", { staticClass: "loader" }) : _vm._e()
+    ],
+    1
+  )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("thead", [
-      _c("tr", [
-        _c("th", [_vm._v("Name")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Designation")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Hours Worked")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Tasks in progress")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Ready to Review")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Tasks Completed")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Total story points")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Bugs Assigned")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Bugs Reported")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Total Cost")])
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {

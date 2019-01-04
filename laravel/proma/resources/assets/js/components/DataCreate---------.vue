@@ -1,234 +1,164 @@
 <template>
-  <div>
-    <div class="container" v-if="notComponent">
-      <br>
-      <button
-        class="btn btn-primary"
-        @click="searchNonMonitored(1)"
-        :class="{'active':(monitoring == 1)}"
-      >Get Monitored Data</button>
-      <button
-        class="btn btn-primary"
-        @click="searchNonMonitored(0)"
-        :class="{'active':(monitoring == 0)}"
-      >Get Non Monitored Data Data</button>
-      <br>
-      <!-- <button @click="show = !show">Show</button> -->
-      <br>
-      <!-- PopUp Start -->
-      <modal name="delayPopup">
-        <div class="container-fluid">
-          <div class="col-md-10">
-            <form>
-              <select
-                v-model="selectedClient"
-                class="form-control sele mrgt"
-                @blur="$v.selectedClient.$touch()"
-              >
-                <option v-for="option in projectMembers" :value="option.id">{{ option.user_name }}</option>
-              </select>
-              <p
-                v-if="$v.selectedClient.$dirty &&  !$v.selectedClient.required"
-                class="error-message"
-              >Select a user</p>
-              <br>
-              <div
-                id="success_message"
-                class="alert alert-danger"
-                v-if="userInDelayTable == 1"
-              >Already in Delay Table</div>
-              <div
-                id="success_message"
-                class="alert alert-success"
-                v-if="addToDelayTable == 1"
-              >Added to delay table</div>
-              <div id="success_message" class="alert alert-danger" v-if="removeFromDelayTable == 1">
-                Removed from Delay
-                table
-              </div>
-              <div>
-                <div class="col-md-7 col-md-offset-1">
-                  <table class="table table-bordered">
-                    <thead>
-                      <tr>
-                        <th>User Name</th>
-                        <th>Action</th>
-                      </tr>
-                    </thead>
-                    <tr v-for="option in delayedUsers">
-                      <td>{{ option.user_name }}</td>
-                      <td>
-                        <button
-                          class="btn btn-primary btn-xs"
-                          @click.prevent="submitted"
-                          @click="removeUserFromDelayTable(option.id)"
-                        >Remove</button>
-                      </td>
-                    </tr>
-                  </table>
-                </div>
-              </div>
-            </form>
-          </div>
-          <div class="col-md-2">
-            <button
-              class="btn btn-primary okk mrgt"
-              @click.prevent="submitted"
-              @click="addUserToDelayTable()"
-              :disabled="$v.selectedClient.$invalid"
-            >Add</button>
-            <button
-              class="btn btn-primary cncl"
-              @click.prevent="submitted"
-              @click="hidePopup()"
-            >Cancel</button>
-          </div>
-        </div>
-      </modal>
-
-      <!-- PopUp Ends -->
-      <!-- Popup 2 Start -->
-      <modal name="DatePopup" :width="380" :height="360">
-        <div class="container">
-          <datepicker v-model="startDate" name="startDate" placeholder="StartDate" class="dateBrdr"></datepicker>
-          <div class="col-md-12">
-            <button
-              class="btn btn-primary Dcncl"
-              @click.prevent="submitted"
-              @click="hideDatePopup()"
-            >Cancel</button>
-            <button class="btn btn-primary Dok" @click.prevent="submitted" @click="Dateok()">Ok</button>
-          </div>
-        </div>
-      </modal>
-      <!-- Popup2 End -->
-      <!-- Popup 3 Start -->
-      <modal name="DateEndPopup" :width="380" :height="360">
-        <div class="container">
-          <datepicker v-model="EndDate" name="EndDate" placeholder="EndDate" class="dateBrdr"></datepicker>
-          <div class="col-md-12">
-            <button
-              class="btn btn-primary Dcncl"
-              @click.prevent="submitted"
-              @click="hideDateEndPopup()"
-            >Cancel</button>
-            <button class="btn btn-primary Dok" @click.prevent="submitted" @click="DateEndok()">Ok</button>
-          </div>
-        </div>
-      </modal>
-      <!-- Popup3 End -->
-      <!-- Template Starts -->
-      <div>
-        <div>
-          <div
-            id="success_message"
-            class="alert alert-success"
-            v-if="monitorAlert == 1"
-          >Status Changed</div>
-          <div class="loader" v-if="!show"></div>
-          <!-- SEARCH BUTTON -->
-          <div class="row">
-            <div class="col-md-6 col-md-offset-3">
-              <form action class="search-form">
-                <div class="form-group col-md-10">
-                  <label for="search" class="sr-only">Search</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    name="search"
-                    id="search"
-                    @blur="$v.searchQuery.$touch()"
-                    v-model="searchQuery"
-                    placeholder="search"
-                  >
-                </div>
-              </form>
-              <button
-                class="btn btn-primary"
-                :disabled="$v.searchQuery.$invalid"
-                @click="searchNonMonitored(monitoring)"
-              >
-                <i class="glyphicon glyphicon-search"></i>
-              </button>
+  <div class="container">
+    <br>
+    <button
+      class="btn btn-primary"
+      @click="searchNonMonitored(1)"
+      :class="{'active':(monitoring == 1)}"
+    >Get Monitored Data</button>
+    <button
+      class="btn btn-primary"
+      @click="searchNonMonitored(0)"
+      :class="{'active':(monitoring == 0)}"
+    >Get Non Monitored Data Data</button>
+    <br>
+    <!-- <button @click="show = !show">Show</button> -->
+    <br>
+    <!-- PopUp Start -->
+    <modal name="delayPopup">
+      <div class="container-fluid">
+        <div class="col-md-10">
+          <form>
+            <select
+              v-model="selectedClient"
+              class="form-control sele mrgt"
+              @blur="$v.selectedClient.$touch()"
+            >
+              <option v-for="option in projectMembers" :value="option.id">{{ option.user_name }}</option>
+            </select>
+            <p
+              v-if="$v.selectedClient.$dirty &&  !$v.selectedClient.required"
+              class="error-message"
+            >Select a user</p>
+            <br>
+            <div
+              id="success_message"
+              class="alert alert-danger"
+              v-if="userInDelayTable == 1"
+            >Already in Delay Table</div>
+            <div
+              id="success_message"
+              class="alert alert-success"
+              v-if="addToDelayTable == 1"
+            >Added to delay table</div>
+            <div id="success_message" class="alert alert-danger" v-if="removeFromDelayTable == 1">
+              Removed from Delay
+              table
             </div>
-          </div>
-          <transition name="fade">
-            <div v-if="show">
-              <div v-if="displayTable == 1">
-                <!-- Table for monitored Data -->
-                <table class="table table-bordered table-responsive">
+            <div>
+              <div class="col-md-7 col-md-offset-1">
+                <table class="table table-bordered">
                   <thead>
-                    <tr v-if="displayTable == 1">
-                      <th>Id</th>
-                      <th>Project</th>
-                      <th>Users</th>
-                      <th>Start Date</th>
-                      <th>Expected Date</th>
-                      <th>Actual Close</th>
-                      <th>Delayed by</th>
-                      <th>Actions</th>
-                      <th>Delay Responsive</th>
+                    <tr>
+                      <th>User Name</th>
+                      <th>Action</th>
                     </tr>
                   </thead>
-                  <tbody>
-                    <tr
-                      v-for="item,key in projectData"
-                      :key="item.id"
-                      v-if="displayTable == 1"
-                      class="brdr"
-                    >
-                      <td>{{ fromNumbers+key }}</td>
-                      <td>
-                        <button class="btnBrdr" @click="showCmp(item.id)">{{ item.title }}</button>
-                      </td>
-                      <table class="nobrdr">
-                        <tr v-for="ite in item.user_names">{{ ite.user_name }}</tr>
-                      </table>
-                      <td>
-                        <button
-                          class="btnBrdr"
-                          @click="showDatePopup(item.id,item.start_date)"
-                        >{{ item.start_date }}</button>
-                      </td>
-                      <td>
-                        <button
-                          class="btnBrdr"
-                          @click="showDateEndPopup(item.id,item.end_date)"
-                        >{{ item.end_date }}</button>
-                      </td>
-                      <td>{{ item.actual_close }}</td>
-                      <table class="nobrdr">
-                        <tr v-for="ite in item.delay">{{ ite.user_name }}</tr>
-                      </table>
-                      <td>
-                        <button
-                          class="btn btn-danger btn-xs marg"
-                          @click="doNotMonitor(item.id)"
-                        >Stop Monitoring</button>
-                      </td>
-                      <td>
-                        <button
-                          class="btn btn-primary btn-xs marg"
-                          @click="showPopup(item.id)"
-                        >Delay</button>
-                      </td>
-                    </tr>
-                  </tbody>
+                  <tr v-for="option in delayedUsers">
+                    <td>{{ option.user_name }}</td>
+                    <td>
+                      <button
+                        class="btn btn-primary btn-xs"
+                        @click.prevent="submitted"
+                        @click="removeUserFromDelayTable(option.id)"
+                      >Remove</button>
+                    </td>
+                  </tr>
                 </table>
               </div>
             </div>
-          </transition>
-          <div
-            id="error_message"
-            class="alert alert-danger"
-            v-if="searchError == 1"
-          >Project Not Found</div>
-          <transition name="fade">
-            <div v-if="displayTable == 2">
-              <!-- Table For Non Monitored Data -->
+          </form>
+        </div>
+        <div class="col-md-2">
+          <button
+            class="btn btn-primary okk mrgt"
+            @click.prevent="submitted"
+            @click="addUserToDelayTable()"
+            :disabled="$v.selectedClient.$invalid"
+          >Add</button>
+          <button
+            class="btn btn-primary cncl"
+            @click.prevent="submitted"
+            @click="hidePopup()"
+          >Cancel</button>
+        </div>
+      </div>
+    </modal>
+
+    <!-- PopUp Ends -->
+    <!-- Template Starts -->
+    <div>
+      <div>
+        <div
+          id="success_message"
+          class="alert alert-success"
+          v-if="monitorAlert == 1"
+        >Status Changed</div>
+        <div class="loader" v-if="!show"></div>
+        <!-- SEARCH BUTTON -->
+        <div class="row">
+          <div class="col-md-6 col-md-offset-3">
+            <form action class="search-form">
+              <div class="form-group col-md-10">
+                <label for="search" class="sr-only">Search</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="search"
+                  id="search"
+                  @blur="$v.searchQuery.$touch()"
+                  v-model="searchQuery"
+                  placeholder="search"
+                >
+              </div>
+            </form>
+            <button
+              class="btn btn-primary"
+              :disabled="$v.searchQuery.$invalid"
+              @click="searchNonMonitored(monitoring)"
+            >
+              <i class="glyphicon glyphicon-search"></i>
+            </button>
+          </div>
+        </div>
+        <transition name="fade">
+          <div v-if="show">
+            <div v-if="displayTable == 1">
+              <!-- <div
+                id="error_message"
+                class="alert alert-danger"
+                v-if="searchError == 1"
+              >Project Not Found</div>-->
+              <!-- SEARCH BUTTON -->
+              <!-- <div class="row">
+                <div class="col-md-6 col-md-offset-3">
+                  <form action class="search-form">
+                    <div class="form-group col-md-10">
+                      <label for="search" class="sr-only">Search</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        name="search"
+                        id="search"
+                        @blur="$v.searchQuery.$touch()"
+                        v-model="searchQuery"
+                        placeholder="search"
+                      >
+                    </div>
+                  </form>
+                  <button
+                    class="btn btn-primary"
+                    :disabled="$v.searchQuery.$invalid"
+                    @click="searchNonMonitored(monitoring)"
+                  >
+                    <i class="glyphicon glyphicon-search"></i>
+                  </button>
+                </div>
+              </div>-->
+              <!-- Table for monitored Data -->
               <table class="table table-bordered table-responsive">
                 <thead>
-                  <tr v-if="displayTable == 2">
+                  <tr v-if="displayTable == 1">
                     <th>Id</th>
                     <th>Project</th>
                     <th>Users</th>
@@ -244,9 +174,11 @@
                   <tr
                     v-for="item,key in projectData"
                     :key="item.id"
-                    v-if="displayTable == 2"
+                    v-if="displayTable == 1"
                     class="brdr"
                   >
+                    <!-- <td>{{ inc(fromNumbers) }}</td> -->
+                    <!-- inc() -->
                     <td>{{ fromNumbers+key }}</td>
                     <td>{{ item.title }}</td>
                     <table class="nobrdr">
@@ -260,9 +192,9 @@
                     </table>
                     <td>
                       <button
-                        class="btn btn-success btn-xs marg"
-                        @click="doMonitor(item.id)"
-                      >Start Monitoring</button>
+                        class="btn btn-danger btn-xs marg"
+                        @click="doNotMonitor(item.id)"
+                      >Stop Monitoring</button>
                     </td>
                     <td>
                       <button class="btn btn-primary btn-xs marg" @click="showPopup(item.id)">Delay</button>
@@ -271,34 +203,118 @@
                 </tbody>
               </table>
             </div>
-          </transition>
-        </div>
-        <!-- PAGINATION -->
+          </div>
+        </transition>
+        <div id="error_message" class="alert alert-danger" v-if="searchError == 1">Project Not Found</div>
+        <transition name="fade">
+          <div v-if="displayTable == 2">
+            <!-- <div
+              id="error_message"
+              class="alert alert-danger"
+              v-if="searchError == 1"
+            >Project Not Found</div>-->
+            <!-- SEARCH BUTTON -->
+            <!-- <div class="row">
+              <div class="col-md-6 col-md-offset-3">
+                <form action class="search-form">
+                  <div class="form-group col-md-10">
+                    <label for="search" class="sr-only">Search</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      name="search"
+                      id="search"
+                      @blur="$v.searchQuery.$touch()"
+                      v-model="searchQuery"
+                      placeholder="search"
+                    >
+                  </div>
+                </form>
+                <button
+                  class="btn btn-primary"
+                  :disabled="$v.searchQuery.$invalid"
+                  @click="searchNonMonitored(monitoring)"
+                >
+                  <i class="glyphicon glyphicon-search"></i>
+                </button>
+              </div>
+            </div>-->
+            <!-- Table For Non Monitored Data -->
+            <table class="table table-bordered table-responsive">
+              <thead>
+                <tr v-if="displayTable == 2">
+                  <th>Id</th>
+                  <th>Project</th>
+                  <th>Users</th>
+                  <th>Start Date</th>
+                  <th>Expected Date</th>
+                  <th>Actual Close</th>
+                  <th>Delayed by</th>
+                  <th>Actions</th>
+                  <th>Delay Responsive</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  v-for="item,key in projectData"
+                  :key="item.id"
+                  v-if="displayTable == 2"
+                  class="brdr"
+                >
+                  <td>{{ fromNumbers+key }}</td>
+                  <td>{{ item.title }}</td>
+                  <table class="nobrdr">
+                    <tr v-for="ite in item.user_names">{{ ite.user_name }}</tr>
+                  </table>
+                  <td>{{ item.start_date }}</td>
+                  <td>{{ item.end_date }}</td>
+                  <td>{{ item.actual_close }}</td>
+                  <table class="nobrdr">
+                    <tr v-for="ite in item.delay">{{ ite.user_name }}</tr>
+                  </table>
+                  <td>
+                    <button
+                      class="btn btn-success btn-xs marg"
+                      @click="doMonitor(item.id)"
+                    >Start Monitoring</button>
+                  </td>
+                  <td>
+                    <button class="btn btn-primary btn-xs marg" @click="showPopup(item.id)">Delay</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </transition>
       </div>
-      <div class="col-md-offset-2">
-        <pagenation
-          v-if="displaylist.length > 0"
-          :lastPage.sync="lastPage"
-          :total.sync="total"
-          :displaylist.sync="displaylist"
-          :totalElements.sync="totalElements"
-          :current_page.sync="current_page"
-          @newUrl="newUrl($event)"
-          @PageNo="selectPageNo = $event , searchNonMonitored(monitoring)"
-        ></pagenation>
-      </div>
-      <!-- {{ lastPage }} -->
-      <!-- Template Ends -->
+      <!-- PAGINATION -->
     </div>
-    <div v-else>
-      <projectdetails @closeCmp="hideCmp" :projectId="projectId"></projectdetails>
+    <div class="col-md-offset-2">
+      <pagenation
+        v-if="displaylist.length > 0"
+        :lastPage.sync="lastPage"
+        :total.sync="total"
+        :displaylist.sync="displaylist"
+        :totalElements.sync="totalElements"
+        :current_page.sync="current_page"
+        @newUrl="newUrl($event)"
+        @PageNo="selectPageNo = $event , searchNonMonitored(monitoring)"
+      ></pagenation>
+      <!-- </div>
+    <div class="col-md-1">
+      <form>
+        <select v-model="selectPageNo" class="form-control" id="noPage">
+          <option v-for="option in totalElements" :value="option">{{ option }}</option>
+        </select>
+      </form>-->
     </div>
+    <!-- {{ lastPage }} -->
+    <!-- Template Ends -->
   </div>
 </template>
 
 <script>
 import pagenation from "./Pagenation";
-import projectdetails from "./ProjectDetails.vue";
 import {
   required,
   minLength,
@@ -309,8 +325,7 @@ import {
 // import { EventBus } from "../main";
 export default {
   components: {
-    pagenation,
-    projectdetails
+    pagenation
   },
   data() {
     return {
@@ -326,22 +341,14 @@ export default {
       DeselectedClient: null,
       displayTable: 0,
       searchQuery: null,
-      notComponent: true,
       previousSearchQuery: null,
       monitorAlert: 0,
       fromNumbers: null,
       monitoring: null,
       searchError: 0,
       nextUrl: null,
-      NewtimeStamp: null,
-      project_id: null,
       lastPage: 1,
-      EndDate: null,
-      EndDateF: null,
-      NewtimeStampE: null,
-      singleProjectData: [],
       url: null,
-      startDate: null,
       currentUrl: null,
       current_page: null,
       displaylist: [],
@@ -376,104 +383,6 @@ export default {
     }
   },
   methods: {
-    DateEndok() {
-      var date = new Date(this.EndDate);
-      this.EndDateF = date.toLocaleDateString("zh-Hans-CN");
-      this.NewtimeStampE = this.EndDateF + " 00:00:00";
-      // console.log(this.NewtimeStamp);
-      var x = this;
-      axios
-        .put(`${x.$Url}projectEndDate/${x.project_id}`, {
-          Enddate: this.NewtimeStampE
-        })
-        .then(function(response) {
-          if (response.status == 200) {
-            x.reloadPage();
-            x.$modal.hide("DateEndPopup");
-            // x.searchNonMonitored(1);
-          } else {
-            alert("Error");
-          }
-          //console.log(response);
-        })
-        .catch(function(error) {
-          //console.log(error);
-        });
-    },
-    showDateEndPopup(index, end) {
-      this.project_id = index;
-      var date = end;
-      var datearray = date.split("/");
-      this.EndDate = datearray[1] + "/" + datearray[0] + "/" + datearray[2];
-      // this.startDate = start;
-      this.$modal.show("DateEndPopup");
-    },
-    hideDateEndPopup() {
-      this.$modal.hide("DateEndPopup");
-    },
-    Dateok() {
-      var date = new Date(this.startDate);
-      this.startDateF = date.toLocaleDateString("zh-Hans-CN");
-      this.NewtimeStamp = this.startDateF + " 00:00:00";
-      // console.log(this.NewtimeStamp);
-      var x = this;
-      axios
-        .put(`${x.$Url}projectStartDate/${x.project_id}`, {
-          startdate: this.NewtimeStamp
-        })
-        .then(function(response) {
-          if (response.status == 200) {
-            x.reloadPage();
-            x.$modal.hide("DatePopup");
-            // x.searchNonMonitored(1);
-          } else {
-            alert("Error");
-          }
-          //console.log(response);
-        })
-        .catch(function(error) {
-          //console.log(error);
-        });
-    },
-    showDatePopup(index, start) {
-      this.project_id = index;
-      var date = start;
-      var datearray = date.split("/");
-      this.startDate = datearray[1] + "/" + datearray[0] + "/" + datearray[2];
-      // this.startDate = start;
-      this.$modal.show("DatePopup");
-    },
-    hideDatePopup() {
-      this.$modal.hide("DatePopup");
-    },
-    getProjectDetail(index) {
-      var x = this;
-      this.projectId = index;
-      axios
-        .post(`${x.$Url}singleProjectdata`, {
-          projectid: this.projectId
-        })
-        .then(function(response) {
-          if (response.status == 200) {
-            // console.log(response.data);
-            x.singleProjectData = response.data;
-          } else {
-            alert("Error");
-          }
-        })
-        .catch(function(error) {
-          //console.log(error);
-        });
-    },
-    showCmp(index) {
-      this.notComponent = false;
-      this.projectId = index;
-      // this.getProjectDetail(index);
-      // console.log(index);
-    },
-    hideCmp() {
-      this.notComponent = true;
-    },
     displayPage(index) {
       this.displaylist = [];
 
@@ -515,6 +424,26 @@ export default {
           this.displaylist.push(this.current_page);
         }
       }
+
+      // if (this.total == 1) {
+      //   this.displaylist.push(this.current_page);
+      // } else {
+      //   if (this.current_page < this.lastPage) {
+      //     if (this.current_page == 1) {
+      //       this.displaylist.push(this.current_page);
+      //       this.displaylist.push(this.current_page + 1);
+      //       this.displaylist.push(this.current_page + 2);
+      //     } else {
+      //       this.displaylist.push(this.current_page - 1);
+      //       this.displaylist.push(this.current_page);
+      //       this.displaylist.push(this.current_page + 1);
+      //     }
+      //   } else {
+      //     this.displaylist.push(this.current_page - 2);
+      //     this.displaylist.push(this.current_page - 1);
+      //     this.displaylist.push(this.current_page);
+      //   }
+      // }
     },
     newUrl(index) {
       this.show = false;
@@ -578,7 +507,7 @@ export default {
       this.show = false;
       this.previousSearchQuery = this.searchQuery;
       this.monitoring = index;
-      if (this.monitoring == 1) {
+      if (this.monitoring == 1) { 
         this.displayTable = 1;
       } else {
         this.displayTable = 2;
@@ -860,16 +789,6 @@ export default {
 .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
   opacity: 0;
 }
-.Dcncl {
-  margin-top: 280px;
-}
-.Dok {
-  margin-top: 280px;
-  margin-left: 220px;
-}
-.dateBrdr {
-  margin-top: 10px;
-}
 .sele {
   width: 80%;
 }
@@ -888,12 +807,7 @@ export default {
   border: transparent;
   margin: 5px;
 }
-.btnBrdr {
-  padding: 0;
-  border: none;
-  background: none;
-  color: blue;
-}
+
 .ull {
   margin-top: 20px;
 }
