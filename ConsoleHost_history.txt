@@ -1,0 +1,465 @@
+pacman -S mingw-w64-x86_64-emacspacman -S mingw-w64-x86_64-emacspacman -S mingw-w64-x86_64-emacspacman -S mingw-w64-x86_64-emacspacman -S mingw-w64-x86_64-emacspacman -S mingw-w64-x86_64-e
+pacman -S mingw-w64-x86_64-emacs
+atom
+emacs
+python
+cd .\Desktop\
+mkdir pythn
+cd .\pythn\
+atom
+atom pn.py
+notepad++
+atom ex1.py
+python ex1.py
+python.exe .\ex1.py
+atom ex2.py
+python.exe .\ex2.py
+atom ex4.py
+python.exe .\ex4.py
+atom ex5.py
+python.exe .\ex5.py
+atom .\ex6.py
+python.exe .\ex6.py
+python.exe .\ex6.py
+python.exe .\ex6.py
+python.exe .\ex6.py
+python.exe .\ex6.py
+python.exe .\ex6.py
+cd .\Desktop\pythn\
+atom ex7.py
+python.exe .\ex7.py
+python.exe .\ex7.py
+python.exe
+pydoc
+pydoc input
+python.exe
+python.exe -m pydoc
+cd .\Desktop\pythn\
+atom .\ex7.py
+python.exe .\ex7.py
+python.exe .\ex7.py
+$env:USERNAME
+cd .\Desktop\pythn\
+python --version
+pip --version
+pip install virtualenvwrapper-win
+cd .\Desktop\pythn\
+mkdir projects
+cd .\projects\
+mkdir django project
+mkdir django-project
+cd .\django-project\
+mkvirtualenv pytn1
+workon pytn1
+cd .\Desktop\pythn\
+cd .\projects\
+cd .\django-project\
+cd .\djangoproject\
+cd .\djangoproject\
+cd ..
+python.exe .\manage.py runserver
+workon pytn1
+python.exe .\manage.py runserver
+cd .\Desktop\
+cd .\pythn\
+cd .\projects\
+cd .\django-project\
+pip install mysqlclient
+cd .\Desktop\pythn\projects\django-project\
+pip list
+vue init webpack-simple vue-cli
+cd .\vue-cli\
+npn install
+npm install
+npm run dev
+cd ..
+cd .\vue-pro2\
+npm run dev
+cd .\vue-cli\
+npm run dev
+cd ..
+vue init webpack-simple vue-comp
+cd .\vue-comp\
+npm install
+npm run dev
+cd ..
+cd .\vue-bus\
+npm run dev
+cd ..
+vue init webpack-simple vue-route
+cd .\vue-route\
+npm install
+npm audit
+npm run dev
+npm install --save vue-router
+npm run dev
+cd ..
+vue init webpack-simple vue-form
+cd .\vue-form\
+npm install
+npm run dev
+cd ..
+vue init webpack-simple vue-form-validate-school
+cd .\vue-form-validate-school\
+npm install
+npm run dev
+npm install vuelidate --save
+npm run dev
+cd .\vue-form-validate-school\
+npm run dev
+cd ..
+vue init webpack-simple vue-animation
+cd .\vue-animation\
+npm install
+npm run dev
+cd .\vue-animation\
+npm run dev
+cd ..
+vue init webpack-simple vue-quiz-anim
+cd .\vue-quiz-anim\
+npm install
+npm run dev
+npm install
+npm run dev
+clear
+npm install
+npm run dev
+npm run serve
+vue init webpack-simple vue-dynamic-form
+cd .\vue-dynamic-form\
+npm installl
+npm install
+npm run dev
+npm run serve
+npm install
+npm run serve
+clear
+npm run serve
+clear
+npm run serve
+npm run dev
+npm run serve
+npm run dev
+npm run serve
+cd ..
+vue init webpack-simple vue-tictac
+cd .\vue-tictac\
+npm install
+npm run dev
+npm run serve
+npm run dev
+npm install tiptap
+npm run dev
+cd .\vue-pro2\
+cd .\vue-tictac\
+npm run dev
+vue init webpack-simple vue-currency
+cd .\vue-currency\
+npm install
+npm run dev
+cd ..
+vue init webpack-simple vue-http
+cd .\vue-http\
+npm install
+npm install --save vue-resource
+npm run dev
+cd .\vue-pro2\
+php artisan make:model Contact -m
+php artisan migrate
+php artisan make:controller ContactController --resource
+php artisan route:list
+php artisan make:auth
+php artisan make:migration add_user_id_to_posts
+php artisan migrate
+cd .\laravel\lsapp\
+cd ..
+composer create-project laravel/laravel lrapp
+cd .\lrapp\
+clear
+php artisan make:migration create_user_table --create=users
+php artisan make:migration create_passport_table --create=passports
+php artisan migrate
+php artisan migrate\
+php artisan migrate
+php artisan make:model user
+php artisan make:model passport
+php artisan tinker
+php artisan make:migration create_roles_table --create=roles
+php artisan make:migration create_role_user_table --create=role_user
+php artisan migrate
+php artisan make:model role
+php artisan make:model country
+php artisan tinker
+lear
+clear
+php artisan tinker
+php artisan make:model post
+php artisan tinker
+php artisan make:model comment
+php artisan make:model video
+clear
+php artisan tinker
+php artisan make:model tags
+php artisan make:model taggable
+php artisan make:model Tag
+cd ..
+composer create-project laravel/laravel apidet
+cd .\apidet\
+php artisan make:controller ContactController --resource
+php artisan make:model Contact
+php artisan make:migration create_contact_table --create=contacts
+php artisan migrate
+php artisan make:model Article -m
+php artisan migrate
+php artisan make:seeder ArticlesTableSeeder
+php artisan db:seed --class=ArticlesTableSeeder
+php artisan make:controller ArticleController
+php artisan make:migration --table=users adds_api_token_to_users_table
+php artisan migrate
+php artisan serve
+cd ..
+cd .\vue-pro2\
+vue init webpack-simple laravel-apinet
+cd .\laravel-apinet\
+npm install
+npm run dev
+cd ..
+cd ..
+cd .\vue-pro2\
+cd .\vue-form-validate-school\
+npm run dev
+cd ..
+vue init webpack-simple apiBlog
+cd .\apiBlog\
+npm install
+npm run dev
+npm install --save vue-router
+npm run dev
+cd ..
+cd .\laravel-apinet\
+npm run dev
+vue init webpack-simple vue-firebase
+cd .\vue-firebase\
+npm install
+npm run dev
+npm install ——save firebase
+npm run dev
+history
+Get-History
+(Get-PSReadlineOption).HistorySavePath
+composer create-project laravel/laravel vuelrapp
+cd .\vuelrapp\
+php artisan make:auth
+php artisan make:model Company -m
+PHP
+php artisan make:controller Api/V1/CompaniesController --resource
+npm install
+npm install vue-router
+npm run watch
+npm run dev
+npm install
+cd ..
+cd .\Laravel-Vue-First-CRUD\
+composer install
+npm run dev
+npm run watch
+npm run dev
+npm run watch
+php artisan serve
+cd ..
+npm install
+cd .\lrvueApp\
+php artisan serve
+npm install vue-router
+npm run watch
+php artisan serve
+npm install vuelidate
+npm install validator
+npm run watch
+php .\artisan serve
+npm run watch
+php artisan serve
+npm run watch
+php artisan serve
+npm run watch
+php artisan serve
+Y
+vue init webpack-simple vue-elementUi
+cd .\vue-elementUi\
+npm install
+npm i element-ui -S
+npm run dev
+npm install babel-plugin-component -D
+npm run dev
+npm i bootstrap-vue
+npm run dev
+npm i element-theme -g
+npm i element-theme-chalk -D
+et -i
+npm run dev
+vue init webpack-simple elementui
+cd .\elementui\
+npm install
+npm i element-ui -S
+npm run dev
+composer create-project laravel/laravel proma
+cd .\proma\
+npm install
+npm install vue-router
+php .\artisan serve
+php artisan make:auth
+php .\artisan serve
+npm install vuelidate
+npm run watch
+/**
+php .\artisan serve
+php artisan make:model Project -m
+php artisan make:controller ProjectController --resource
+php .\artisan serve
+php artisan make:model Project_assigned -m
+php .\artisan serve
+npm run watch
+php artisan make:model Project_delay -m
+npm install vue-js-modal --save
+npm run watch
+php .\artisan serve
+npm run watch
+php artisan serve
+npm run watch
+php artisan make:model Project_user_log -m
+php artisan make:controller CronController
+php artisan config:cache
+php artisan serve
+php artisan config:cache
+php artisan make:controller MailController --plain
+php artisan make:controller MailController
+php artisan queue:table
+php artisan queue:failed-table
+php artisan migrate
+php artisan queue:listen
+php artisan make:mail DemoEmail
+php artisan make:mail DemoEmaildays
+php artisan serve
+php artisan make:model Project_monthly_log -m
+php artisan make:controller MonthlyCronController
+npm run watch
+php artisan serve
+php artisan serve
+npm run watch
+php artisan serve
+npm run watch
+php artisan serve
+npm install laravel-vue-pagination
+npm run watch
+npm install vuelidate
+npm run watch
+php artisan serve
+npm run watch
+php artisan serve
+npm run watch
+php artisan serve
+npm run watch
+cd .\laravel\proma\
+npm run watch
+cd .\laravel\proma\
+php artisan serve
+npm run watch
+php artisan serve
+npm run watch
+php artisan serve
+npn run build
+npm run build
+npm run production
+npm run watch
+npm run production
+npm run watch
+php artisan clear:config
+php artisan config:clear
+php artisan serve
+php artisan config:clear
+php artisan serve
+npm run watch
+npm instal --save moment
+npm install --save moment
+npm run watch
+php artisan serve
+npm install --save vue-graph
+npm run watch
+npm run production
+npm run watch
+php artisan serve
+npm run dev
+npm run watch
+php artisan serve
+npm run production
+npm run watch
+npm run production
+npm run watch
+npm run production
+npm run watch
+npm run production
+php artisan serve
+npm run watch
+npm run production
+npm run watch
+npm run production
+cd ..
+cd .\vue-pro2\
+cd .\elementui\
+npm run dev
+composer create-project laravel/laravel imageUpload
+cd .\imageUpload\
+npm install
+npm run watch
+php artisan serve
+cd .\imageUpload\
+php artisan serve
+npm run watch
+php artisan serve
+npm run watch
+php artisan serve
+npm run watch
+php artisan serve
+npm install vue-croppie --save
+npm run watch
+npm install croppie --save
+npm run watch
+php artisan serve
+npm install vue-image-crop-compress-upload
+npm run watch
+npm install --save babel-polyfill
+npm run watch
+cd ..
+composer create-project laravel/laravel vuex
+cd ..
+cd .\vuex
+npm install
+cd .\vuex\
+npm run watch
+php artisan serve
+npm run watch
+npm install vue-template-compiler --save-dev --production=false
+npm run watch
+php artisan serve`
+
+php artisan make:auth
+php artisan serve`
+
+php artisan serve
+npm install --save vuex
+npm run watch
+php artisan serve
+npm run watch
+php artisan serve
+npm install vuejs-datepicker --save
+npm install vue-simple-search-dropdown
+npm run watch
+php artisan serve
+npm run watch
+php artisan serve
+npm run watch
+php artisan schedule:run
+php artisan serve
+php artisan schedule:run
+php artisan serve
+npm run watch
